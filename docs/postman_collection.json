@@ -12,7 +12,16 @@
   "item": [
     {
       "name": "Public",
-      "item": []
+      "item": [
+        {
+          "name": "Settings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/settings"
+          }
+        }
+      ]
     },
     {
       "name": "Admin",
@@ -101,6 +110,29 @@
                 "method": "DELETE",
                 "url": "{{base_url}}/api/v1/admin/users/1",
                 "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Settings",
+          "item": [
+            {
+              "name": "Show settings (both locales)",
+              "request": {
+                "method": "GET",
+                "url": "{{base_url}}/api/v1/admin/settings",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            },
+            {
+              "name": "Update settings",
+              "request": {
+                "method": "POST",
+                "url": "{{base_url}}/api/v1/admin/settings",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] },
+                "description": "multipart/form-data — fields as nested keys (company_name[ar], company_name[en], gulf_countries[], budget_options[0][ar], ...), plus an optional logo file. POST, not PUT, because of the file upload.",
+                "body": { "mode": "formdata", "formdata": [] }
               }
             }
           ]

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,11 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware(['auth:sanctum', 'permission:users.manage'])->group(function () {
     Route::apiResource('users', UserController::class);
+});
+
+Route::middleware(['auth:sanctum', 'permission:settings.manage'])->group(function () {
+    Route::get('settings', [SettingsController::class, 'show']);
+    // POST, not PUT: PHP does not populate $_FILES for PUT requests, and
+    // this endpoint accepts a multipart logo upload.
+    Route::post('settings', [SettingsController::class, 'update']);
 });

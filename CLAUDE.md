@@ -71,6 +71,11 @@ exceptions themselves. HTTP status codes: 422 validation, 401
 unauthenticated, 403 unauthorized, 404 not found, 429 throttled, 500 generic
 (message hidden in production).
 
+**Any "update" route that accepts a file upload (media) uses `POST`, never
+`PUT`/`PATCH`** — PHP does not populate `$_FILES` on PUT requests, so a
+multipart file update has to go through POST. `Settings` is the first
+example (`app/Models/Setting.php`, a one-row singleton via `Setting::current()`).
+
 ## Routing
 
 Everything lives under `/api/v1`, split in two groups (see
@@ -134,7 +139,7 @@ Status tracked here as the single source of truth for build progress.
       scaffold.
 - [x] **1. Auth & Users** — admin login/logout/me via Sanctum, Users CRUD
       (Administrator only), role assignment.
-- [ ] **2. Settings** — single settings store: company info, logo, phone +
+- [x] **2. Settings** — single settings store: company info, logo, phone +
       WhatsApp (Egypt/Dubai) + Gulf country list, emails, address, social
       links, lead notification email, budget list, start-timing list, GA ID.
       Public read endpoint (subset) + admin read/update.
