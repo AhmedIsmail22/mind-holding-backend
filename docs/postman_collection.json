@@ -16,7 +16,96 @@
     },
     {
       "name": "Admin",
-      "item": [],
+      "item": [
+        {
+          "name": "Auth",
+          "item": [
+            {
+              "name": "Login",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"admin@mindholding.net\",\n  \"password\": \"\"\n}"
+                }
+              }
+            },
+            {
+              "name": "Logout",
+              "request": {
+                "method": "POST",
+                "url": "{{base_url}}/api/v1/admin/auth/logout",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            },
+            {
+              "name": "Me",
+              "request": {
+                "method": "GET",
+                "url": "{{base_url}}/api/v1/admin/auth/me",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "List users",
+              "request": {
+                "method": "GET",
+                "url": "{{base_url}}/api/v1/admin/users",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            },
+            {
+              "name": "Create user",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/users",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Sales Person\",\n  \"email\": \"sales@mindholding.net\",\n  \"password\": \"password123\",\n  \"role\": \"Sales\"\n}"
+                }
+              }
+            },
+            {
+              "name": "Show user",
+              "request": {
+                "method": "GET",
+                "url": "{{base_url}}/api/v1/admin/users/1",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            },
+            {
+              "name": "Update user",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/users/1",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Sales Person\",\n  \"email\": \"sales@mindholding.net\",\n  \"role\": \"Content editor\"\n}"
+                }
+              }
+            },
+            {
+              "name": "Delete user",
+              "request": {
+                "method": "DELETE",
+                "url": "{{base_url}}/api/v1/admin/users/1",
+                "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] }
+              }
+            }
+          ]
+        }
+      ],
       "auth": {
         "type": "bearer",
         "bearer": [{ "key": "token", "value": "{{admin_token}}" }]

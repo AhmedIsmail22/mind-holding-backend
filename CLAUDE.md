@@ -84,10 +84,13 @@ Everything lives under `/api/v1`, split in two groups (see
   endpoints are rate limited (5/hour, see Leads module) and reCAPTCHA v3 +
   honeypot protected.
 - **`admin/*`** — `auth:sanctum` + spatie permission middleware
-  (`permission:xxx`). Every translatable field is returned in both locales
-  for editing. Roles: `Administrator` (everything), `Content editor`
-  (content: services, solutions, work, pages, FAQs, media — not settings or
-  users), `Sales` (view requests + change their status only).
+  (`permission:xxx`), applied per route group inside `routes/api/v1/admin.php`
+  (not blanket at the `admin` prefix level — the login route lives under this
+  same prefix and must stay reachable unauthenticated). Every translatable
+  field is returned in both locales for editing. Roles: `Administrator`
+  (everything), `Content editor` (content: services, solutions, work, pages,
+  FAQs, media — not settings or users), `Sales` (view requests + change their
+  status only).
 
 ## Packages & conventions
 
@@ -129,7 +132,7 @@ Status tracked here as the single source of truth for build progress.
       helpers, central exception→JSON mapping, `ResolveLocale` middleware,
       base Controller, roles & permissions seeder, Postman/OpenAPI doc
       scaffold.
-- [ ] **1. Auth & Users** — admin login/logout/me via Sanctum, Users CRUD
+- [x] **1. Auth & Users** — admin login/logout/me via Sanctum, Users CRUD
       (Administrator only), role assignment.
 - [ ] **2. Settings** — single settings store: company info, logo, phone +
       WhatsApp (Egypt/Dubai) + Gulf country list, emails, address, social
