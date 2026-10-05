@@ -1,0 +1,26 @@
+{
+  "info": {
+    "name": "MIND Holding API",
+    "description": "Phase 1 backend REST API. Base URL variable: {{base_url}} (e.g. http://localhost:8000). Public endpoints read {{locale}} via Accept-Language. Admin endpoints need {{admin_token}} (Sanctum bearer token from POST /api/v1/admin/auth/login).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "locale", "value": "ar" },
+    { "key": "admin_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Public",
+      "item": []
+    },
+    {
+      "name": "Admin",
+      "item": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [{ "key": "token", "value": "{{admin_token}}" }]
+      }
+    }
+  ]
+}
