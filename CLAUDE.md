@@ -101,7 +101,13 @@ Everything lives under `/api/v1`, split in two groups (see
 
 - `spatie/laravel-translatable` — translatable attributes declared as
   `protected $translatable = [...]` on the model; stored as JSON columns
-  `{ "ar": "...", "en": "..." }`.
+  `{ "ar": "...", "en": "..." }`. An **ordered list** of translatable items
+  (service deliverables, FAQ-adjacent step lists, solution features, budget
+  options, ...) is stored as a plain JSON array of `{ar, en}` objects (not
+  spatie-translatable — just a cast `array` column), e.g.
+  `[{"ar": "...", "en": "..."}, {"ar": "...", "en": "..."}]`. Resources
+  resolve this to the current locale for public output and leave it as-is
+  for admin output, same as every other translatable field.
 - `spatie/laravel-medialibrary` — every model that takes images implements
   `HasMedia` + `InteractsWithMedia`, registers a `webp` conversion (and a
   `thumb` webp conversion where a listing view needs one). Original upload
@@ -143,17 +149,23 @@ Status tracked here as the single source of truth for build progress.
       WhatsApp (Egypt/Dubai) + Gulf country list, emails, address, social
       links, lead notification email, budget list, start-timing list, GA ID.
       Public read endpoint (subset) + admin read/update.
-- [ ] **3. Solution industries & Services** — industries CRUD; services CRUD
-      in two groups (Software/Marketing) with per-service FAQs.
+- [x] **3. Solution industries, Services & FAQs** — industries CRUD; services
+      CRUD in two groups (Software/Marketing). Introduces the shared `Faq`
+      model (polymorphic `faqable`, nullable = general FAQ) since services
+      need it first — general-FAQ admin/public endpoints ship here too, so
+      module 6 only adds Home-page FAQ *selection*, not FAQ CRUD. Module 4
+      reuses the same model for solution-linked FAQs via its own nested
+      routes.
 - [ ] **4. Solutions** — solutions CRUD, flagship flag + ordering, publish
       /hide, features grouped by audience, demo link + test credentials,
-      related solutions, per-solution FAQs, media (mockups).
+      related solutions (pivot to services too), per-solution FAQs (nested
+      on the module 3 `Faq` model), media (mockups).
 - [ ] **5. Work / Projects** — projects CRUD, hide-client-name option,
       technologies, images, live link; section auto-hides (public endpoint
       returns empty) when nothing published.
 - [ ] **6. Site content** — Home sections (enable/hide/reorder + content:
       hero, stats, differentiators, process steps, tech logos); static Pages
-      (About/Privacy/Terms); general FAQs.
+      (About/Privacy/Terms).
 - [ ] **7. Leads & notifications** — quote/demo/callback request endpoints,
       rate limiting (5/hr/device), reCAPTCHA v3 + honeypot, source/UTM/
       language capture, status workflow, email notification, dashboard

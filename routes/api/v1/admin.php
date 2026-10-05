@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\ServiceFaqController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +32,17 @@ Route::middleware(['auth:sanctum', 'permission:settings.manage'])->group(functio
     // POST, not PUT: PHP does not populate $_FILES for PUT requests, and
     // this endpoint accepts a multipart logo upload.
     Route::post('settings', [SettingsController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:solution-industries.manage'])->group(function () {
+    Route::apiResource('solution-industries', IndustryController::class);
+});
+
+Route::middleware(['auth:sanctum', 'permission:services.manage'])->group(function () {
+    Route::apiResource('services', ServiceController::class);
+});
+
+Route::middleware(['auth:sanctum', 'permission:faqs.manage'])->group(function () {
+    Route::apiResource('faqs', FaqController::class);
+    Route::apiResource('services.faqs', ServiceFaqController::class);
 });

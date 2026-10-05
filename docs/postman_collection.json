@@ -20,6 +20,38 @@
             "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
             "url": "{{base_url}}/api/v1/public/settings"
           }
+        },
+        {
+          "name": "Solution industries",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/solution-industries"
+          }
+        },
+        {
+          "name": "Services (grouped)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/services"
+          }
+        },
+        {
+          "name": "Service detail",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/services/website-design-development"
+          }
+        },
+        {
+          "name": "General FAQs",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/faqs"
+          }
         }
       ]
     },
@@ -133,6 +165,105 @@
                 "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}" }] },
                 "description": "multipart/form-data — fields as nested keys (company_name[ar], company_name[en], gulf_countries[], budget_options[0][ar], ...), plus an optional logo file. POST, not PUT, because of the file upload.",
                 "body": { "mode": "formdata", "formdata": [] }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Solution industries",
+          "item": [
+            {
+              "name": "List industries",
+              "request": { "method": "GET", "url": "{{base_url}}/api/v1/admin/solution-industries" }
+            },
+            {
+              "name": "Create industry",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/solution-industries",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {\"ar\": \"التعليم\", \"en\": \"Education\"},\n  \"slug\": \"education\",\n  \"order\": 6\n}"
+                }
+              }
+            },
+            {
+              "name": "Update industry",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/solution-industries/1",
+                "body": { "mode": "raw", "raw": "{\n  \"name\": {\"ar\": \"التعليم\", \"en\": \"Education\"},\n  \"slug\": \"education\",\n  \"order\": 0\n}" }
+              }
+            },
+            {
+              "name": "Delete industry",
+              "request": { "method": "DELETE", "url": "{{base_url}}/api/v1/admin/solution-industries/1" }
+            }
+          ]
+        },
+        {
+          "name": "Services",
+          "item": [
+            {
+              "name": "List services",
+              "request": { "method": "GET", "url": "{{base_url}}/api/v1/admin/services" }
+            },
+            {
+              "name": "Create service",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/services",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"group\": \"software\",\n  \"name\": {\"ar\": \"تصميم المواقع\", \"en\": \"Website design\"},\n  \"slug\": \"website-design\",\n  \"description\": {\"ar\": \"وصف\", \"en\": \"Description\"},\n  \"deliverables\": [{\"ar\": \"عنصر\", \"en\": \"Item\"}],\n  \"delivery_steps\": [{\"ar\": \"خطوة\", \"en\": \"Step\"}],\n  \"is_published\": true,\n  \"order\": 1\n}"
+                }
+              }
+            },
+            {
+              "name": "Update service",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/services/1",
+                "body": { "mode": "raw", "raw": "{\n  \"group\": \"software\",\n  \"name\": {\"ar\": \"تصميم المواقع\", \"en\": \"Website design\"},\n  \"slug\": \"website-design\",\n  \"description\": {\"ar\": \"وصف\", \"en\": \"Description\"},\n  \"deliverables\": [{\"ar\": \"عنصر\", \"en\": \"Item\"}],\n  \"delivery_steps\": [{\"ar\": \"خطوة\", \"en\": \"Step\"}],\n  \"is_published\": true,\n  \"order\": 1\n}" }
+              }
+            },
+            {
+              "name": "Delete service",
+              "request": { "method": "DELETE", "url": "{{base_url}}/api/v1/admin/services/1" }
+            }
+          ]
+        },
+        {
+          "name": "FAQs",
+          "item": [
+            {
+              "name": "List general FAQs",
+              "request": { "method": "GET", "url": "{{base_url}}/api/v1/admin/faqs" }
+            },
+            {
+              "name": "Create general FAQ",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/faqs",
+                "body": { "mode": "raw", "raw": "{\n  \"question\": {\"ar\": \"سؤال\", \"en\": \"Question\"},\n  \"answer\": {\"ar\": \"إجابة\", \"en\": \"Answer\"},\n  \"is_published\": true,\n  \"order\": 0\n}" }
+              }
+            },
+            {
+              "name": "List FAQs for a service",
+              "request": { "method": "GET", "url": "{{base_url}}/api/v1/admin/services/1/faqs" }
+            },
+            {
+              "name": "Create FAQ for a service",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/services/1/faqs",
+                "body": { "mode": "raw", "raw": "{\n  \"question\": {\"ar\": \"سؤال\", \"en\": \"Question\"},\n  \"answer\": {\"ar\": \"إجابة\", \"en\": \"Answer\"},\n  \"is_published\": true,\n  \"order\": 0\n}" }
               }
             }
           ]
