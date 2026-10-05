@@ -160,9 +160,13 @@ Status tracked here as the single source of truth for build progress.
       /hide, features grouped by audience, demo link + test credentials,
       related solutions (pivot to services too), per-solution FAQs (nested
       on the module 3 `Faq` model), media (mockups).
-- [ ] **5. Work / Projects** — projects CRUD, hide-client-name option,
+- [x] **5. Work / Projects** — projects CRUD, hide-client-name option,
       technologies, images, live link; section auto-hides (public endpoint
-      returns empty) when nothing published.
+      returns empty) when nothing published. Ships with **zero seeded
+      rows** per SRS Decision #4 (no fictional projects) — the empty state
+      is the correct initial state, not a gap. Also backfills the
+      `service_project` pivot deferred from module 3, so Service's public
+      detail now returns `related_solutions` and `related_projects`.
 - [ ] **6. Site content** — Home sections (enable/hide/reorder + content:
       hero, stats, differentiators, process steps, tech logos); static Pages
       (About/Privacy/Terms).

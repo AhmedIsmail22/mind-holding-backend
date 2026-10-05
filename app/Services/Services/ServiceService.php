@@ -11,7 +11,7 @@ class ServiceService
 {
     public function list(): Collection
     {
-        return Service::orderBy('order')->get();
+        return Service::with(['solutions', 'projects'])->orderBy('order')->get();
     }
 
     /**

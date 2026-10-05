@@ -20,6 +20,8 @@ class ServiceResource extends JsonResource
             'deliverables' => collect($this->deliverables)->map(fn ($item) => $item[$locale] ?? $item['en'])->values(),
             'delivery_steps' => collect($this->delivery_steps)->map(fn ($item) => $item[$locale] ?? $item['en'])->values(),
             'faqs' => FaqResource::collection($this->whenLoaded('faqs')),
+            'related_solutions' => SolutionListResource::collection($this->whenLoaded('solutions')),
+            'related_projects' => ProjectListResource::collection($this->whenLoaded('projects')),
         ];
     }
 }

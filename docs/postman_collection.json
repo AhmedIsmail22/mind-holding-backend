@@ -68,6 +68,22 @@
             "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
             "url": "{{base_url}}/api/v1/public/solutions/ecommerce-store-mobile-app"
           }
+        },
+        {
+          "name": "Projects (Work, empty until one is published)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/projects"
+          }
+        },
+        {
+          "name": "Project detail",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept-Language", "value": "{{locale}}" }],
+            "url": "{{base_url}}/api/v1/public/projects/1"
+          }
         }
       ]
     },
@@ -337,6 +353,40 @@
             {
               "name": "Delete solution",
               "request": { "method": "DELETE", "url": "{{base_url}}/api/v1/admin/solutions/1" }
+            }
+          ]
+        },
+        {
+          "name": "Projects (Work)",
+          "item": [
+            {
+              "name": "List projects",
+              "request": { "method": "GET", "url": "{{base_url}}/api/v1/admin/projects" }
+            },
+            {
+              "name": "Create project",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "url": "{{base_url}}/api/v1/admin/projects",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_name\": {\"ar\": \"عميل\", \"en\": \"Client\"},\n  \"hide_client_name\": false,\n  \"overview\": {\"ar\": \"نظرة عامة\", \"en\": \"Overview\"},\n  \"challenge\": {\"ar\": \"التحدي\", \"en\": \"Challenge\"},\n  \"solution\": {\"ar\": \"الحل\", \"en\": \"Solution\"},\n  \"technologies\": [\"Laravel\", \"React\"],\n  \"is_published\": true,\n  \"order\": 0\n}"
+                }
+              }
+            },
+            {
+              "name": "Update project (multipart, supports images[])",
+              "request": {
+                "method": "POST",
+                "url": "{{base_url}}/api/v1/admin/projects/1",
+                "description": "multipart/form-data, same fields as create plus optional images[] files. POST, not PUT, because of the file upload.",
+                "body": { "mode": "formdata", "formdata": [] }
+              }
+            },
+            {
+              "name": "Delete project",
+              "request": { "method": "DELETE", "url": "{{base_url}}/api/v1/admin/projects/1" }
             }
           ]
         }

@@ -27,7 +27,14 @@ class ServiceController extends Controller
     public function show(string $slug): JsonResponse
     {
         $service = $this->serviceService->findPublishedBySlug($slug);
-        $service->load(['faqs' => fn ($query) => $query->where('is_published', true)->orderBy('order')]);
+        $service->load([
+            'faqs' => fn ($query) => $query->where('is_published', true)->orderBy('order'),
+            'solutions' => fn ($query) => $query->where('is_published', true),
+            'solutions.industry',
+            'solutions.media',
+            'projects' => fn ($query) => $query->where('is_published', true),
+            'projects.media',
+        ]);
 
         return $this->success(new ServiceResource($service));
     }

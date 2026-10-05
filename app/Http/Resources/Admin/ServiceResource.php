@@ -20,6 +20,8 @@ class ServiceResource extends JsonResource
             'is_published' => $this->is_published,
             'is_draft' => $this->is_draft,
             'order' => $this->order,
+            'related_solution_ids' => $this->solutions->pluck('id')->values(),
+            'related_project_ids' => $this->projects->pluck('id')->values(),
             'created_at' => $this->created_at?->toIso8601String(),
         ];
     }

@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Project;
 use App\Models\Service;
+use App\Models\Solution;
+use App\Models\SolutionIndustry;
 use App\Models\User;
 use Database\Seeders\RolesAndPermissionsSeeder;
 
@@ -105,4 +108,20 @@ it('forbids sales from managing services', function () {
     $sales->assignRole('Sales');
 
     $this->actingAs($sales, 'sanctum')->postJson('/api/v1/admin/services', validServicePayload())->assertStatus(403);
+});
+
+it('shows related published solutions and projects on the public service detail', function () {
+    $service = Service::factory()->create(['slug' => 'website-design', 'is_published' => true]);
+    $industry = SolutionIndustry::factory()->create();
+    $solution = Solution::factory()->create(['solution_industry_id' => $industry->id, 'is_published' => true]);
+    $project = Project::factory()->create(['is_published' => true]);
+
+    $service->solutions()->sync([$solution->id]);
+    $service->projects()->sync([$project->id]);
+
+    $response = $this->getJson('/api/v1/public/services/website-design');
+
+    $response->assertOk();
+    expect($response->json('data.related_solutions'))->toHaveCount(1);
+    expect($response->json('data.related_projects'))->toHaveCount(1);
 });

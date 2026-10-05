@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Public\FaqController;
 use App\Http\Controllers\Public\IndustryController;
+use App\Http\Controllers\Public\ProjectController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SettingsController;
 use App\Http\Controllers\Public\SolutionController;
@@ -21,3 +22,6 @@ Route::get('faqs', [FaqController::class, 'index']);
 
 Route::get('solutions', [SolutionController::class, 'index']);
 Route::get('solutions/{slug}', [SolutionController::class, 'show']);
+
+Route::get('projects', [ProjectController::class, 'index']);
+Route::get('projects/{project}', [ProjectController::class, 'show']);

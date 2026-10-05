@@ -46,4 +46,9 @@ class Service extends Model
     {
         return $this->belongsToMany(Solution::class, 'service_solution');
     }
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, 'service_project');
+    }
 }

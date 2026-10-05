@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServiceFaqController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -56,4 +57,9 @@ Route::middleware(['auth:sanctum', 'permission:solutions.manage'])->group(functi
     // uploads, so update uses POST (PHP doesn't populate $_FILES on PUT).
     Route::apiResource('solutions', SolutionController::class)->except(['update']);
     Route::post('solutions/{solution}', [SolutionController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:work.manage'])->group(function () {
+    Route::apiResource('projects', ProjectController::class)->except(['update']);
+    Route::post('projects/{project}', [ProjectController::class, 'update']);
 });
