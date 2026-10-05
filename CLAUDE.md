@@ -156,7 +156,7 @@ Status tracked here as the single source of truth for build progress.
       module 6 only adds Home-page FAQ *selection*, not FAQ CRUD. Module 4
       reuses the same model for solution-linked FAQs via its own nested
       routes.
-- [ ] **4. Solutions** — solutions CRUD, flagship flag + ordering, publish
+- [x] **4. Solutions** — solutions CRUD, flagship flag + ordering, publish
       /hide, features grouped by audience, demo link + test credentials,
       related solutions (pivot to services too), per-solution FAQs (nested
       on the module 3 `Faq` model), media (mockups).

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SolutionIndustriesSeeder::class);
         $this->call(ServicesSeeder::class);
         $this->call(GeneralFaqsSeeder::class);
+        $this->call(SolutionsSeeder::class);
 
         $admin = User::factory()->create([
             'name' => 'Admin',

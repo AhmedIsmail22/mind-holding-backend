@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServiceFaqController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\SolutionController;
+use App\Http\Controllers\Admin\SolutionFaqController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +47,13 @@ Route::middleware(['auth:sanctum', 'permission:services.manage'])->group(functio
 Route::middleware(['auth:sanctum', 'permission:faqs.manage'])->group(function () {
     Route::apiResource('faqs', FaqController::class);
     Route::apiResource('services.faqs', ServiceFaqController::class);
+    Route::apiResource('solutions.faqs', SolutionFaqController::class);
+});
+
+Route::middleware(['auth:sanctum', 'permission:solutions.manage'])->group(function () {
+    Route::post('solutions/reorder', [SolutionController::class, 'reorder']);
+    // apiResource's "update" is excluded: it accepts multipart mockup
+    // uploads, so update uses POST (PHP doesn't populate $_FILES on PUT).
+    Route::apiResource('solutions', SolutionController::class)->except(['update']);
+    Route::post('solutions/{solution}', [SolutionController::class, 'update']);
 });

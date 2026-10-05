@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
@@ -39,5 +40,10 @@ class Service extends Model
     public function faqs(): MorphMany
     {
         return $this->morphMany(Faq::class, 'faqable');
+    }
+
+    public function solutions(): BelongsToMany
+    {
+        return $this->belongsToMany(Solution::class, 'service_solution');
     }
 }

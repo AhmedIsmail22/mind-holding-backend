@@ -4,6 +4,7 @@ use App\Http\Controllers\Public\FaqController;
 use App\Http\Controllers\Public\IndustryController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SettingsController;
+use App\Http\Controllers\Public\SolutionController;
 use Illuminate\Support\Facades\Route;
 
 // Public, unauthenticated, locale-resolved routes. Each module appends its
@@ -17,3 +18,6 @@ Route::get('services', [ServiceController::class, 'index']);
 Route::get('services/{slug}', [ServiceController::class, 'show']);
 
 Route::get('faqs', [FaqController::class, 'index']);
+
+Route::get('solutions', [SolutionController::class, 'index']);
+Route::get('solutions/{slug}', [SolutionController::class, 'show']);
