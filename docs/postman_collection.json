@@ -185,6 +185,62 @@
                         ],
                         "url": "{{base_url}}/api/v1/public/pages/about"
                     }
+                },
+                {
+                    "name": "Leads (public submit)",
+                    "item": [
+                        {
+                            "name": "Quote request",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}/api/v1/public/leads/quote",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Sara Ali\",\n  \"mobile\": \"+20 111 564 6730\",\n  \"email\": \"sara@example.com\",\n  \"service_id\": 1,\n  \"budget\": \"Less than $1,000\",\n  \"start_timing\": \"As soon as possible\",\n  \"page_url\": \"https://mindholding.net/en/contact\",\n  \"recaptcha_token\": \"<token from frontend>\",\n  \"website\": \"\"\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Demo request",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}/api/v1/public/leads/demo",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Omar\",\n  \"mobile\": \"+971 50 336 5403\",\n  \"business_name\": \"Cafe One\",\n  \"solution_id\": 1,\n  \"preferred_contact_time\": \"Evenings\",\n  \"page_url\": \"https://mindholding.net/en/solutions/x\",\n  \"recaptcha_token\": \"<token from frontend>\"\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Callback request",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}/api/v1/public/leads/callback",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Ahmed\",\n  \"mobile\": \"+20 111 564 6730\",\n  \"page_url\": \"https://mindholding.net/ar\",\n  \"recaptcha_token\": \"<token from frontend>\"\n}"
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -876,6 +932,127 @@
                                     "mode": "raw",
                                     "raw": "{\n  \"title\": {\"ar\": \"من نحن\", \"en\": \"About us\"},\n  \"body\": {\"ar\": \"...\", \"en\": \"...\"}\n}"
                                 }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Leads",
+                    "item": [
+                        {
+                            "name": "List leads (filters: type, status, from, to, service_id)",
+                            "request": {
+                                "method": "GET",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/leads?type=quote&status=new"
+                            }
+                        },
+                        {
+                            "name": "Dashboard stats",
+                            "request": {
+                                "method": "GET",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/leads/dashboard"
+                            }
+                        },
+                        {
+                            "name": "Show lead",
+                            "request": {
+                                "method": "GET",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/leads/1"
+                            }
+                        },
+                        {
+                            "name": "Update status",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/leads/1/status",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"status\": \"contacted\"\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Assign lead (admin)",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/leads/1/assign",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"user_id\": 2\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Delete lead (admin, soft)",
+                            "request": {
+                                "method": "DELETE",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/leads/1"
                             }
                         }
                     ]

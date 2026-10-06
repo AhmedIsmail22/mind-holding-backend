@@ -4,6 +4,7 @@ use App\Http\Controllers\Public\FaqController;
 use App\Http\Controllers\Public\HomeContentController;
 use App\Http\Controllers\Public\HomeSectionController;
 use App\Http\Controllers\Public\IndustryController;
+use App\Http\Controllers\Public\LeadController;
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ProjectController;
 use App\Http\Controllers\Public\ServiceController;
@@ -36,3 +37,9 @@ Route::get('home/sections', [HomeSectionController::class, 'index']);
 Route::get('technologies', [TechnologyController::class, 'index']);
 
 Route::get('pages/{slug}', [PageController::class, 'show'])->whereIn('slug', ['about', 'privacy', 'terms']);
+
+Route::middleware(['throttle:leads'])->prefix('leads')->group(function () {
+    Route::post('quote', [LeadController::class, 'quote']);
+    Route::post('demo', [LeadController::class, 'demo']);
+    Route::post('callback', [LeadController::class, 'callback']);
+});

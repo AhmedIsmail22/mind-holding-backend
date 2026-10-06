@@ -174,10 +174,17 @@ Status tracked here as the single source of truth for build progress.
       mirror the SRS §9 timeline. Technologies ship **empty**: listing a stack
       nobody confirmed would misrepresent the company, same reasoning as
       projects. The 10 home sections are a fixed set (toggle + order only).
-- [ ] **7. Leads & notifications** — quote/demo/callback request endpoints,
+- [x] **7. Leads & notifications** — quote/demo/callback request endpoints,
       rate limiting (5/hr/device), reCAPTCHA v3 + honeypot, source/UTM/
       language capture, status workflow, email notification, dashboard
-      aggregate stats endpoint.
+      aggregate stats endpoint. Decisions: honeypot hits are stored as
+      `spam` and answered as success (no signal to bots); reCAPTCHA fails
+      closed when no secret is set; mail failures are logged and never lose
+      the lead; the notification is a plain-text body in `NewLeadMail`
+      (`Mailable::html`, escaped, no Blade). Two permissions were added to the
+      seeder, admin-only: `requests.assign` and `requests.delete`. Note: the
+      SRS does not give the expected response time, so `config/leads.php`
+      holds a placeholder to confirm with the client.
 - [ ] **8. SEO & redirects** — per-entity SEO meta (title/description/share
       image) polymorphic, sitemap data endpoint, legacy `mindholding.net`
       redirects table + endpoint (301 list for the frontend to serve).

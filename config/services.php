@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'recaptcha' => [
+        'secret' => env('RECAPTCHA_SECRET_KEY'),
+        'url' => 'https://www.google.com/recaptcha/api/siteverify',
+        'score_threshold' => (float) env('RECAPTCHA_SCORE_THRESHOLD', 0.5),
+    ],
+
 ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeContentController;
 use App\Http\Controllers\Admin\HomeSectionController;
 use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -83,4 +84,22 @@ Route::middleware(['auth:sanctum', 'permission:home-content.manage'])->group(fun
 Route::middleware(['auth:sanctum', 'permission:pages.manage'])->group(function () {
     Route::get('pages/{slug}', [PageController::class, 'show'])->whereIn('slug', ['about', 'privacy', 'terms']);
     Route::put('pages/{slug}', [PageController::class, 'update'])->whereIn('slug', ['about', 'privacy', 'terms']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:requests.view'])->group(function () {
+    Route::get('leads', [LeadController::class, 'index']);
+    Route::get('leads/dashboard', [LeadController::class, 'dashboard']);
+    Route::get('leads/{lead}', [LeadController::class, 'show']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:requests.manage-status'])->group(function () {
+    Route::patch('leads/{lead}/status', [LeadController::class, 'updateStatus']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:requests.assign'])->group(function () {
+    Route::patch('leads/{lead}/assign', [LeadController::class, 'assign']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:requests.delete'])->group(function () {
+    Route::delete('leads/{lead}', [LeadController::class, 'destroy']);
 });

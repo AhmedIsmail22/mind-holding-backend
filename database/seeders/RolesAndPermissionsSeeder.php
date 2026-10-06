@@ -43,6 +43,8 @@ class RolesAndPermissionsSeeder extends Seeder
         'users.manage',
         'settings.manage',
         'redirects.manage',
+        'requests.assign',
+        'requests.delete',
     ];
 
     public function run(): void
