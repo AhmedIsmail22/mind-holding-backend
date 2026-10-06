@@ -8,13 +8,11 @@ use Illuminate\Database\Seeder;
 class SettingsSeeder extends Seeder
 {
     /**
-     * Seeds the single settings row with the contact details explicitly
-     * approved in the SRS (§10 "Approved contact details" /  "Proposals
-     * approved by the client") — these are real, not placeholders. Social
-     * links, the GA ID, and the logo are left empty/null because no real
-     * values were supplied yet. Budget/start-timing options are generic
-     * starter dropdown choices (not business facts, so the "never invent
-     * content" rule doesn't apply) meant to be customized by the admin.
+     * Seeds the single settings row. Phone numbers, the Dubai WhatsApp number
+     * and the address are the contact details approved in the SRS. The email is
+     * a placeholder per CR-01. Social links, the GA ID and the logo stay empty
+     * because no real values were supplied. Budget and start-timing options are
+     * generic starter choices for the admin to customize.
      */
     public function run(): void
     {
@@ -23,14 +21,14 @@ class SettingsSeeder extends Seeder
         }
 
         Setting::create([
-            'company_name' => ['ar' => 'MIND Holding', 'en' => 'MIND Holding'],
+            'company_name' => ['ar' => 'بيتكودك', 'en' => 'Bitcodak'],
             'phone_landline' => '+202 22746241',
             'phone_mobile_egypt' => '+20 111 564 6730',
             'whatsapp_egypt' => '+20 111 564 6730',
             'whatsapp_dubai' => '+971 50 336 5403',
             'gulf_countries' => ['SA', 'AE', 'KW', 'QA', 'BH', 'OM'],
-            'email' => 'info@mindholding.net',
-            'lead_notification_email' => 'info@mindholding.net',
+            'email' => 'info@bitcodak.com',
+            'lead_notification_email' => 'info@bitcodak.com',
             'address' => [
                 'ar' => '8 محمد توفيق دياب، مدينة نصر، القاهرة، مصر',
                 'en' => '8 Mohammed Tawfik Diab, Nasr City, Cairo, Egypt',

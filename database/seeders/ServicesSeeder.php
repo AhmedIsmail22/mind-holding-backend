@@ -48,8 +48,8 @@ class ServicesSeeder extends Seeder
                 'name' => ['ar' => $service['ar'], 'en' => $service['en']],
                 'slug' => $service['slug'],
                 'description' => [
-                    'ar' => "خدمة {$service['ar']} من مايند القابضة — محتوى مبدئي سيتم استبداله بالنسخة النهائية من العميل.",
-                    'en' => "{$service['en']} from MIND Holding — placeholder copy, to be replaced with the client's final content.",
+                    'ar' => "خدمة {$service['ar']} من بيتكودك — محتوى مبدئي سيتم استبداله بالنسخة النهائية من العميل.",
+                    'en' => "{$service['en']} from Bitcodak — placeholder copy, to be replaced with the client's final content.",
                 ],
                 'deliverables' => $genericDeliverables,
                 'delivery_steps' => $genericSteps,

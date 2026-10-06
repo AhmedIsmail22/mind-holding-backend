@@ -16,23 +16,23 @@ class SeoRouteSeeder extends Seeder
     {
         $pages = [
             'home' => [
-                'title' => ['ar' => 'MIND Holding — برمجيات وتسويق', 'en' => 'MIND Holding — Software & Marketing'],
+                'title' => ['ar' => 'بيتكودك — برمجيات وتسويق', 'en' => 'Bitcodak — Software & Marketing'],
                 'description' => ['ar' => 'مواقع وتطبيقات وأنظمة أعمال وتسويق رقمي للشركات في مصر والخليج.', 'en' => 'Websites, apps, business systems and digital marketing for businesses in Egypt and the Gulf.'],
             ],
             'services' => [
-                'title' => ['ar' => 'خدماتنا — MIND Holding', 'en' => 'Our services — MIND Holding'],
-                'description' => ['ar' => 'خدمات البرمجيات والتسويق الرقمي من MIND Holding.', 'en' => 'Software and digital marketing services from MIND Holding.'],
+                'title' => ['ar' => 'خدماتنا — بيتكودك', 'en' => 'Our services — Bitcodak'],
+                'description' => ['ar' => 'خدمات البرمجيات والتسويق الرقمي من بيتكودك.', 'en' => 'Software and digital marketing services from Bitcodak.'],
             ],
             'solutions' => [
-                'title' => ['ar' => 'حلولنا — MIND Holding', 'en' => 'Our solutions — MIND Holding'],
+                'title' => ['ar' => 'حلولنا — بيتكودك', 'en' => 'Our solutions — Bitcodak'],
                 'description' => ['ar' => 'حلول رقمية جاهزة لقطاعات التجارة والمطاعم والخدمات.', 'en' => 'Ready-made digital solutions for commerce, restaurants and services.'],
             ],
             'work' => [
-                'title' => ['ar' => 'أعمالنا — MIND Holding', 'en' => 'Our work — MIND Holding'],
+                'title' => ['ar' => 'أعمالنا — بيتكودك', 'en' => 'Our work — Bitcodak'],
                 'description' => ['ar' => 'مشاريع حقيقية نفذها فريقنا.', 'en' => 'Real projects delivered by our team.'],
             ],
             'contact' => [
-                'title' => ['ar' => 'تواصل معنا — MIND Holding', 'en' => 'Contact us — MIND Holding'],
+                'title' => ['ar' => 'تواصل معنا — بيتكودك', 'en' => 'Contact us — Bitcodak'],
                 'description' => ['ar' => 'اطلب عرض سعر أو تجربة أو اتصالاً.', 'en' => 'Request a quote, a demo or a callback.'],
             ],
         ];

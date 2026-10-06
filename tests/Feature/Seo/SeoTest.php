@@ -28,7 +28,7 @@ it('serves the seeded SEO for a route page with a 200 and the locale content', f
     $response = $this->getJson('/api/v1/public/seo/home');
 
     $response->assertOk();
-    expect($response->json('data.title'))->toBe('MIND Holding — Software & Marketing');
+    expect($response->json('data.title'))->toBe('Bitcodak — Software & Marketing');
 });
 
 it('returns 404 for a route key that does not exist', function () {

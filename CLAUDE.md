@@ -1,4 +1,4 @@
-# MIND Holding — Backend API (Phase 1)
+# Bitcodak — Backend API (Phase 1)
 
 This repo is the **backend REST API only**. No Blade views, no frontend. The
 public Next.js site and the admin dashboard are separate clients built later

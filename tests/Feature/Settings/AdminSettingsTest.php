@@ -16,7 +16,7 @@ beforeEach(function () {
 function validSettingsPayload(array $overrides = []): array
 {
     return array_merge([
-        'company_name' => ['ar' => 'مايند القابضة', 'en' => 'MIND Holding'],
+        'company_name' => ['ar' => 'بيتكودك', 'en' => 'Bitcodak'],
         'whatsapp_egypt' => '+20 100 000 0000',
         'whatsapp_dubai' => '+971 50 000 0000',
         'gulf_countries' => ['SA', 'AE', 'KW'],
@@ -33,9 +33,9 @@ it('allows an administrator to view settings with both locales', function () {
     $response = $this->actingAs($this->admin, 'sanctum')->getJson('/api/v1/admin/settings');
 
     $response->assertOk();
-    $response->assertJsonPath('data.company_name.ar', 'MIND Holding');
-    $response->assertJsonPath('data.company_name.en', 'MIND Holding');
-    $response->assertJsonPath('data.lead_notification_email', 'info@mindholding.net');
+    $response->assertJsonPath('data.company_name.ar', 'بيتكودك');
+    $response->assertJsonPath('data.company_name.en', 'Bitcodak');
+    $response->assertJsonPath('data.lead_notification_email', 'info@bitcodak.com');
 });
 
 it('allows an administrator to update settings', function () {
@@ -43,7 +43,7 @@ it('allows an administrator to update settings', function () {
         ->postJson('/api/v1/admin/settings', validSettingsPayload());
 
     $response->assertOk();
-    $response->assertJsonPath('data.company_name.en', 'MIND Holding');
+    $response->assertJsonPath('data.company_name.en', 'Bitcodak');
     $response->assertJsonPath('data.whatsapp_egypt', '+20 100 000 0000');
     $response->assertJsonPath('data.lead_notification_email', 'sales@mindholding.net');
 });

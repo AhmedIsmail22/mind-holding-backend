@@ -60,7 +60,7 @@ it('emails the sales address with the prospect WhatsApp link', function () {
     $this->postJson('/api/v1/public/leads/quote', quotePayload(['service_id' => $this->service->id]))->assertCreated();
 
     Mail::assertSent(NewLeadMail::class, function (NewLeadMail $mail) {
-        return $mail->hasTo('info@mindholding.net')
+        return $mail->hasTo('info@bitcodak.com')
             && str_contains($mail->body, 'https://wa.me/201115646730');
     });
 });
