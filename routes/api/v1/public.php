@@ -7,8 +7,11 @@ use App\Http\Controllers\Public\IndustryController;
 use App\Http\Controllers\Public\LeadController;
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ProjectController;
+use App\Http\Controllers\Public\RedirectController;
+use App\Http\Controllers\Public\SeoController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SettingsController;
+use App\Http\Controllers\Public\SitemapController;
 use App\Http\Controllers\Public\SolutionController;
 use App\Http\Controllers\Public\TechnologyController;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +46,8 @@ Route::middleware(['throttle:leads'])->prefix('leads')->group(function () {
     Route::post('demo', [LeadController::class, 'demo']);
     Route::post('callback', [LeadController::class, 'callback']);
 });
+
+Route::get('seo/{key}', [SeoController::class, 'route']);
+Route::get('sitemap', [SitemapController::class, 'index']);
+Route::get('redirects', [RedirectController::class, 'index']);
+Route::get('redirects/resolve', [RedirectController::class, 'resolve']);

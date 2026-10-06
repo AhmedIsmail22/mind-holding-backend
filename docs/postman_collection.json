@@ -241,6 +241,34 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "SEO for a route page",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/v1/public/seo/home"
+                    }
+                },
+                {
+                    "name": "Sitemap data",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/v1/public/sitemap"
+                    }
+                },
+                {
+                    "name": "Redirects (list, for frontend config)",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/v1/public/redirects"
+                    }
+                },
+                {
+                    "name": "Resolve redirect for a path",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/v1/public/redirects/resolve?path=/old-page"
+                    }
                 }
             ]
         },
@@ -1053,6 +1081,111 @@
                                     ]
                                 },
                                 "url": "{{base_url}}/api/v1/admin/leads/1"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "SEO (service|solution|page|route)",
+                    "item": [
+                        {
+                            "name": "Show SEO",
+                            "request": {
+                                "method": "GET",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/seo/route/home"
+                            }
+                        },
+                        {
+                            "name": "Update SEO (multipart, share_image)",
+                            "request": {
+                                "method": "POST",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/seo/route/home",
+                                "description": "POST, not PUT: share_image is a file upload.",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Redirects",
+                    "item": [
+                        {
+                            "name": "List redirects",
+                            "request": {
+                                "method": "GET",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/redirects"
+                            }
+                        },
+                        {
+                            "name": "Create redirect",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/redirects",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"old_path\": \"/old-page\",\n  \"new_path\": \"/services/website-design-development\"\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Delete redirect (soft)",
+                            "request": {
+                                "method": "DELETE",
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{admin_token}}"
+                                        }
+                                    ]
+                                },
+                                "url": "{{base_url}}/api/v1/admin/redirects/1"
                             }
                         }
                     ]

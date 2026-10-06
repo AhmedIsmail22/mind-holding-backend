@@ -185,9 +185,19 @@ Status tracked here as the single source of truth for build progress.
       seeder, admin-only: `requests.assign` and `requests.delete`. Note: the
       SRS does not give the expected response time, so `config/leads.php`
       holds a placeholder to confirm with the client.
-- [ ] **8. SEO & redirects** — per-entity SEO meta (title/description/share
+- [x] **8. SEO & redirects** — per-entity SEO meta (title/description/share
       image) polymorphic, sitemap data endpoint, legacy `mindholding.net`
       redirects table + endpoint (301 list for the frontend to serve).
+      Decisions: SEO attaches to services, solutions, and pages (morph) and to
+      five route keys (home, services, solutions, work, contact); when an
+      entity has no SEO row, its own name and description are the fallback.
+      Share images are converted to 1200x630 WebP. The sitemap is data only:
+      alternates are locale-prefixed for hreflang, `/work` is omitted while no
+      project is published, and project URLs are assumed to be `/work/{id}`
+      (to confirm with the frontend). No redirect rows are seeded because the
+      old URLs are not in the SRS. Redirect paths are unique among active rows,
+      validated in the request, because MySQL allows repeated NULLs in a unique
+      index.
 
 Stop and ask only when the SRS is ambiguous/contradictory or something only
 the client can supply (real contact numbers, credentials, final copy) is

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Support\Seo\SeoResolver;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -13,6 +14,7 @@ class PageResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'body' => $this->body,
+            'seo' => SeoResolver::for($this->resource),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Support\Seo\SeoResolver;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -37,6 +38,7 @@ class SolutionResource extends JsonResource
             'demo_credentials' => $hasDemo ? $this->demo_credentials : null,
             'faqs' => FaqResource::collection($this->whenLoaded('faqs')),
             'related_solutions' => SolutionListResource::collection($this->whenLoaded('relatedSolutions')),
+            'seo' => SeoResolver::for($this->resource),
         ];
     }
 }

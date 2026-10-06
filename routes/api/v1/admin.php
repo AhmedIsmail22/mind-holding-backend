@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\RedirectController;
+use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServiceFaqController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -102,4 +104,14 @@ Route::middleware(['auth:sanctum', 'permission:requests.assign'])->group(functio
 
 Route::middleware(['auth:sanctum', 'permission:requests.delete'])->group(function () {
     Route::delete('leads/{lead}', [LeadController::class, 'destroy']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:seo.manage'])->group(function () {
+    Route::get('seo/{type}/{key}', [SeoController::class, 'show']);
+    // POST, not PUT: share_image is a file upload (see CLAUDE.md).
+    Route::post('seo/{type}/{key}', [SeoController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:redirects.manage'])->group(function () {
+    Route::apiResource('redirects', RedirectController::class);
 });

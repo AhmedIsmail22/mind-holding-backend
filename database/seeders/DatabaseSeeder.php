@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeSectionsSeeder::class);
         $this->call(HomeContentSeeder::class);
         $this->call(PagesSeeder::class);
+        $this->call(SeoRouteSeeder::class);
 
         $admin = User::factory()->create([
             'name' => 'Admin',
