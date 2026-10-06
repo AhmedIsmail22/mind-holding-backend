@@ -2,13 +2,17 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\HomeContentController;
+use App\Http\Controllers\Admin\HomeSectionController;
 use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServiceFaqController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SolutionController;
 use App\Http\Controllers\Admin\SolutionFaqController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,4 +66,21 @@ Route::middleware(['auth:sanctum', 'permission:solutions.manage'])->group(functi
 Route::middleware(['auth:sanctum', 'permission:work.manage'])->group(function () {
     Route::apiResource('projects', ProjectController::class)->except(['update']);
     Route::post('projects/{project}', [ProjectController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:home-content.manage'])->group(function () {
+    Route::get('home', [HomeContentController::class, 'show']);
+    // POST, not PUT: the hero image upload needs multipart (see CLAUDE.md).
+    Route::post('home', [HomeContentController::class, 'update']);
+
+    Route::get('home/sections', [HomeSectionController::class, 'index']);
+    Route::post('home/sections', [HomeSectionController::class, 'update']);
+
+    Route::apiResource('technologies', TechnologyController::class)->except(['update']);
+    Route::post('technologies/{technology}', [TechnologyController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'permission:pages.manage'])->group(function () {
+    Route::get('pages/{slug}', [PageController::class, 'show'])->whereIn('slug', ['about', 'privacy', 'terms']);
+    Route::put('pages/{slug}', [PageController::class, 'update'])->whereIn('slug', ['about', 'privacy', 'terms']);
 });

@@ -167,9 +167,13 @@ Status tracked here as the single source of truth for build progress.
       is the correct initial state, not a gap. Also backfills the
       `service_project` pivot deferred from module 3, so Service's public
       detail now returns `related_solutions` and `related_projects`.
-- [ ] **6. Site content** — Home sections (enable/hide/reorder + content:
+- [x] **6. Site content** — Home sections (enable/hide/reorder + content:
       hero, stats, differentiators, process steps, tech logos); static Pages
-      (About/Privacy/Terms).
+      (About/Privacy/Terms). Home is one singleton row (`home_content`), like
+      Settings. Stats ship **empty** (SRS: real numbers only). Process steps
+      mirror the SRS §9 timeline. Technologies ship **empty**: listing a stack
+      nobody confirmed would misrepresent the company, same reasoning as
+      projects. The 10 home sections are a fixed set (toggle + order only).
 - [ ] **7. Leads & notifications** — quote/demo/callback request endpoints,
       rate limiting (5/hr/device), reCAPTCHA v3 + honeypot, source/UTM/
       language capture, status workflow, email notification, dashboard
