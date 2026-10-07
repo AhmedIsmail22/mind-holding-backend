@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin;
 
 use App\Models\HomeContent;
+use App\Support\Media\MediaAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,6 +18,7 @@ class HomeContentResource extends JsonResource
             'hero_headline' => $this->getTranslations('hero_headline'),
             'hero_subheadline' => $this->getTranslations('hero_subheadline'),
             'hero_image_url' => $this->getFirstMediaUrl('hero', 'webp') ?: null,
+            'hero_image_alt' => MediaAsset::altBothLocales($this->getFirstMedia('hero')),
             'stats' => $this->stats,
             'differentiators' => $this->differentiators,
             'process_steps' => $this->process_steps,

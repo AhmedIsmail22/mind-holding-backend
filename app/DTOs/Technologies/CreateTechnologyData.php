@@ -11,6 +11,7 @@ final readonly class CreateTechnologyData
         public array $category,
         public int $order,
         public ?UploadedFile $logo,
+        public ?array $logoAlt,
     ) {}
 
     public static function fromArray(array $data, ?UploadedFile $logo): self
@@ -20,6 +21,7 @@ final readonly class CreateTechnologyData
             category: $data['category'],
             order: $data['order'] ?? 0,
             logo: $logo,
+            logoAlt: $data['logo_alt'] ?? null,
         );
     }
 }

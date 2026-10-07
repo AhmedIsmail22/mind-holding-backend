@@ -21,6 +21,9 @@ class UpdateTechnologyRequest extends FormRequest
             'category.en' => ['required', 'string', 'max:100'],
             'order' => ['nullable', 'integer', 'min:0'],
             'logo' => ['nullable', 'image', 'max:1024'],
+            'logo_alt' => ['nullable', 'array'],
+            'logo_alt.ar' => ['nullable', 'string', 'max:255'],
+            'logo_alt.en' => ['nullable', 'string', 'max:255'],
         ];
     }
 

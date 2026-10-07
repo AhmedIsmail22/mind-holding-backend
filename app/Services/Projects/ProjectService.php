@@ -5,6 +5,7 @@ namespace App\Services\Projects;
 use App\DTOs\Projects\CreateProjectData;
 use App\DTOs\Projects\UpdateProjectData;
 use App\Models\Project;
+use App\Support\Media\MediaAsset;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 
@@ -30,7 +31,7 @@ class ProjectService
     /**
      * @param  UploadedFile[]  $images
      */
-    public function create(CreateProjectData $data, array $images = []): Project
+    public function create(CreateProjectData $data, array $images = [], ?array $imagesAlt = null): Project
     {
         $project = Project::create([
             'slug' => $data->slug,
@@ -50,7 +51,7 @@ class ProjectService
         $project->services()->sync($data->relatedServiceIds);
 
         foreach ($images as $image) {
-            $project->addMedia($image)->toMediaCollection('images');
+            MediaAsset::attach($project, $image, 'images', $imagesAlt);
         }
 
         return $project;
@@ -59,7 +60,7 @@ class ProjectService
     /**
      * @param  UploadedFile[]  $images
      */
-    public function update(Project $project, UpdateProjectData $data, array $images = []): Project
+    public function update(Project $project, UpdateProjectData $data, array $images = [], ?array $imagesAlt = null): Project
     {
         $project->update([
             'slug' => $data->slug,
@@ -79,7 +80,7 @@ class ProjectService
         $project->services()->sync($data->relatedServiceIds);
 
         foreach ($images as $image) {
-            $project->addMedia($image)->toMediaCollection('images');
+            MediaAsset::attach($project, $image, 'images', $imagesAlt);
         }
 
         return $project;

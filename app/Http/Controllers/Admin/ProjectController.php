@@ -23,7 +23,7 @@ class ProjectController extends Controller
 
     public function store(CreateProjectRequest $request): JsonResponse
     {
-        $project = $this->projectService->create($request->toDto(), $request->file('images', []));
+        $project = $this->projectService->create($request->toDto(), $request->file('images', []), $request->validated('images_alt'));
 
         return $this->success(new ProjectResource($project), 'Project created.', 201);
     }
@@ -37,7 +37,7 @@ class ProjectController extends Controller
 
     public function update(UpdateProjectRequest $request, Project $project): JsonResponse
     {
-        $project = $this->projectService->update($project, $request->toDto(), $request->file('images', []));
+        $project = $this->projectService->update($project, $request->toDto(), $request->file('images', []), $request->validated('images_alt'));
 
         return $this->success(new ProjectResource($project), 'Project updated.');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin;
 
 use App\Models\SeoMeta;
+use App\Support\Media\MediaAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,6 +20,7 @@ class SeoMetaResource extends JsonResource
             'title' => $this->title === null ? ['ar' => null, 'en' => null] : $this->getTranslations('title'),
             'description' => $this->description === null ? ['ar' => null, 'en' => null] : $this->getTranslations('description'),
             'share_image_url' => $this->getFirstMediaUrl('share_image', 'og') ?: null,
+            'share_image_alt' => MediaAsset::altBothLocales($this->getFirstMedia('share_image')),
             'is_draft' => $this->is_draft,
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\Solution;
+use App\Support\Media\MediaAsset;
 use App\Support\Translations\OptionalTranslation;
 use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class SolutionListResource extends JsonResource
             'is_flagship' => $this->is_flagship,
             'has_demo' => ! empty($this->demo_url),
             'thumbnail_url' => $this->getFirstMediaUrl('mockups', 'thumb') ?: null,
+            'thumbnail' => MediaAsset::present($this->getFirstMedia('mockups'), 'thumb'),
         ];
     }
 }

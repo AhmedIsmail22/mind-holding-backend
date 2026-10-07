@@ -54,6 +54,9 @@ class UpdateProjectRequest extends FormRequest
 
             'images' => ['nullable', 'array'],
             'images.*' => ['image', 'max:4096'],
+            'images_alt' => ['nullable', 'array'],
+            'images_alt.ar' => ['nullable', 'string', 'max:255'],
+            'images_alt.en' => ['nullable', 'string', 'max:255'],
         ];
     }
 

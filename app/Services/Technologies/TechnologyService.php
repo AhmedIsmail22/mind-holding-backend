@@ -5,6 +5,7 @@ namespace App\Services\Technologies;
 use App\DTOs\Technologies\CreateTechnologyData;
 use App\DTOs\Technologies\UpdateTechnologyData;
 use App\Models\Technology;
+use App\Support\Media\MediaAsset;
 use Illuminate\Database\Eloquent\Collection;
 
 class TechnologyService
@@ -23,7 +24,7 @@ class TechnologyService
         ]);
 
         if ($data->logo !== null) {
-            $technology->addMedia($data->logo)->toMediaCollection('logo');
+            MediaAsset::attach($technology, $data->logo, 'logo', $data->logoAlt);
         }
 
         return $technology;
@@ -38,8 +39,9 @@ class TechnologyService
         ]);
 
         if ($data->logo !== null) {
-            $technology->clearMediaCollection('logo');
-            $technology->addMedia($data->logo)->toMediaCollection('logo');
+            MediaAsset::replace($technology, $data->logo, 'logo', $data->logoAlt);
+        } else {
+            MediaAsset::setAlt($technology->getFirstMedia('logo'), $data->logoAlt);
         }
 
         return $technology;

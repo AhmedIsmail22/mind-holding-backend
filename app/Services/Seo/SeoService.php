@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\SeoMeta;
 use App\Models\Service;
 use App\Models\Solution;
+use App\Support\Media\MediaAsset;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
@@ -42,8 +43,9 @@ class SeoService
             $meta->save();
 
             if ($data->shareImage !== null) {
-                $meta->clearMediaCollection('share_image');
-                $meta->addMedia($data->shareImage)->toMediaCollection('share_image');
+                MediaAsset::replace($meta, $data->shareImage, 'share_image', $data->shareImageAlt);
+            } else {
+                MediaAsset::setAlt($meta->getFirstMedia('share_image'), $data->shareImageAlt);
             }
 
             return $meta->refresh();

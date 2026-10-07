@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\Technology;
+use App\Support\Media\MediaAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +19,7 @@ class TechnologyResource extends JsonResource
             'name' => $this->name,
             'category' => $this->category,
             'logo_url' => $this->getFirstMediaUrl('logo', 'webp') ?: null,
+            'logo' => MediaAsset::present($this->getFirstMedia('logo'), 'webp'),
         ];
     }
 }

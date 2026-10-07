@@ -10619,6 +10619,30 @@
                             "null"
                         ]
                     },
+                    "hero_image_alt": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "ar",
+                            "en"
+                        ]
+                    },
                     "stats": {
                         "type": "array",
                         "items": {}
@@ -10650,6 +10674,7 @@
                     "hero_headline",
                     "hero_subheadline",
                     "hero_image_url",
+                    "hero_image_alt",
                     "stats",
                     "differentiators",
                     "process_steps",
@@ -10817,6 +10842,12 @@
                             "type": "string"
                         }
                     },
+                    "gallery": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
                     "related_service_ids": {
                         "type": "array",
                         "items": {}
@@ -10843,6 +10874,7 @@
                     "is_published",
                     "order",
                     "images",
+                    "gallery",
                     "related_service_ids",
                     "created_at"
                 ],
@@ -10987,6 +11019,30 @@
                             "null"
                         ]
                     },
+                    "logo_alt": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "ar",
+                            "en"
+                        ]
+                    },
                     "phone_landline": {
                         "type": [
                             "string",
@@ -11041,6 +11097,7 @@
                 "required": [
                     "company_name",
                     "logo_url",
+                    "logo_alt",
                     "phone_landline",
                     "phone_mobile_egypt",
                     "whatsapp_egypt",
@@ -11148,6 +11205,12 @@
                             "type": "string"
                         }
                     },
+                    "gallery": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
                     "related_solution_ids": {
                         "type": "array",
                         "items": {}
@@ -11181,6 +11244,7 @@
                     "is_draft",
                     "order",
                     "mockups",
+                    "gallery",
                     "related_solution_ids",
                     "related_service_ids",
                     "created_at"
@@ -11448,6 +11512,25 @@
                             "format": "binary",
                             "contentMediaType": "application/octet-stream",
                             "description": "Maximum file size: 4096 kilobytes."
+                        }
+                    },
+                    "images_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
                         }
                     }
                 },
@@ -11836,6 +11919,25 @@
                             "contentMediaType": "application/octet-stream",
                             "description": "Maximum file size: 4096 kilobytes."
                         }
+                    },
+                    "mockups_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -11888,6 +11990,25 @@
                         "format": "binary",
                         "contentMediaType": "application/octet-stream",
                         "description": "Maximum file size: 1024 kilobytes."
+                    },
+                    "logo_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -11970,12 +12091,42 @@
                                     "string",
                                     "null"
                                 ]
+                            },
+                            "image": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ],
+                                "properties": {
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "width": {
+                                        "type": "string"
+                                    },
+                                    "height": {
+                                        "type": "string"
+                                    },
+                                    "alt": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "url",
+                                    "width",
+                                    "height",
+                                    "alt"
+                                ]
                             }
                         },
                         "required": [
                             "headline",
                             "subheadline",
-                            "image_url"
+                            "image_url",
+                            "image"
                         ]
                     },
                     "stats": {
@@ -12428,6 +12579,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -12439,6 +12593,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -12454,6 +12609,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -12465,6 +12623,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -12480,6 +12639,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -12491,6 +12653,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -12511,6 +12674,35 @@
                                             "null"
                                         ]
                                     },
+                                    "share_image": {
+                                        "type": [
+                                            "object",
+                                            "null"
+                                        ],
+                                        "properties": {
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "width": {
+                                                "type": "string"
+                                            },
+                                            "height": {
+                                                "type": "string"
+                                            },
+                                            "alt": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "url",
+                                            "width",
+                                            "height",
+                                            "alt"
+                                        ]
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -12522,6 +12714,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             }
@@ -12582,6 +12775,35 @@
                             "string",
                             "null"
                         ]
+                    },
+                    "thumbnail": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "width": {
+                                "type": "string"
+                            },
+                            "height": {
+                                "type": "string"
+                            },
+                            "alt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "url",
+                            "width",
+                            "height",
+                            "alt"
+                        ]
                     }
                 },
                 "required": [
@@ -12589,7 +12811,8 @@
                     "slug",
                     "alternates",
                     "title",
-                    "thumbnail_url"
+                    "thumbnail_url",
+                    "thumbnail"
                 ],
                 "title": "ProjectListResource"
             },
@@ -12660,6 +12883,12 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "gallery": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "required": [
@@ -12672,7 +12901,8 @@
                     "solution",
                     "technologies",
                     "live_url",
-                    "images"
+                    "images",
+                    "gallery"
                 ],
                 "title": "ProjectResource"
             },
@@ -12795,6 +13025,30 @@
                             "null"
                         ]
                     },
+                    "share_image_alt": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "ar",
+                            "en"
+                        ]
+                    },
                     "is_draft": {
                         "type": "boolean"
                     }
@@ -12805,6 +13059,7 @@
                     "title",
                     "description",
                     "share_image_url",
+                    "share_image_alt",
                     "is_draft"
                 ],
                 "title": "SeoMetaResource"
@@ -12826,6 +13081,35 @@
                             "null"
                         ]
                     },
+                    "share_image": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "width": {
+                                "type": "string"
+                            },
+                            "height": {
+                                "type": "string"
+                            },
+                            "alt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "url",
+                            "width",
+                            "height",
+                            "alt"
+                        ]
+                    },
                     "canonical_url": {
                         "type": [
                             "string",
@@ -12837,6 +13121,7 @@
                     "title",
                     "description",
                     "share_image_url",
+                    "share_image",
                     "canonical_url"
                 ],
                 "title": "SeoResource"
@@ -12986,6 +13271,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -12997,6 +13285,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -13012,6 +13301,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13023,6 +13315,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -13038,6 +13331,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13049,6 +13345,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -13069,6 +13366,35 @@
                                             "null"
                                         ]
                                     },
+                                    "share_image": {
+                                        "type": [
+                                            "object",
+                                            "null"
+                                        ],
+                                        "properties": {
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "width": {
+                                                "type": "string"
+                                            },
+                                            "height": {
+                                                "type": "string"
+                                            },
+                                            "alt": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "url",
+                                            "width",
+                                            "height",
+                                            "alt"
+                                        ]
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13080,6 +13406,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             }
@@ -13111,6 +13438,35 @@
                         "type": [
                             "string",
                             "null"
+                        ]
+                    },
+                    "logo": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "width": {
+                                "type": "string"
+                            },
+                            "height": {
+                                "type": "string"
+                            },
+                            "alt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "url",
+                            "width",
+                            "height",
+                            "alt"
                         ]
                     },
                     "phone_landline": {
@@ -13168,6 +13524,7 @@
                 "required": [
                     "company_name",
                     "logo_url",
+                    "logo",
                     "phone_landline",
                     "phone_mobile_egypt",
                     "whatsapp_egypt",
@@ -13275,6 +13632,35 @@
                             "string",
                             "null"
                         ]
+                    },
+                    "thumbnail": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "width": {
+                                "type": "string"
+                            },
+                            "height": {
+                                "type": "string"
+                            },
+                            "alt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "url",
+                            "width",
+                            "height",
+                            "alt"
+                        ]
                     }
                 },
                 "required": [
@@ -13287,7 +13673,8 @@
                     "industry",
                     "is_flagship",
                     "has_demo",
-                    "thumbnail_url"
+                    "thumbnail_url",
+                    "thumbnail"
                 ],
                 "title": "SolutionListResource"
             },
@@ -13422,6 +13809,12 @@
                             "type": "string"
                         }
                     },
+                    "gallery": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
                     "has_demo": {
                         "type": "boolean"
                     },
@@ -13463,6 +13856,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13474,6 +13870,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -13489,6 +13886,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13500,6 +13900,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -13515,6 +13916,9 @@
                                     "share_image_url": {
                                         "type": "null"
                                     },
+                                    "share_image": {
+                                        "type": "null"
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13526,6 +13930,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             },
@@ -13546,6 +13951,35 @@
                                             "null"
                                         ]
                                     },
+                                    "share_image": {
+                                        "type": [
+                                            "object",
+                                            "null"
+                                        ],
+                                        "properties": {
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "width": {
+                                                "type": "string"
+                                            },
+                                            "height": {
+                                                "type": "string"
+                                            },
+                                            "alt": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "url",
+                                            "width",
+                                            "height",
+                                            "alt"
+                                        ]
+                                    },
                                     "canonical_url": {
                                         "type": [
                                             "string",
@@ -13557,6 +13991,7 @@
                                     "title",
                                     "description",
                                     "share_image_url",
+                                    "share_image",
                                     "canonical_url"
                                 ]
                             }
@@ -13576,6 +14011,7 @@
                     "features",
                     "deliverables",
                     "mockups",
+                    "gallery",
                     "has_demo",
                     "demo_url",
                     "demo_credentials",
@@ -13863,6 +14299,30 @@
                             "string",
                             "null"
                         ]
+                    },
+                    "logo_alt": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "ar",
+                            "en"
+                        ]
                     }
                 },
                 "required": [
@@ -13870,7 +14330,8 @@
                     "name",
                     "category",
                     "order",
-                    "logo_url"
+                    "logo_url",
+                    "logo_alt"
                 ],
                 "title": "TechnologyResource"
             },
@@ -14150,6 +14611,25 @@
                         "format": "binary",
                         "contentMediaType": "application/octet-stream",
                         "description": "Maximum file size: 4096 kilobytes."
+                    },
+                    "hero_image_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -14457,6 +14937,25 @@
                             "contentMediaType": "application/octet-stream",
                             "description": "Maximum file size: 4096 kilobytes."
                         }
+                    },
+                    "images_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -14514,6 +15013,25 @@
                         "format": "binary",
                         "contentMediaType": "application/octet-stream",
                         "description": "Maximum file size: 4096 kilobytes."
+                    },
+                    "share_image_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -14806,6 +15324,25 @@
                         "format": "binary",
                         "contentMediaType": "application/octet-stream",
                         "description": "Maximum file size: 2048 kilobytes."
+                    },
+                    "logo_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -15058,6 +15595,25 @@
                             "contentMediaType": "application/octet-stream",
                             "description": "Maximum file size: 4096 kilobytes."
                         }
+                    },
+                    "mockups_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -15110,6 +15666,25 @@
                         "format": "binary",
                         "contentMediaType": "application/octet-stream",
                         "description": "Maximum file size: 1024 kilobytes."
+                    },
+                    "logo_alt": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 255
+                            }
+                        }
                     }
                 },
                 "required": [

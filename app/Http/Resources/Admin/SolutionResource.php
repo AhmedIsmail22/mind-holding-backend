@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin;
 
 use App\Models\Solution;
+use App\Support\Media\MediaAsset;
 use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,6 +33,7 @@ class SolutionResource extends JsonResource
             'is_draft' => $this->is_draft,
             'order' => $this->order,
             'mockups' => $this->getMedia('mockups')->map(fn ($media) => $media->getUrl('webp'))->values(),
+            'gallery' => $this->getMedia('mockups')->map(fn ($media) => ['url' => $media->getUrl('webp'), 'alt' => MediaAsset::altBothLocales($media)])->values(),
             'related_solution_ids' => $this->relatedSolutions->pluck('id')->values(),
             'related_service_ids' => $this->services->pluck('id')->values(),
             'created_at' => $this->created_at?->toIso8601String(),

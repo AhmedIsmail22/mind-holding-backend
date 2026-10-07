@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin;
 
 use App\Models\Project;
+use App\Support\Media\MediaAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,6 +29,7 @@ class ProjectResource extends JsonResource
             'is_published' => $this->is_published,
             'order' => $this->order,
             'images' => $this->getMedia('images')->map(fn ($media) => $media->getUrl('webp'))->values(),
+            'gallery' => $this->getMedia('images')->map(fn ($media) => ['url' => $media->getUrl('webp'), 'alt' => MediaAsset::altBothLocales($media)])->values(),
             'related_service_ids' => $this->services->pluck('id')->values(),
             'created_at' => $this->created_at?->toIso8601String(),
         ];

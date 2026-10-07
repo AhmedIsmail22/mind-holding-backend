@@ -24,6 +24,9 @@ class UpdateSeoRequest extends FormRequest
             'description.en' => ['required', 'string', 'max:160'],
 
             'share_image' => ['nullable', 'image', 'max:4096'],
+            'share_image_alt' => ['nullable', 'array'],
+            'share_image_alt.ar' => ['nullable', 'string', 'max:255'],
+            'share_image_alt.en' => ['nullable', 'string', 'max:255'],
         ];
     }
 

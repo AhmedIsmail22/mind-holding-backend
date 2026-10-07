@@ -4,6 +4,7 @@ namespace App\Services\Settings;
 
 use App\DTOs\Settings\UpdateSettingsData;
 use App\Models\Setting;
+use App\Support\Media\MediaAsset;
 
 class SettingsService
 {
@@ -32,8 +33,9 @@ class SettingsService
         $setting->save();
 
         if ($data->logo !== null) {
-            $setting->clearMediaCollection('logo');
-            $setting->addMedia($data->logo)->toMediaCollection('logo');
+            MediaAsset::replace($setting, $data->logo, 'logo', $data->logoAlt);
+        } else {
+            MediaAsset::setAlt($setting->getFirstMedia('logo'), $data->logoAlt);
         }
 
         return $setting->refresh();

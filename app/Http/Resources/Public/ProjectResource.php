@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\Project;
+use App\Support\Media\MediaAsset;
 use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,6 +26,7 @@ class ProjectResource extends JsonResource
             'technologies' => $this->technologies,
             'live_url' => $this->live_url,
             'images' => $this->getMedia('images')->map(fn ($media) => $media->getUrl('webp'))->values(),
+            'gallery' => $this->getMedia('images')->map(fn ($media) => MediaAsset::present($media, 'webp'))->values(),
         ];
     }
 }

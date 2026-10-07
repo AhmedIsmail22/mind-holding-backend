@@ -21,6 +21,7 @@ final readonly class UpdateSettingsData
         public array $startTimingOptions,
         public ?string $googleAnalyticsId,
         public ?UploadedFile $logo,
+        public ?array $logoAlt,
     ) {}
 
     public static function fromArray(array $data, ?UploadedFile $logo): self
@@ -40,6 +41,7 @@ final readonly class UpdateSettingsData
             startTimingOptions: $data['start_timing_options'],
             googleAnalyticsId: $data['google_analytics_id'] ?? null,
             logo: $logo,
+            logoAlt: $data['logo_alt'] ?? null,
         );
     }
 }

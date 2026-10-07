@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin;
 
 use App\Models\Setting;
+use App\Support\Media\MediaAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,6 +17,7 @@ class SettingsResource extends JsonResource
         return [
             'company_name' => $this->getTranslations('company_name'),
             'logo_url' => $this->getFirstMediaUrl('logo', 'webp') ?: null,
+            'logo_alt' => MediaAsset::altBothLocales($this->getFirstMedia('logo')),
             'phone_landline' => $this->phone_landline,
             'phone_mobile_egypt' => $this->phone_mobile_egypt,
             'whatsapp_egypt' => $this->whatsapp_egypt,

@@ -48,6 +48,9 @@ class UpdateSettingsRequest extends FormRequest
             'google_analytics_id' => ['nullable', 'string', 'max:50'],
 
             'logo' => ['nullable', 'image', 'max:2048'],
+            'logo_alt' => ['nullable', 'array'],
+            'logo_alt.ar' => ['nullable', 'string', 'max:255'],
+            'logo_alt.en' => ['nullable', 'string', 'max:255'],
         ];
     }
 

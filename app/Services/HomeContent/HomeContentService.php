@@ -4,6 +4,7 @@ namespace App\Services\HomeContent;
 
 use App\DTOs\HomeContent\UpdateHomeContentData;
 use App\Models\HomeContent;
+use App\Support\Media\MediaAsset;
 
 class HomeContentService
 {
@@ -31,8 +32,9 @@ class HomeContentService
         $content->save();
 
         if ($data->heroImage !== null) {
-            $content->clearMediaCollection('hero');
-            $content->addMedia($data->heroImage)->toMediaCollection('hero');
+            MediaAsset::replace($content, $data->heroImage, 'hero', $data->heroImageAlt);
+        } else {
+            MediaAsset::setAlt($content->getFirstMedia('hero'), $data->heroImageAlt);
         }
 
         return $content->refresh();

@@ -10,6 +10,7 @@ final readonly class UpdateSeoData
         public array $title,
         public array $description,
         public ?UploadedFile $shareImage,
+        public ?array $shareImageAlt,
     ) {}
 
     public static function fromArray(array $data, ?UploadedFile $shareImage): self
@@ -18,6 +19,7 @@ final readonly class UpdateSeoData
             title: $data['title'],
             description: $data['description'],
             shareImage: $shareImage,
+            shareImageAlt: $data['share_image_alt'] ?? null,
         );
     }
 }

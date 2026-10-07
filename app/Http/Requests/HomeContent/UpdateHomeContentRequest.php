@@ -51,6 +51,9 @@ class UpdateHomeContentRequest extends FormRequest
             'closing_cta_subheadline.en' => ['nullable', 'string', 'max:500'],
 
             'hero_image' => ['nullable', 'image', 'max:4096'],
+            'hero_image_alt' => ['nullable', 'array'],
+            'hero_image_alt.ar' => ['nullable', 'string', 'max:255'],
+            'hero_image_alt.en' => ['nullable', 'string', 'max:255'],
         ];
     }
 

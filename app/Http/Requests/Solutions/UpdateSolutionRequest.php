@@ -68,6 +68,9 @@ class UpdateSolutionRequest extends FormRequest
 
             'mockups' => ['nullable', 'array'],
             'mockups.*' => ['image', 'max:4096'],
+            'mockups_alt' => ['nullable', 'array'],
+            'mockups_alt.ar' => ['nullable', 'string', 'max:255'],
+            'mockups_alt.en' => ['nullable', 'string', 'max:255'],
         ];
     }
 

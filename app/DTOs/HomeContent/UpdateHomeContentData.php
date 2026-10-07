@@ -15,6 +15,7 @@ final readonly class UpdateHomeContentData
         public array $closingCtaHeadline,
         public ?array $closingCtaSubheadline,
         public ?UploadedFile $heroImage,
+        public ?array $heroImageAlt,
     ) {}
 
     public static function fromArray(array $data, ?UploadedFile $heroImage): self
@@ -28,6 +29,7 @@ final readonly class UpdateHomeContentData
             closingCtaHeadline: $data['closing_cta_headline'],
             closingCtaSubheadline: $data['closing_cta_subheadline'] ?? null,
             heroImage: $heroImage,
+            heroImageAlt: $data['hero_image_alt'] ?? null,
         );
     }
 }

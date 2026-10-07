@@ -24,7 +24,7 @@ class SolutionController extends Controller
 
     public function store(CreateSolutionRequest $request): JsonResponse
     {
-        $solution = $this->solutionService->create($request->toDto(), $request->file('mockups', []));
+        $solution = $this->solutionService->create($request->toDto(), $request->file('mockups', []), $request->validated('mockups_alt'));
 
         return $this->success(new SolutionResource($solution), 'Solution created.', 201);
     }
@@ -38,7 +38,7 @@ class SolutionController extends Controller
 
     public function update(UpdateSolutionRequest $request, Solution $solution): JsonResponse
     {
-        $solution = $this->solutionService->update($solution, $request->toDto(), $request->file('mockups', []));
+        $solution = $this->solutionService->update($solution, $request->toDto(), $request->file('mockups', []), $request->validated('mockups_alt'));
 
         return $this->success(new SolutionResource($solution), 'Solution updated.');
     }

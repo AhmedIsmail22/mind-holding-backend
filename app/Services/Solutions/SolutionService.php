@@ -5,6 +5,7 @@ namespace App\Services\Solutions;
 use App\DTOs\Solutions\CreateSolutionData;
 use App\DTOs\Solutions\UpdateSolutionData;
 use App\Models\Solution;
+use App\Support\Media\MediaAsset;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,7 @@ class SolutionService
     /**
      * @param  UploadedFile[]  $mockups
      */
-    public function create(CreateSolutionData $data, array $mockups = []): Solution
+    public function create(CreateSolutionData $data, array $mockups = [], ?array $mockupsAlt = null): Solution
     {
         $solution = Solution::create([
             'solution_industry_id' => $data->solutionIndustryId,
@@ -64,7 +65,7 @@ class SolutionService
         $solution->services()->sync($data->relatedServiceIds);
 
         foreach ($mockups as $mockup) {
-            $solution->addMedia($mockup)->toMediaCollection('mockups');
+            MediaAsset::attach($solution, $mockup, 'mockups', $mockupsAlt);
         }
 
         return $solution;
@@ -73,7 +74,7 @@ class SolutionService
     /**
      * @param  UploadedFile[]  $mockups
      */
-    public function update(Solution $solution, UpdateSolutionData $data, array $mockups = []): Solution
+    public function update(Solution $solution, UpdateSolutionData $data, array $mockups = [], ?array $mockupsAlt = null): Solution
     {
         $solution->update([
             'solution_industry_id' => $data->solutionIndustryId,
@@ -97,7 +98,7 @@ class SolutionService
         $solution->services()->sync($data->relatedServiceIds);
 
         foreach ($mockups as $mockup) {
-            $solution->addMedia($mockup)->toMediaCollection('mockups');
+            MediaAsset::attach($solution, $mockup, 'mockups', $mockupsAlt);
         }
 
         return $solution;

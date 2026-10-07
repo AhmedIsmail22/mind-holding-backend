@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\Solution;
+use App\Support\Media\MediaAsset;
 use App\Support\Seo\SeoResolver;
 use App\Support\Translations\OptionalTranslation;
 use App\Support\Translations\SlugAlternates;
@@ -42,6 +43,7 @@ class SolutionResource extends JsonResource
             ],
             'deliverables' => $resolveList($this->deliverables),
             'mockups' => $this->getMedia('mockups')->map(fn ($media) => $media->getUrl('webp'))->values(),
+            'gallery' => $this->getMedia('mockups')->map(fn ($media) => MediaAsset::present($media, 'webp'))->values(),
             'has_demo' => $hasDemo,
             'demo_url' => $hasDemo ? $this->demo_url : null,
             'demo_credentials' => $hasDemo ? $this->demo_credentials : null,
