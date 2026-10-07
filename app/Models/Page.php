@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Support\Seo\InvalidatesSitemap;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Spatie\Translatable\HasTranslations;
 
 class Page extends Model
 {
-    use HasTranslations;
+    use HasTranslations, InvalidatesSitemap;
 
     public array $translatable = ['title', 'body'];
 

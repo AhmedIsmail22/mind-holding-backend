@@ -88,6 +88,6 @@ class ProjectService
 
     public function delete(Project $project): void
     {
-        $project->delete();
+        $project->releaseSlugAndDelete();
     }
 }

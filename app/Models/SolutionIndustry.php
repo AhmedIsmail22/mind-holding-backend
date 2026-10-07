@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\ReleasesSlugOnDelete;
+use App\Support\Seo\InvalidatesSitemap;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +12,7 @@ use Spatie\Translatable\HasTranslations;
 
 class SolutionIndustry extends Model
 {
-    use HasFactory, HasTranslations, SoftDeletes;
+    use HasFactory, HasTranslations, InvalidatesSitemap, ReleasesSlugOnDelete, SoftDeletes;
 
     public array $translatable = ['name'];
 

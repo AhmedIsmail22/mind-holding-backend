@@ -106,7 +106,7 @@ class SolutionService
 
     public function delete(Solution $solution): void
     {
-        $solution->delete();
+        $solution->releaseSlugAndDelete();
     }
 
     /**

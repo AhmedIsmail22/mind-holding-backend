@@ -72,6 +72,6 @@ class ServiceService
 
     public function delete(Service $service): void
     {
-        $service->delete();
+        $service->releaseSlugAndDelete();
     }
 }

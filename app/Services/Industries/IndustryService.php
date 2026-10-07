@@ -38,6 +38,6 @@ class IndustryService
 
     public function delete(SolutionIndustry $industry): void
     {
-        $industry->delete();
+        $industry->releaseSlugAndDelete();
     }
 }
