@@ -10,7 +10,7 @@ beforeEach(function () {
     Cache::flush();
 });
 
-it('lists published services and solutions with bilingual alternates', function () {
+it('lists published services and solutions with absolute bilingual alternates on the primary domain', function () {
     Service::factory()->create(['slug' => 'web-design', 'is_published' => true]);
     Service::factory()->create(['slug' => 'hidden', 'is_published' => false]);
     Solution::factory()->create([
@@ -22,22 +22,28 @@ it('lists published services and solutions with bilingual alternates', function 
     $response = $this->getJson('/api/v1/public/sitemap');
 
     $response->assertOk();
-    $paths = collect($response->json('data'))->pluck('path');
+    $urls = collect($response->json('data'))->pluck('url');
 
-    expect($paths)->toContain('/services/web-design', '/solutions/clinic-booking', '/');
-    expect($paths)->not->toContain('/services/hidden');
+    expect($urls)->toContain('https://bitcodak.com/en/services/web-design', 'https://bitcodak.com/en/solutions/clinic-booking', 'https://bitcodak.com/ar');
+    expect($urls)->not->toContain('https://bitcodak.com/en/services/hidden');
 
-    $service = collect($response->json('data'))->firstWhere('path', '/services/web-design');
-    expect($service['alternates'])->toBe(['ar' => null, 'en' => '/en/services/web-design']);
+    $service = collect($response->json('data'))->firstWhere('url', 'https://bitcodak.com/en/services/web-design');
+    expect($service['alternates'])->toBe(['ar' => null, 'en' => 'https://bitcodak.com/en/services/web-design']);
+});
+
+it('never emits the legacy mindholding.net domain', function () {
+    Service::factory()->create(['slug' => 'web-design', 'is_published' => true]);
+
+    expect($this->getJson('/api/v1/public/sitemap')->getContent())->not->toContain('mindholding.net');
 });
 
 it('omits the work page when no project is published, and includes it when one is', function () {
     $this->getJson('/api/v1/public/sitemap')->assertOk();
-    expect(collect($this->getJson('/api/v1/public/sitemap')->json('data'))->pluck('path'))->not->toContain('/work');
+    expect(collect($this->getJson('/api/v1/public/sitemap')->json('data'))->pluck('url'))->not->toContain('https://bitcodak.com/ar/work');
 
     Project::factory()->create(['is_published' => true]);
     Cache::flush();
 
-    $paths = collect($this->getJson('/api/v1/public/sitemap')->json('data'))->pluck('path');
-    expect($paths)->toContain('/work');
+    $urls = collect($this->getJson('/api/v1/public/sitemap')->json('data'))->pluck('url');
+    expect($urls)->toContain('https://bitcodak.com/ar/work');
 });

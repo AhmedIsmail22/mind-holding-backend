@@ -7482,40 +7482,20 @@
                                                     {
                                                         "type": "object",
                                                         "properties": {
-                                                            "path": {
+                                                            "url": {
                                                                 "type": "string"
                                                             },
                                                             "lastmod": {
-                                                                "type": "null"
+                                                                "type": "string"
                                                             },
                                                             "alternates": {
                                                                 "type": "object",
                                                                 "properties": {
                                                                     "ar": {
-                                                                        "anyOf": [
-                                                                            {
-                                                                                "type": "string"
-                                                                            },
-                                                                            {
-                                                                                "type": "string",
-                                                                                "enum": [
-                                                                                    "/ar"
-                                                                                ]
-                                                                            }
-                                                                        ]
+                                                                        "type": "string"
                                                                     },
                                                                     "en": {
-                                                                        "anyOf": [
-                                                                            {
-                                                                                "type": "string"
-                                                                            },
-                                                                            {
-                                                                                "type": "string",
-                                                                                "enum": [
-                                                                                    "/en"
-                                                                                ]
-                                                                            }
-                                                                        ]
+                                                                        "type": "string"
                                                                     }
                                                                 },
                                                                 "required": [
@@ -7525,7 +7505,7 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "path",
+                                                            "url",
                                                             "lastmod",
                                                             "alternates"
                                                         ]
@@ -7533,8 +7513,11 @@
                                                     {
                                                         "type": "object",
                                                         "properties": {
-                                                            "path": {
-                                                                "type": "string"
+                                                            "url": {
+                                                                "type": [
+                                                                    "string",
+                                                                    "null"
+                                                                ]
                                                             },
                                                             "lastmod": {
                                                                 "type": "string"
@@ -7562,7 +7545,7 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "path",
+                                                            "url",
                                                             "lastmod",
                                                             "alternates"
                                                         ]
@@ -12452,12 +12435,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -12471,12 +12461,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -12490,12 +12487,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -12514,12 +12518,19 @@
                                             "string",
                                             "null"
                                         ]
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             }
                         ]
@@ -12808,12 +12819,19 @@
                             "string",
                             "null"
                         ]
+                    },
+                    "canonical_url": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     }
                 },
                 "required": [
                     "title",
                     "description",
-                    "share_image_url"
+                    "share_image_url",
+                    "canonical_url"
                 ],
                 "title": "SeoResource"
             },
@@ -12954,12 +12972,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -12973,12 +12998,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -12992,12 +13024,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -13016,12 +13055,19 @@
                                             "string",
                                             "null"
                                         ]
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             }
                         ]
@@ -13391,12 +13437,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -13410,12 +13463,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -13429,12 +13489,19 @@
                                     },
                                     "share_image_url": {
                                         "type": "null"
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             },
                             {
@@ -13453,12 +13520,19 @@
                                             "string",
                                             "null"
                                         ]
+                                    },
+                                    "canonical_url": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
                                     "title",
                                     "description",
-                                    "share_image_url"
+                                    "share_image_url",
+                                    "canonical_url"
                                 ]
                             }
                         ]
