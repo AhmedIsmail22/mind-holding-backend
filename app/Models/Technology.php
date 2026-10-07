@@ -16,7 +16,14 @@ class Technology extends Model implements HasMedia
 
     public array $translatable = ['category'];
 
-    protected $fillable = ['name', 'category', 'order'];
+    protected $fillable = ['name', 'category', 'order', 'is_draft'];
+
+    protected function casts(): array
+    {
+        return [
+            'is_draft' => 'boolean',
+        ];
+    }
 
     public function registerMediaConversions(?Media $media = null): void
     {

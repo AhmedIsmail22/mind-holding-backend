@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeContentSeeder::class);
         $this->call(PagesSeeder::class);
         $this->call(SeoRouteSeeder::class);
+        $this->call(TechnologiesSeeder::class);
 
         if (! User::where('email', 'admin@bitcodak.com')->exists()) {
             User::factory()->create([

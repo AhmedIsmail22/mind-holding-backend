@@ -4,6 +4,7 @@ use App\Models\Faq;
 use App\Models\HomeContent;
 use App\Models\Service;
 use App\Models\Solution;
+use App\Models\Technology;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 
@@ -66,4 +67,13 @@ it('seeds the six general FAQs as draft copy', function () {
     expect($faqs->every(fn ($faq) => $faq->is_draft))->toBeTrue();
     expect($faqs[0]->getTranslation('question', 'ar'))->toBe('كم تكلفة المشروع؟');
     expect($faqs[5]->getTranslation('answer', 'en'))->toBe('In installments tied to project milestones, agreed in the proposal.');
+});
+
+it('seeds the approved technology stack as drafts without logos', function () {
+    $technologies = Technology::orderBy('order')->get();
+
+    expect($technologies)->toHaveCount(15);
+    expect($technologies->pluck('name')->all())->toContain('Laravel', 'Next.js', 'Redis', 'TikTok Ads');
+    expect($technologies->every(fn ($t) => $t->is_draft))->toBeTrue();
+    expect($technologies->every(fn ($t) => $t->getFirstMedia('logo') === null))->toBeTrue();
 });

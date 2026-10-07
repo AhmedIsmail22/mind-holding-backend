@@ -36,6 +36,7 @@ class TechnologyService
             'name' => $data->name,
             'category' => $data->category,
             'order' => $data->order,
+            'is_draft' => false,
         ]);
 
         if ($data->logo !== null) {
