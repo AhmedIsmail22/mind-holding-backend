@@ -15,7 +15,7 @@ class LeadFactory extends Factory
             'mobile' => '+201115646730',
             'email' => $this->faker->safeEmail(),
             'language' => 'en',
-            'page_url' => 'https://mindholding.net/en/contact',
+            'page_url' => 'https://bitcodak.com/en/contact',
             'utm' => null,
         ];
     }

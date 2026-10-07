@@ -202,7 +202,7 @@
                                 "url": "{{base_url}}/api/v1/public/leads/quote",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Sara Ali\",\n  \"mobile\": \"+20 111 564 6730\",\n  \"email\": \"sara@example.com\",\n  \"service_id\": 1,\n  \"budget\": \"Less than $1,000\",\n  \"start_timing\": \"As soon as possible\",\n  \"page_url\": \"https://mindholding.net/en/contact\",\n  \"recaptcha_token\": \"<token from frontend>\",\n  \"website\": \"\"\n}"
+                                    "raw": "{\n  \"name\": \"Sara Ali\",\n  \"mobile\": \"+20 111 564 6730\",\n  \"email\": \"sara@example.com\",\n  \"service_id\": 1,\n  \"budget\": \"Less than $1,000\",\n  \"start_timing\": \"As soon as possible\",\n  \"page_url\": \"https://bitcodak.com/en/contact\",\n  \"recaptcha_token\": \"<token from frontend>\",\n  \"website\": \"\"\n}"
                                 }
                             }
                         },
@@ -219,7 +219,7 @@
                                 "url": "{{base_url}}/api/v1/public/leads/demo",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Omar\",\n  \"mobile\": \"+971 50 336 5403\",\n  \"business_name\": \"Cafe One\",\n  \"solution_id\": 1,\n  \"preferred_contact_time\": \"Evenings\",\n  \"page_url\": \"https://mindholding.net/en/solutions/x\",\n  \"recaptcha_token\": \"<token from frontend>\"\n}"
+                                    "raw": "{\n  \"name\": \"Omar\",\n  \"mobile\": \"+971 50 336 5403\",\n  \"business_name\": \"Cafe One\",\n  \"solution_id\": 1,\n  \"preferred_contact_time\": \"Evenings\",\n  \"page_url\": \"https://bitcodak.com/en/solutions/x\",\n  \"recaptcha_token\": \"<token from frontend>\"\n}"
                                 }
                             }
                         },
@@ -236,7 +236,7 @@
                                 "url": "{{base_url}}/api/v1/public/leads/callback",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Ahmed\",\n  \"mobile\": \"+20 111 564 6730\",\n  \"page_url\": \"https://mindholding.net/ar\",\n  \"recaptcha_token\": \"<token from frontend>\"\n}"
+                                    "raw": "{\n  \"name\": \"Ahmed\",\n  \"mobile\": \"+20 111 564 6730\",\n  \"page_url\": \"https://bitcodak.com/ar\",\n  \"recaptcha_token\": \"<token from frontend>\"\n}"
                                 }
                             }
                         }
@@ -291,7 +291,7 @@
                                 "url": "{{base_url}}/api/v1/admin/auth/login",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"email\": \"admin@mindholding.net\",\n  \"password\": \"\"\n}"
+                                    "raw": "{\n  \"email\": \"admin@bitcodak.com\",\n  \"password\": \"\"\n}"
                                 }
                             }
                         },
@@ -370,7 +370,7 @@
                                 },
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Sales Person\",\n  \"email\": \"sales@mindholding.net\",\n  \"password\": \"password123\",\n  \"role\": \"Sales\"\n}"
+                                    "raw": "{\n  \"name\": \"Sales Person\",\n  \"email\": \"sales@bitcodak.com\",\n  \"password\": \"password123\",\n  \"role\": \"Sales\"\n}"
                                 }
                             }
                         },
@@ -412,7 +412,7 @@
                                 },
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"name\": \"Sales Person\",\n  \"email\": \"sales@mindholding.net\",\n  \"role\": \"Content editor\"\n}"
+                                    "raw": "{\n  \"name\": \"Sales Person\",\n  \"email\": \"sales@bitcodak.com\",\n  \"role\": \"Content editor\"\n}"
                                 }
                             }
                         },
