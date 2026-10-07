@@ -212,3 +212,15 @@ Status tracked here as the single source of truth for build progress.
 Stop and ask only when the SRS is ambiguous/contradictory or something only
 the client can supply (real contact numbers, credentials, final copy) is
 needed — otherwise keep building modules in order without waiting.
+
+## Pre-launch checklist
+
+- `APP_URL` in production must be the real API host (for example `https://api.bitcodak.com`). Media URLs are built from it, so images won't resolve otherwise.
+- Run `php artisan media:record-dimensions` once on production. It backfills the width and height that public image objects return. Uploads made after this release record their own dimensions.
+- The interactive API docs stay disabled in production. Scramble serves `/docs/api` and `/docs/api.json` only in the `local` environment (tested in `DocsAccessTest`). The committed `docs/openapi.json` is the contract for the frontend. Regenerate it with `php artisan scramble:export --path=docs/openapi.json` after any API change.
+- Set `PUBLIC_SITE_URL=https://bitcodak.com` (the default). `mindholding.net` must 301 to the primary domain at the host level.
+- Set `RECAPTCHA_SECRET_KEY`. Until it is set, every lead form is rejected (fail closed).
+- Set real SMTP credentials. `MAIL_MAILER=log` means lead notifications are written to the log only.
+- Confirm the expected response time in `config/leads.php` with the client.
+- Client content still outstanding: stats (none seeded), projects, and technology logos. Mobile technologies are pending the client's choice of Flutter or React Native, or both.
+- Technology category labels in Arabic (الخلفية, الويب, السحابة والتشغيل, التسويق والتحليلات) are our translations and need review.
