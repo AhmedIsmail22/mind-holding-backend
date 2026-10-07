@@ -24,6 +24,7 @@ class UpdateSolutionRequest extends FormRequest
             'name.ar' => ['required', 'string', 'max:255'],
             'name.en' => ['required', 'string', 'max:255'],
 
+            'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('solutions', 'slug_ar')->ignore($solution)],
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', Rule::unique('solutions', 'slug')->ignore($solution)],
 
             'audience' => ['required', 'array'],

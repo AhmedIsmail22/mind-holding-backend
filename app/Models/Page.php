@@ -12,7 +12,7 @@ class Page extends Model
 
     public array $translatable = ['title', 'body'];
 
-    protected $fillable = ['slug', 'title', 'body', 'is_draft'];
+    protected $fillable = ['slug', 'slug_ar', 'title', 'body', 'is_draft'];
 
     protected function casts(): array
     {

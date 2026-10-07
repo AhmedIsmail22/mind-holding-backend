@@ -15,6 +15,7 @@ class SolutionResource extends JsonResource
             'solution_industry_id' => $this->solution_industry_id,
             'name' => $this->getTranslations('name'),
             'slug' => $this->slug,
+            'slug_ar' => $this->slug_ar,
             'audience' => $this->getTranslations('audience'),
             'summary' => OptionalTranslation::both($this->resource, 'summary'),
             'problem_points' => $this->problem_points,

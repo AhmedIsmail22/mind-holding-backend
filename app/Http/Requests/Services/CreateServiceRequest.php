@@ -25,6 +25,7 @@ class CreateServiceRequest extends FormRequest
             'summary.ar' => ['nullable', 'string', 'max:500'],
             'summary.en' => ['nullable', 'string', 'max:500'],
 
+            'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', 'unique:services,slug_ar'],
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:services,slug'],
 
             'description' => ['required', 'array'],

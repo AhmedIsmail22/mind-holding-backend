@@ -18,6 +18,8 @@ class Project extends Model implements HasMedia
     public array $translatable = ['client_name', 'generic_description', 'overview', 'challenge', 'solution'];
 
     protected $fillable = [
+        'slug',
+        'slug_ar',
         'client_name',
         'hide_client_name',
         'generic_description',

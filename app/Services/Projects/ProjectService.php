@@ -31,6 +31,8 @@ class ProjectService
     public function create(CreateProjectData $data, array $images = []): Project
     {
         $project = Project::create([
+            'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'client_name' => $data->clientName,
             'hide_client_name' => $data->hideClientName,
             'generic_description' => $data->genericDescription,
@@ -58,6 +60,8 @@ class ProjectService
     public function update(Project $project, UpdateProjectData $data, array $images = []): Project
     {
         $project->update([
+            'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'client_name' => $data->clientName,
             'hide_client_name' => $data->hideClientName,
             'generic_description' => $data->genericDescription,

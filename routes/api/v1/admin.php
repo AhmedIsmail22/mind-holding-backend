@@ -84,8 +84,8 @@ Route::middleware(['auth:sanctum', 'permission:home-content.manage'])->group(fun
 });
 
 Route::middleware(['auth:sanctum', 'permission:pages.manage'])->group(function () {
-    Route::get('pages/{slug}', [PageController::class, 'show'])->whereIn('slug', ['about', 'privacy', 'terms']);
-    Route::put('pages/{slug}', [PageController::class, 'update'])->whereIn('slug', ['about', 'privacy', 'terms']);
+    Route::get('pages/{slug}', [PageController::class, 'show'])->where('slug', '[^/]+');
+    Route::put('pages/{slug}', [PageController::class, 'update'])->where('slug', '[^/]+');
 });
 
 Route::middleware(['auth:sanctum', 'permission:requests.view'])->group(function () {

@@ -2,66 +2,82 @@
 
 namespace App\Services\Seo;
 
+use App\Models\Page;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Solution;
+use DateTimeInterface;
 
 class SitemapService
 {
-    private const STATIC_PAGES = [
+    private const FIXED_PAGES = [
         ['path' => '/', 'key' => 'home'],
         ['path' => '/services', 'key' => 'services'],
         ['path' => '/solutions', 'key' => 'solutions'],
         ['path' => '/work', 'key' => 'work', 'requires' => 'projects'],
-        ['path' => '/about', 'key' => 'about'],
         ['path' => '/contact', 'key' => 'contact'],
-        ['path' => '/privacy', 'key' => 'privacy'],
-        ['path' => '/terms', 'key' => 'terms'],
     ];
 
     /**
-     * URL data for the frontend to build sitemap.xml. Each entry carries the
-     * locale-prefixed alternates so hreflang links can be emitted for both
-     * Arabic and English.
+     * URL data for the frontend to build sitemap.xml. Alternates are the
+     * localized paths for hreflang. A locale is null when that locale has no
+     * slug. Fixed route pages always exist in both locales.
      *
-     * @return list<array{path: string, lastmod: ?string, alternates: array{ar: string, en: string}}>
+     * @return list<array{path: string, lastmod: ?string, alternates: array{ar: ?string, en: ?string}}>
      */
     public function entries(): array
     {
         $entries = [];
 
-        foreach (self::STATIC_PAGES as $page) {
+        foreach (self::FIXED_PAGES as $page) {
             if (($page['requires'] ?? null) === 'projects' && ! Project::where('is_published', true)->exists()) {
                 continue;
             }
 
-            $entries[] = $this->entry($page['path'], null);
+            $entries[] = [
+                'path' => $page['path'],
+                'lastmod' => null,
+                'alternates' => [
+                    'ar' => '/ar'.($page['path'] === '/' ? '' : $page['path']),
+                    'en' => '/en'.($page['path'] === '/' ? '' : $page['path']),
+                ],
+            ];
         }
 
-        foreach (Service::where('is_published', true)->get(['slug', 'updated_at']) as $service) {
-            $entries[] = $this->entry('/services/'.$service->slug, $service->updated_at);
+        foreach (Page::get(['slug', 'slug_ar', 'updated_at']) as $page) {
+            $entries[] = $this->entry('/'.$page->slug, $page->slug_ar, $page->slug, '', $page->updated_at);
         }
 
-        foreach (Solution::where('is_published', true)->get(['slug', 'updated_at']) as $solution) {
-            $entries[] = $this->entry('/solutions/'.$solution->slug, $solution->updated_at);
+        foreach (Service::where('is_published', true)->get(['slug', 'slug_ar', 'updated_at']) as $service) {
+            $entries[] = $this->entry('/services/'.$service->slug, $service->slug_ar, $service->slug, 'services/', $service->updated_at);
         }
 
-        foreach (Project::where('is_published', true)->get(['id', 'updated_at']) as $project) {
-            $entries[] = $this->entry('/work/'.$project->id, $project->updated_at);
+        foreach (Solution::where('is_published', true)->get(['slug', 'slug_ar', 'updated_at']) as $solution) {
+            $entries[] = $this->entry('/solutions/'.$solution->slug, $solution->slug_ar, $solution->slug, 'solutions/', $solution->updated_at);
+        }
+
+        foreach (Project::where('is_published', true)->get(['id', 'slug', 'slug_ar', 'updated_at']) as $project) {
+            $entries[] = $this->entry('/work/'.$project->id, $project->slug_ar, $project->slug, 'work/', $project->updated_at);
         }
 
         return $entries;
     }
 
-    private function entry(string $path, ?\DateTimeInterface $updatedAt): array
+    /** @return array{path: string, lastmod: ?string, alternates: array{ar: ?string, en: ?string}} */
+    private function entry(string $path, ?string $slugAr, ?string $slugEn, string $segment, ?DateTimeInterface $updatedAt): array
     {
         return [
             'path' => $path,
-            'lastmod' => $updatedAt?->format(\DateTimeInterface::ATOM),
+            'lastmod' => $updatedAt?->format(DateTimeInterface::ATOM),
             'alternates' => [
-                'ar' => '/ar'.($path === '/' ? '' : $path),
-                'en' => '/en'.($path === '/' ? '' : $path),
+                'ar' => $this->localized('/ar/', $segment, $slugAr),
+                'en' => $this->localized('/en/', $segment, $slugEn),
             ],
         ];
+    }
+
+    private function localized(string $prefix, string $segment, ?string $slug): ?string
+    {
+        return $slug === null || $slug === '' ? null : $prefix.$segment.$slug;
     }
 }

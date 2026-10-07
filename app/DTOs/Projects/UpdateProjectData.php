@@ -5,6 +5,8 @@ namespace App\DTOs\Projects;
 final readonly class UpdateProjectData
 {
     public function __construct(
+        public ?string $slug,
+        public ?string $slugAr,
         public array $clientName,
         public bool $hideClientName,
         public ?array $genericDescription,
@@ -21,6 +23,8 @@ final readonly class UpdateProjectData
     public static function fromArray(array $data): self
     {
         return new self(
+            slug: $data['slug'] ?? null,
+            slugAr: $data['slug_ar'] ?? null,
             clientName: $data['client_name'],
             hideClientName: $data['hide_client_name'] ?? false,
             genericDescription: $data['generic_description'] ?? null,

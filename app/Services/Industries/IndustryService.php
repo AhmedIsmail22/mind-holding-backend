@@ -19,6 +19,7 @@ class IndustryService
         return SolutionIndustry::create([
             'name' => $data->name,
             'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'order' => $data->order,
         ]);
     }
@@ -28,6 +29,7 @@ class IndustryService
         $industry->update([
             'name' => $data->name,
             'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'order' => $data->order,
         ]);
 

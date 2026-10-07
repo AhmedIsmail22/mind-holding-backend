@@ -11,6 +11,7 @@ class PageResource extends JsonResource
     {
         return [
             'slug' => $this->slug,
+            'slug_ar' => $this->slug_ar,
             'title' => $this->getTranslations('title'),
             'body' => $this->getTranslations('body'),
             'is_draft' => $this->is_draft,

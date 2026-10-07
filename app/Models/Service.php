@@ -21,6 +21,7 @@ class Service extends Model
         'name',
         'summary',
         'slug',
+        'slug_ar',
         'description',
         'deliverables',
         'delivery_steps',

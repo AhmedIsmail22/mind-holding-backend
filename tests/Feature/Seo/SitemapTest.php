@@ -28,7 +28,7 @@ it('lists published services and solutions with bilingual alternates', function 
     expect($paths)->not->toContain('/services/hidden');
 
     $service = collect($response->json('data'))->firstWhere('path', '/services/web-design');
-    expect($service['alternates'])->toBe(['ar' => '/ar/services/web-design', 'en' => '/en/services/web-design']);
+    expect($service['alternates'])->toBe(['ar' => null, 'en' => '/en/services/web-design']);
 });
 
 it('omits the work page when no project is published, and includes it when one is', function () {

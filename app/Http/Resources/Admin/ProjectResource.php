@@ -11,6 +11,8 @@ class ProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'slug' => $this->slug,
+            'slug_ar' => $this->slug_ar,
             'client_name' => $this->getTranslations('client_name'),
             'hide_client_name' => $this->hide_client_name,
             'generic_description' => $this->generic_description === null ? null : $this->getTranslations('generic_description'),

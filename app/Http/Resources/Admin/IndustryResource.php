@@ -13,6 +13,7 @@ class IndustryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getTranslations('name'),
             'slug' => $this->slug,
+            'slug_ar' => $this->slug_ar,
             'order' => $this->order,
             'created_at' => $this->created_at?->toIso8601String(),
         ];

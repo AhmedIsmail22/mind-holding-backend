@@ -4,6 +4,7 @@ namespace App\Http\Requests\Projects;
 
 use App\DTOs\Projects\UpdateProjectData;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -14,7 +15,11 @@ class UpdateProjectRequest extends FormRequest
 
     public function rules(): array
     {
+        $project = $this->route('project');
+
         return [
+            'slug' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('projects', 'slug')->ignore($project)],
+            'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('projects', 'slug_ar')->ignore($project)],
             'client_name' => ['required', 'array'],
             'client_name.ar' => ['required', 'string', 'max:255'],
             'client_name.en' => ['required', 'string', 'max:255'],

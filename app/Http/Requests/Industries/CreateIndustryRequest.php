@@ -18,6 +18,7 @@ class CreateIndustryRequest extends FormRequest
             'name' => ['required', 'array'],
             'name.ar' => ['required', 'string', 'max:255'],
             'name.en' => ['required', 'string', 'max:255'],
+            'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', 'unique:solution_industries,slug_ar'],
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:solution_industries,slug'],
             'order' => ['nullable', 'integer', 'min:0'],
         ];

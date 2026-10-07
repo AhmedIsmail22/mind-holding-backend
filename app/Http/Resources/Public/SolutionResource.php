@@ -4,6 +4,7 @@ namespace App\Http\Resources\Public;
 
 use App\Support\Seo\SeoResolver;
 use App\Support\Translations\OptionalTranslation;
+use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,8 +21,10 @@ class SolutionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'alternates' => SlugAlternates::for($this->resource),
             'industry' => [
                 'slug' => $this->industry->slug,
+                'alternates' => SlugAlternates::for($this->industry),
                 'name' => $this->industry->name,
             ],
             'audience' => $this->audience,

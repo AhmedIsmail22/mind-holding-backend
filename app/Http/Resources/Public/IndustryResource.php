@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -13,6 +14,7 @@ class IndustryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'alternates' => SlugAlternates::for($this->resource),
         ];
     }
 }

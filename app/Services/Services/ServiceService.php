@@ -29,7 +29,9 @@ class ServiceService
 
     public function findPublishedBySlug(string $slug): Service
     {
-        return Service::where('slug', $slug)->where('is_published', true)->firstOrFail();
+        return Service::where('is_published', true)
+            ->where(fn ($query) => $query->where('slug', $slug)->orWhere('slug_ar', $slug))
+            ->firstOrFail();
     }
 
     public function create(CreateServiceData $data): Service
@@ -39,6 +41,7 @@ class ServiceService
             'name' => $data->name,
             'summary' => $data->summary,
             'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'description' => $data->description,
             'deliverables' => $data->deliverables,
             'delivery_steps' => $data->deliverySteps,
@@ -55,6 +58,7 @@ class ServiceService
             'name' => $data->name,
             'summary' => $data->summary,
             'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'description' => $data->description,
             'deliverables' => $data->deliverables,
             'delivery_steps' => $data->deliverySteps,

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Support\Seo\SeoResolver;
+use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,6 +13,7 @@ class PageResource extends JsonResource
     {
         return [
             'slug' => $this->slug,
+            'alternates' => SlugAlternates::for($this->resource),
             'title' => $this->title,
             'body' => $this->body,
             'seo' => SeoResolver::for($this->resource),

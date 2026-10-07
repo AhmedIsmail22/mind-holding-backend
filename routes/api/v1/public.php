@@ -39,7 +39,7 @@ Route::get('home/sections', [HomeSectionController::class, 'index']);
 
 Route::get('technologies', [TechnologyController::class, 'index']);
 
-Route::get('pages/{slug}', [PageController::class, 'show'])->whereIn('slug', ['about', 'privacy', 'terms']);
+Route::get('pages/{slug}', [PageController::class, 'show'])->where('slug', '[^/]+');
 
 Route::middleware(['throttle:leads'])->prefix('leads')->group(function () {
     Route::post('quote', [LeadController::class, 'quote']);

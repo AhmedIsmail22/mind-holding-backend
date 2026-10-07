@@ -7,6 +7,7 @@ final readonly class CreateIndustryData
     public function __construct(
         public array $name,
         public string $slug,
+        public ?string $slugAr,
         public int $order,
     ) {}
 
@@ -15,6 +16,7 @@ final readonly class CreateIndustryData
         return new self(
             name: $data['name'],
             slug: $data['slug'],
+            slugAr: $data['slug_ar'] ?? null,
             order: $data['order'] ?? 0,
         );
     }

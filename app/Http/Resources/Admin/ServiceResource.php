@@ -16,6 +16,7 @@ class ServiceResource extends JsonResource
             'name' => $this->getTranslations('name'),
             'summary' => OptionalTranslation::both($this->resource, 'summary'),
             'slug' => $this->slug,
+            'slug_ar' => $this->slug_ar,
             'description' => $this->getTranslations('description'),
             'deliverables' => $this->deliverables,
             'delivery_steps' => $this->delivery_steps,

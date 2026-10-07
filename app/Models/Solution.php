@@ -24,6 +24,7 @@ class Solution extends Model implements HasMedia
         'solution_industry_id',
         'name',
         'slug',
+        'slug_ar',
         'audience',
         'summary',
         'problem_points',

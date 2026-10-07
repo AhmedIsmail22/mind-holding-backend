@@ -21,6 +21,7 @@ class CreateSolutionRequest extends FormRequest
             'name.ar' => ['required', 'string', 'max:255'],
             'name.en' => ['required', 'string', 'max:255'],
 
+            'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', 'unique:solutions,slug_ar'],
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:solutions,slug'],
 
             'audience' => ['required', 'array'],

@@ -24,7 +24,7 @@ class SolutionService
             ->orderBy('order');
 
         if ($industrySlug !== null) {
-            $query->whereHas('industry', fn ($q) => $q->where('slug', $industrySlug));
+            $query->whereHas('industry', fn ($q) => $q->where('slug', $industrySlug)->orWhere('slug_ar', $industrySlug));
         }
 
         return $query->get();
@@ -32,7 +32,9 @@ class SolutionService
 
     public function findPublishedBySlug(string $slug): Solution
     {
-        return Solution::where('slug', $slug)->where('is_published', true)->firstOrFail();
+        return Solution::where('is_published', true)
+            ->where(fn ($query) => $query->where('slug', $slug)->orWhere('slug_ar', $slug))
+            ->firstOrFail();
     }
 
     /**
@@ -44,6 +46,7 @@ class SolutionService
             'solution_industry_id' => $data->solutionIndustryId,
             'name' => $data->name,
             'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'audience' => $data->audience,
             'summary' => $data->summary,
             'problem_points' => $data->problemPoints,
@@ -76,6 +79,7 @@ class SolutionService
             'solution_industry_id' => $data->solutionIndustryId,
             'name' => $data->name,
             'slug' => $data->slug,
+            'slug_ar' => $data->slugAr,
             'audience' => $data->audience,
             'summary' => $data->summary,
             'problem_points' => $data->problemPoints,

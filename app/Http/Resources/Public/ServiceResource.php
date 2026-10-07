@@ -4,6 +4,7 @@ namespace App\Http\Resources\Public;
 
 use App\Support\Seo\SeoResolver;
 use App\Support\Translations\OptionalTranslation;
+use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,6 +20,7 @@ class ServiceResource extends JsonResource
             'name' => $this->name,
             'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'slug' => $this->slug,
+            'alternates' => SlugAlternates::for($this->resource),
             'description' => $this->description,
             'deliverables' => collect($this->deliverables)->map(fn ($item) => $item[$locale] ?? $item['en'])->values(),
             'delivery_steps' => collect($this->delivery_steps)->map(fn ($item) => $item[$locale] ?? $item['en'])->values(),

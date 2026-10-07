@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,7 @@ class ServiceListResource extends JsonResource
             'group' => $this->group,
             'name' => $this->name,
             'slug' => $this->slug,
+            'alternates' => SlugAlternates::for($this->resource),
         ];
     }
 }

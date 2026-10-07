@@ -14,7 +14,7 @@ class SolutionIndustry extends Model
 
     public array $translatable = ['name'];
 
-    protected $fillable = ['name', 'slug', 'order'];
+    protected $fillable = ['name', 'slug', 'slug_ar', 'order'];
 
     public function solutions(): HasMany
     {
