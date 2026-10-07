@@ -7514,10 +7514,7 @@
                                                         "type": "object",
                                                         "properties": {
                                                             "url": {
-                                                                "type": [
-                                                                    "string",
-                                                                    "null"
-                                                                ]
+                                                                "type": "string"
                                                             },
                                                             "lastmod": {
                                                                 "type": "string"
@@ -7526,10 +7523,7 @@
                                                                 "type": "object",
                                                                 "properties": {
                                                                     "ar": {
-                                                                        "type": [
-                                                                            "string",
-                                                                            "null"
-                                                                        ]
+                                                                        "type": "string"
                                                                     },
                                                                     "en": {
                                                                         "type": [
