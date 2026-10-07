@@ -4,6 +4,7 @@ namespace App\Http\Resources\Admin;
 
 use App\Models\Project;
 use App\Support\Media\MediaAsset;
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,6 +20,7 @@ class ProjectResource extends JsonResource
             'slug' => $this->slug,
             'slug_ar' => $this->slug_ar,
             'client_name' => $this->getTranslations('client_name'),
+            'summary' => OptionalTranslation::both($this->resource, 'summary'),
             'hide_client_name' => $this->hide_client_name,
             'generic_description' => $this->generic_description === null ? null : $this->getTranslations('generic_description'),
             'overview' => $this->getTranslations('overview'),

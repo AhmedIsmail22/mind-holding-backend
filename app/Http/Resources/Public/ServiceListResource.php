@@ -18,7 +18,7 @@ class ServiceListResource extends JsonResource
         return [
             'id' => $this->id,
             'group' => $this->group,
-            'name' => $this->name,
+            'name' => OptionalTranslation::text($this->resource, 'name'),
             'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),

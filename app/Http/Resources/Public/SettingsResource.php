@@ -4,6 +4,7 @@ namespace App\Http\Resources\Public;
 
 use App\Models\Setting;
 use App\Support\Media\MediaAsset;
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,7 @@ class SettingsResource extends JsonResource
         $locale = app()->getLocale();
 
         return [
-            'company_name' => $this->company_name,
+            'company_name' => OptionalTranslation::text($this->resource, 'company_name'),
             'logo_url' => $this->getFirstMediaUrl('logo', 'webp') ?: null,
             'logo' => MediaAsset::present($this->getFirstMedia('logo'), 'webp'),
             'phone_landline' => $this->phone_landline,
@@ -26,7 +27,7 @@ class SettingsResource extends JsonResource
             'whatsapp_dubai' => $this->whatsapp_dubai,
             'gulf_countries' => $this->gulf_countries,
             'email' => $this->email,
-            'address' => $this->address,
+            'address' => OptionalTranslation::text($this->resource, 'address'),
             'social_links' => $this->social_links,
             'budget_options' => collect($this->budget_options)->map(fn ($option) => $option[$locale] ?? $option['en'])->values(),
             'start_timing_options' => collect($this->start_timing_options)->map(fn ($option) => $option[$locale] ?? $option['en'])->values(),

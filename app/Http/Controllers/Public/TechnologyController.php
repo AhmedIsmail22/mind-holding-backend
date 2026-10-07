@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Public\TechnologyResource;
+use App\Http\Resources\Public\TechnologyGroupResource;
+use App\Models\Technology;
 use App\Services\Technologies\TechnologyService;
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\JsonResponse;
 
 class TechnologyController extends Controller
@@ -15,20 +17,11 @@ class TechnologyController extends Controller
 
     public function index(): JsonResponse
     {
-        $technologies = TechnologyResource::collection($this->technologyService->list())->resolve();
-
-        $grouped = collect($technologies)
-            ->groupBy('category')
-            ->map(fn ($items, $category) => [
-                'category' => $category,
-                'items' => $items->map(fn ($item) => [
-                    'id' => $item['id'],
-                    'name' => $item['name'],
-                    'logo_url' => $item['logo_url'],
-                ])->values(),
-            ])
+        $groups = $this->technologyService->list()
+            ->groupBy(fn (Technology $technology) => OptionalTranslation::text($technology, 'category'))
+            ->map(fn ($items, $category) => ['category' => $category, 'items' => $items->values()])
             ->values();
 
-        return $this->success($grouped);
+        return $this->success(TechnologyGroupResource::collection($groups));
     }
 }

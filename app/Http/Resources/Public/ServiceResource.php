@@ -21,11 +21,11 @@ class ServiceResource extends JsonResource
         return [
             'id' => $this->id,
             'group' => $this->group,
-            'name' => $this->name,
+            'name' => OptionalTranslation::text($this->resource, 'name'),
             'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),
-            'description' => $this->description,
+            'description' => OptionalTranslation::text($this->resource, 'description'),
             'deliverables' => collect($this->deliverables)->map(fn ($item) => $item[$locale] ?? $item['en'])->values(),
             'delivery_steps' => collect($this->delivery_steps)->map(fn ($item) => $item[$locale] ?? $item['en'])->values(),
             'faqs' => FaqResource::collection($this->whenLoaded('faqs')),

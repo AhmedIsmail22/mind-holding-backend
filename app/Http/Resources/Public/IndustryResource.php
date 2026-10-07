@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\SolutionIndustry;
+use App\Support\Translations\OptionalTranslation;
 use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +17,7 @@ class IndustryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => OptionalTranslation::text($this->resource, 'name'),
             'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),
         ];

@@ -18,15 +18,15 @@ class SolutionListResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'audience' => $this->audience,
+            'name' => OptionalTranslation::text($this->resource, 'name'),
+            'audience' => OptionalTranslation::text($this->resource, 'audience'),
             'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),
             'industry' => [
                 'slug' => $this->industry->slug,
                 'alternates' => SlugAlternates::for($this->industry),
-                'name' => $this->industry->name,
+                'name' => OptionalTranslation::text($this->industry, 'name'),
             ],
             'is_flagship' => $this->is_flagship,
             'has_demo' => ! empty($this->demo_url),

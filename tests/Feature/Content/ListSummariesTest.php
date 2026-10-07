@@ -3,6 +3,8 @@
 use App\Models\Service;
 use App\Models\Solution;
 use App\Models\SolutionIndustry;
+use App\Models\User;
+use Database\Seeders\RolesAndPermissionsSeeder;
 
 it('includes the summary in the public service list', function () {
     Service::factory()->create([
@@ -37,4 +39,27 @@ it('returns a null summary in the list when none is set', function () {
     $response = $this->getJson('/api/v1/public/services');
 
     expect($response->json('data.software.0.summary'))->toBeNull();
+});
+
+it('includes the summary in the public project list and admin editing', function () {
+    $admin = User::factory()->create();
+    $this->seed(RolesAndPermissionsSeeder::class);
+    $admin->assignRole('Administrator');
+
+    $this->actingAs($admin, 'sanctum')->postJson('/api/v1/admin/projects', [
+        'slug' => 'summary-project',
+        'client_name' => ['ar' => 'عميل', 'en' => 'Client'],
+        'summary' => ['ar' => 'ملخص', 'en' => 'Project summary'],
+        'overview' => ['ar' => 'م', 'en' => 'O'],
+        'challenge' => ['ar' => 'م', 'en' => 'C'],
+        'solution' => ['ar' => 'م', 'en' => 'S'],
+        'technologies' => ['Laravel'],
+        'is_published' => true,
+    ])->assertCreated();
+
+    $list = $this->getJson('/api/v1/public/projects', ['Accept-Language' => 'en']);
+    expect($list->json('data.0.summary'))->toBe('Project summary');
+
+    $admin = $this->actingAs($admin, 'sanctum')->getJson('/api/v1/admin/projects');
+    expect($admin->json('data.0.summary'))->toBe(['ar' => 'ملخص', 'en' => 'Project summary']);
 });

@@ -17,12 +17,13 @@ class Project extends Model implements HasMedia
 {
     use HasFactory, HasTranslations, InteractsWithMedia, InvalidatesSitemap, ReleasesSlugOnDelete, SoftDeletes;
 
-    public array $translatable = ['client_name', 'generic_description', 'overview', 'challenge', 'solution'];
+    public array $translatable = ['client_name', 'summary', 'generic_description', 'overview', 'challenge', 'solution'];
 
     protected $fillable = [
         'slug',
         'slug_ar',
         'client_name',
+        'summary',
         'hide_client_name',
         'generic_description',
         'overview',

@@ -24,6 +24,10 @@ class UpdateProjectRequest extends FormRequest
             'client_name.ar' => ['required', 'string', 'max:255'],
             'client_name.en' => ['required', 'string', 'max:255'],
 
+            'summary' => ['nullable', 'array'],
+            'summary.ar' => ['nullable', 'string', 'max:500'],
+            'summary.en' => ['nullable', 'string', 'max:500'],
+
             'hide_client_name' => ['nullable', 'boolean'],
 
             'generic_description' => ['required_if:hide_client_name,true', 'nullable', 'array'],

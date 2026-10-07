@@ -24,15 +24,15 @@ class SolutionResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => OptionalTranslation::text($this->resource, 'name'),
             'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),
             'industry' => [
                 'slug' => $this->industry->slug,
                 'alternates' => SlugAlternates::for($this->industry),
-                'name' => $this->industry->name,
+                'name' => OptionalTranslation::text($this->industry, 'name'),
             ],
-            'audience' => $this->audience,
+            'audience' => OptionalTranslation::text($this->resource, 'audience'),
             'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'is_flagship' => $this->is_flagship,
             'problem_points' => $resolveList($this->problem_points),

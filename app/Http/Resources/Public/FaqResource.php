@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\Faq;
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,8 +16,8 @@ class FaqResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'question' => $this->question,
-            'answer' => $this->answer,
+            'question' => OptionalTranslation::text($this->resource, 'question'),
+            'answer' => OptionalTranslation::text($this->resource, 'answer'),
         ];
     }
 }

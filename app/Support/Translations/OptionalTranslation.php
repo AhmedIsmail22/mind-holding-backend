@@ -25,6 +25,12 @@ final class OptionalTranslation
         return self::filled($values[$locale] ?? null) ? $values[$locale] : (self::filled($values['en'] ?? null) ? $values['en'] : null);
     }
 
+    /** Required translatable field as a string. Empty only when no locale has a value. */
+    public static function text(Model $model, string $attribute): string
+    {
+        return self::current($model, $attribute) ?? '';
+    }
+
     /** Both locales, or null when neither is set. */
     public static function both(Model $model, string $attribute): ?array
     {

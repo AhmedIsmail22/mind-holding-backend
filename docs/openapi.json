@@ -9236,38 +9236,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "category": {
-                                                        "type": "string"
-                                                    },
-                                                    "items": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "string"
-                                                                },
-                                                                "name": {
-                                                                    "type": "string"
-                                                                },
-                                                                "logo_url": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "required": [
-                                                                "id",
-                                                                "name",
-                                                                "logo_url"
-                                                            ]
-                                                        }
-                                                    }
-                                                },
-                                                "required": [
-                                                    "category",
-                                                    "items"
-                                                ]
+                                                "$ref": "#/components/schemas/TechnologyGroupResource"
                                             }
                                         }
                                     },
@@ -9307,7 +9276,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/TechnologyResource"
+                                                "$ref": "#/components/schemas/App.Http.Resources.Admin.TechnologyResource"
                                             }
                                         }
                                     },
@@ -9406,7 +9375,7 @@
                                             "const": "Technology created."
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/TechnologyResource"
+                                            "$ref": "#/components/schemas/App.Http.Resources.Admin.TechnologyResource"
                                         }
                                     },
                                     "required": [
@@ -9540,7 +9509,7 @@
                                             "const": "OK"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/TechnologyResource"
+                                            "$ref": "#/components/schemas/App.Http.Resources.Admin.TechnologyResource"
                                         }
                                     },
                                     "required": [
@@ -9796,7 +9765,7 @@
                                             "const": "Technology updated."
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/TechnologyResource"
+                                            "$ref": "#/components/schemas/App.Http.Resources.Admin.TechnologyResource"
                                         }
                                     },
                                     "required": [
@@ -10798,6 +10767,30 @@
                         "type": "array",
                         "items": {}
                     },
+                    "summary": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "ar",
+                            "en"
+                        ]
+                    },
                     "hide_client_name": {
                         "type": "boolean"
                     },
@@ -10864,6 +10857,7 @@
                     "slug",
                     "slug_ar",
                     "client_name",
+                    "summary",
                     "hide_client_name",
                     "generic_description",
                     "overview",
@@ -11251,6 +11245,63 @@
                 ],
                 "title": "App.Http.Resources.Admin.SolutionResource"
             },
+            "App.Http.Resources.Admin.TechnologyResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "order": {
+                        "type": "integer"
+                    },
+                    "logo_url": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "logo_alt": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "ar",
+                            "en"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "category",
+                    "order",
+                    "logo_url",
+                    "logo_alt"
+                ],
+                "title": "App.Http.Resources.Admin.TechnologyResource"
+            },
             "AssignLeadRequest": {
                 "type": "object",
                 "properties": {
@@ -11393,6 +11444,25 @@
                             "ar",
                             "en"
                         ]
+                    },
+                    "summary": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 500
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 500
+                            }
+                        }
                     },
                     "hide_client_name": {
                         "type": [
@@ -12057,12 +12127,10 @@
                         "type": "integer"
                     },
                     "question": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "answer": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -12079,12 +12147,10 @@
                         "type": "object",
                         "properties": {
                             "headline": {
-                                "type": "array",
-                                "items": {}
+                                "type": "string"
                             },
                             "subheadline": {
-                                "type": "array",
-                                "items": {}
+                                "type": "string"
                             },
                             "image_url": {
                                 "type": [
@@ -12102,10 +12168,16 @@
                                         "type": "string"
                                     },
                                     "width": {
-                                        "type": "string"
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
                                     },
                                     "height": {
-                                        "type": "string"
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
                                     },
                                     "alt": {
                                         "type": [
@@ -12191,15 +12263,13 @@
                         "type": "object",
                         "properties": {
                             "headline": {
-                                "type": "array",
-                                "items": {}
+                                "type": "string"
                             },
                             "subheadline": {
                                 "type": [
-                                    "array",
+                                    "string",
                                     "null"
-                                ],
-                                "items": {}
+                                ]
                             }
                         },
                         "required": [
@@ -12240,8 +12310,7 @@
                         "type": "integer"
                     },
                     "name": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "slug": {
                         "type": "string"
@@ -12558,12 +12627,10 @@
                         ]
                     },
                     "title": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "body": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "seo": {
                         "anyOf": [
@@ -12684,10 +12751,16 @@
                                                 "type": "string"
                                             },
                                             "width": {
-                                                "type": "string"
+                                                "type": [
+                                                    "integer",
+                                                    "null"
+                                                ]
                                             },
                                             "height": {
-                                                "type": "string"
+                                                "type": [
+                                                    "integer",
+                                                    "null"
+                                                ]
                                             },
                                             "alt": {
                                                 "type": [
@@ -12742,6 +12815,12 @@
                             "null"
                         ]
                     },
+                    "summary": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
                     "alternates": {
                         "type": "object",
                         "properties": {
@@ -12764,11 +12843,7 @@
                         ]
                     },
                     "title": {
-                        "type": [
-                            "array",
-                            "null"
-                        ],
-                        "items": {}
+                        "type": "string"
                     },
                     "thumbnail_url": {
                         "type": [
@@ -12786,10 +12861,16 @@
                                 "type": "string"
                             },
                             "width": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "height": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "alt": {
                                 "type": [
@@ -12809,6 +12890,7 @@
                 "required": [
                     "id",
                     "slug",
+                    "summary",
                     "alternates",
                     "title",
                     "thumbnail_url",
@@ -12823,6 +12905,12 @@
                         "type": "integer"
                     },
                     "slug": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "summary": {
                         "type": [
                             "string",
                             "null"
@@ -12850,23 +12938,16 @@
                         ]
                     },
                     "title": {
-                        "type": [
-                            "array",
-                            "null"
-                        ],
-                        "items": {}
+                        "type": "string"
                     },
                     "overview": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "challenge": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "solution": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "technologies": {
                         "type": "array",
@@ -12894,6 +12975,7 @@
                 "required": [
                     "id",
                     "slug",
+                    "summary",
                     "alternates",
                     "title",
                     "overview",
@@ -13091,10 +13173,16 @@
                                 "type": "string"
                             },
                             "width": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "height": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "alt": {
                                 "type": [
@@ -13136,8 +13224,7 @@
                         "type": "string"
                     },
                     "name": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "summary": {
                         "type": [
@@ -13190,8 +13277,7 @@
                         "type": "string"
                     },
                     "name": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "summary": {
                         "type": [
@@ -13224,8 +13310,7 @@
                         ]
                     },
                     "description": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "deliverables": {
                         "type": "array",
@@ -13376,10 +13461,16 @@
                                                 "type": "string"
                                             },
                                             "width": {
-                                                "type": "string"
+                                                "type": [
+                                                    "integer",
+                                                    "null"
+                                                ]
                                             },
                                             "height": {
-                                                "type": "string"
+                                                "type": [
+                                                    "integer",
+                                                    "null"
+                                                ]
                                             },
                                             "alt": {
                                                 "type": [
@@ -13431,8 +13522,7 @@
                 "type": "object",
                 "properties": {
                     "company_name": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "logo_url": {
                         "type": [
@@ -13450,10 +13540,16 @@
                                 "type": "string"
                             },
                             "width": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "height": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "alt": {
                                 "type": [
@@ -13495,8 +13591,7 @@
                         "type": "string"
                     },
                     "address": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "social_links": {
                         "type": "array",
@@ -13546,12 +13641,10 @@
                         "type": "integer"
                     },
                     "name": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "audience": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "summary": {
                         "type": [
@@ -13611,8 +13704,7 @@
                                 ]
                             },
                             "name": {
-                                "type": "array",
-                                "items": {}
+                                "type": "string"
                             }
                         },
                         "required": [
@@ -13643,10 +13735,16 @@
                                 "type": "string"
                             },
                             "width": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "height": {
-                                "type": "string"
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
                             },
                             "alt": {
                                 "type": [
@@ -13685,8 +13783,7 @@
                         "type": "integer"
                     },
                     "name": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "slug": {
                         "type": "string"
@@ -13740,8 +13837,7 @@
                                 ]
                             },
                             "name": {
-                                "type": "array",
-                                "items": {}
+                                "type": "string"
                             }
                         },
                         "required": [
@@ -13751,8 +13847,7 @@
                         ]
                     },
                     "audience": {
-                        "type": "array",
-                        "items": {}
+                        "type": "string"
                     },
                     "summary": {
                         "type": [
@@ -13961,10 +14056,16 @@
                                                 "type": "string"
                                             },
                                             "width": {
-                                                "type": "string"
+                                                "type": [
+                                                    "integer",
+                                                    "null"
+                                                ]
                                             },
                                             "height": {
-                                                "type": "string"
+                                                "type": [
+                                                    "integer",
+                                                    "null"
+                                                ]
                                             },
                                             "alt": {
                                                 "type": [
@@ -14278,6 +14379,25 @@
                 ],
                 "title": "SubmitQuoteRequest"
             },
+            "TechnologyGroupResource": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "type": "string"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TechnologyResource"
+                        }
+                    }
+                },
+                "required": [
+                    "category",
+                    "items"
+                ],
+                "title": "TechnologyGroupResource"
+            },
             "TechnologyResource": {
                 "type": "object",
                 "properties": {
@@ -14288,11 +14408,7 @@
                         "type": "string"
                     },
                     "category": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "order": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "logo_url": {
                         "type": [
@@ -14300,19 +14416,28 @@
                             "null"
                         ]
                     },
-                    "logo_alt": {
+                    "logo": {
                         "type": [
                             "object",
                             "null"
                         ],
                         "properties": {
-                            "ar": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "width": {
                                 "type": [
-                                    "string",
+                                    "integer",
                                     "null"
                                 ]
                             },
-                            "en": {
+                            "height": {
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
+                            },
+                            "alt": {
                                 "type": [
                                     "string",
                                     "null"
@@ -14320,8 +14445,10 @@
                             }
                         },
                         "required": [
-                            "ar",
-                            "en"
+                            "url",
+                            "width",
+                            "height",
+                            "alt"
                         ]
                     }
                 },
@@ -14329,9 +14456,8 @@
                     "id",
                     "name",
                     "category",
-                    "order",
                     "logo_url",
-                    "logo_alt"
+                    "logo"
                 ],
                 "title": "TechnologyResource"
             },
@@ -14817,6 +14943,25 @@
                             "ar",
                             "en"
                         ]
+                    },
+                    "summary": {
+                        "type": "object",
+                        "properties": {
+                            "ar": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 500
+                            },
+                            "en": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "maxLength": 500
+                            }
+                        }
                     },
                     "hide_client_name": {
                         "type": [

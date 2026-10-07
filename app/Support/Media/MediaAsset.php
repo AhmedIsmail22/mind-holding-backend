@@ -59,12 +59,11 @@ final class MediaAsset
         }
 
         $served = $media->hasGeneratedConversion($conversion) ? $conversion : null;
-        [$width, $height] = self::sizeFor($media, $served);
 
         return [
             'url' => $served ? $media->getUrl($served) : $media->getUrl(),
-            'width' => $width,
-            'height' => $height,
+            'width' => self::dimension($media, $served, 'width'),
+            'height' => self::dimension($media, $served, 'height'),
             'alt' => self::localizedAlt($media),
         ];
     }
@@ -128,13 +127,11 @@ final class MediaAsset
         $media->save();
     }
 
-    /** @return array{0: ?int, 1: ?int} */
-    private static function sizeFor(Media $media, ?string $conversion): array
+    private static function dimension(Media $media, ?string $conversion, string $axis): ?int
     {
         $dimensions = $media->getCustomProperty('dimensions', []);
-        $key = $conversion ?? 'original';
-        $size = $dimensions[$key] ?? null;
+        $size = $dimensions[$conversion ?? 'original'][$axis] ?? null;
 
-        return $size === null ? [null, null] : [(int) $size['width'], (int) $size['height']];
+        return is_numeric($size) ? (int) $size : null;
     }
 }
