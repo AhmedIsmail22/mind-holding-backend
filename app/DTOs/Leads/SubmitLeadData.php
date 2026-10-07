@@ -23,5 +23,6 @@ final readonly class SubmitLeadData
         public bool $isHoneypotFilled,
         public string $recaptchaToken,
         public string $language,
+        public ?string $deviceId,
     ) {}
 }

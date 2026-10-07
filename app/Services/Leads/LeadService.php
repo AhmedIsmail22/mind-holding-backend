@@ -6,6 +6,7 @@ use App\Contracts\RecaptchaVerifier;
 use App\DTOs\Leads\SubmitLeadData;
 use App\Models\Lead;
 use App\Models\Setting;
+use App\Support\Leads\LeadRateLimiter;
 use App\Support\Leads\MobileCountry;
 use Illuminate\Validation\ValidationException;
 
@@ -18,19 +19,29 @@ class LeadService
 
     public function submit(SubmitLeadData $data, ?string $ip): Lead
     {
+        $device = $data->deviceId ?: $ip;
+
         // A filled honeypot means a bot. Store it as spam and answer as if
-        // it worked, so the bot gets no signal to adapt to.
+        // it worked, so the bot gets no signal to adapt to. It still counts
+        // against the rate limit below: the response is a 201, so from the
+        // caller's side it was a "successful" submission.
         if ($data->isHoneypotFilled) {
-            return $this->store($data, 'spam');
+            $lead = $this->store($data, 'spam');
+            LeadRateLimiter::hit($device);
+
+            return $lead;
         }
 
         if (! $this->recaptcha->verify($data->recaptchaToken, $data->type, $ip)) {
+            // A 422, same as a validation failure - never counted toward the
+            // limit (EnsureLeadRateLimitNotExceeded only checks, never hits).
             throw ValidationException::withMessages([
                 'recaptcha_token' => [__('validation.custom.recaptcha_token.spam_check_failed')],
             ]);
         }
 
         $lead = $this->store($data, 'new');
+        LeadRateLimiter::hit($device);
 
         $this->notifications->notifyNewLead($lead);
 

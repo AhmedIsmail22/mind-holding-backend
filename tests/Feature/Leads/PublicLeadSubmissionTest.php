@@ -226,6 +226,71 @@ it('returns the reCAPTCHA failure message in Arabic', function () {
     expect($response->json('errors.recaptcha_token.0'))->toBe('فشل فحص الحماية من الرسائل غير المرغوبة. يرجى المحاولة مرة أخرى.');
 });
 
+it('does not count a failed validation attempt toward the rate limit', function () {
+    for ($i = 0; $i < 5; $i++) {
+        $this->withHeader('X-Device-Id', 'device-b')
+            ->postJson('/api/v1/public/leads/callback', ['page_url' => 'https://mindholding.net/ar'])
+            ->assertStatus(422);
+    }
+
+    $response = $this->withHeader('X-Device-Id', 'device-b')->postJson('/api/v1/public/leads/callback', [
+        'name' => 'Ahmed',
+        'mobile' => '+20 111 564 6730',
+        'page_url' => 'https://mindholding.net/ar',
+        'recaptcha_token' => 'token',
+    ]);
+
+    $response->assertCreated();
+    expect(Lead::count())->toBe(1);
+});
+
+it('does not count a reCAPTCHA failure toward the rate limit', function () {
+    // Two different lead routes on purpose: Laravel caches a Route's
+    // resolved controller after its first dispatch, so flipping the fake
+    // verifier's binding mid-test would not be seen by a second call to the
+    // *same* route within this one test method.
+    $this->app->instance(RecaptchaVerifier::class, new FakeRecaptchaVerifier(false));
+
+    for ($i = 0; $i < 5; $i++) {
+        $this->withHeader('X-Device-Id', 'device-c')->postJson('/api/v1/public/leads/demo', [
+            'name' => 'Ahmed',
+            'mobile' => '+20 111 564 6730',
+            'solution_id' => $this->solution->id,
+            'page_url' => 'https://mindholding.net/ar',
+            'recaptcha_token' => 'token',
+        ])->assertStatus(422);
+    }
+
+    $this->app->instance(RecaptchaVerifier::class, new FakeRecaptchaVerifier(true));
+
+    $response = $this->withHeader('X-Device-Id', 'device-c')->postJson('/api/v1/public/leads/callback', [
+        'name' => 'Ahmed',
+        'mobile' => '+20 111 564 6730',
+        'page_url' => 'https://mindholding.net/ar',
+        'recaptcha_token' => 'token',
+    ]);
+
+    $response->assertCreated();
+    expect(Lead::count())->toBe(1);
+});
+
+it('counts an honeypot-caught submission toward the rate limit', function () {
+    $payload = [
+        'name' => 'Bot',
+        'mobile' => '+20 111 564 6730',
+        'page_url' => 'https://mindholding.net/ar',
+        'recaptcha_token' => 'token',
+        'website' => 'http://spam.example',
+    ];
+
+    for ($i = 0; $i < 5; $i++) {
+        $this->withHeader('X-Device-Id', 'device-d')->postJson('/api/v1/public/leads/callback', $payload)->assertCreated();
+    }
+
+    $this->withHeader('X-Device-Id', 'device-d')->postJson('/api/v1/public/leads/callback', $payload)->assertStatus(429);
+    expect(Lead::count())->toBe(5);
+});
+
 it('limits lead submissions to five per hour per device', function () {
     $payload = [
         'name' => 'Ahmed',

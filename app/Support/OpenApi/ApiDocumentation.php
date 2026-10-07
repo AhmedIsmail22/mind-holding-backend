@@ -38,7 +38,7 @@ final class ApiDocumentation implements OperationTransformer
             $operation->addResponse(self::error(403, 'This action is unauthorized.'));
         }
 
-        if (in_array('throttle:leads', $middleware, true)) {
+        if (in_array('lead.throttle', $middleware, true)) {
             $operation->addResponse(self::error(429, 'Too many requests. Please try again later.'));
         }
 

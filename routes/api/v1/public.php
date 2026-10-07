@@ -41,7 +41,7 @@ Route::get('technologies', [TechnologyController::class, 'index']);
 
 Route::get('pages/{slug}', [PageController::class, 'show'])->where('slug', '[^/]+');
 
-Route::middleware(['throttle:leads'])->prefix('leads')->group(function () {
+Route::middleware(['lead.throttle'])->prefix('leads')->group(function () {
     Route::post('quote', [LeadController::class, 'quote']);
     Route::post('demo', [LeadController::class, 'demo']);
     Route::post('callback', [LeadController::class, 'callback']);

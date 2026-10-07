@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureLeadRateLimitNotExceeded;
 use App\Http\Middleware\ResolveLocale;
 use App\Support\ApiResponse;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -31,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'permission' => PermissionMiddleware::class,
             'role' => RoleMiddleware::class,
+            'lead.throttle' => EnsureLeadRateLimitNotExceeded::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

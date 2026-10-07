@@ -64,6 +64,7 @@ abstract class BaseLeadRequest extends FormRequest
             isHoneypotFilled: filled($data['website'] ?? null),
             recaptchaToken: $data['recaptcha_token'],
             language: app()->getLocale(),
+            deviceId: $this->header('X-Device-Id'),
         );
     }
 
