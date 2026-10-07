@@ -14,8 +14,9 @@ class TechnologiesSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'backend' => ['ar' => 'الخلفية', 'en' => 'Backend'],
+            'backend' => ['ar' => 'البرمجة الخلفية', 'en' => 'Backend'],
             'web' => ['ar' => 'الويب', 'en' => 'Web'],
+            'mobile' => ['ar' => 'تطبيقات الموبايل', 'en' => 'Mobile'],
             'cloud' => ['ar' => 'السحابة والتشغيل', 'en' => 'Cloud & DevOps'],
             'marketing' => ['ar' => 'التسويق والتحليلات', 'en' => 'Marketing & Analytics'],
         ];
@@ -25,6 +26,8 @@ class TechnologiesSeeder extends Seeder
             ['name' => 'PHP', 'category' => 'backend'],
             ['name' => 'MySQL', 'category' => 'backend'],
             ['name' => 'Redis', 'category' => 'backend'],
+            ['name' => 'Flutter', 'category' => 'mobile'],
+            ['name' => 'Dart', 'category' => 'mobile'],
             ['name' => 'Next.js', 'category' => 'web'],
             ['name' => 'React', 'category' => 'web'],
             ['name' => 'TypeScript', 'category' => 'web'],

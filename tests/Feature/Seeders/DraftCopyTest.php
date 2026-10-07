@@ -72,8 +72,8 @@ it('seeds the six general FAQs as draft copy', function () {
 it('seeds the approved technology stack as drafts without logos', function () {
     $technologies = Technology::orderBy('order')->get();
 
-    expect($technologies)->toHaveCount(15);
-    expect($technologies->pluck('name')->all())->toContain('Laravel', 'Next.js', 'Redis', 'TikTok Ads');
+    expect($technologies)->toHaveCount(17);
+    expect($technologies->pluck('name')->all())->toContain('Laravel', 'Next.js', 'Redis', 'TikTok Ads', 'Flutter', 'Dart');
     expect($technologies->every(fn ($t) => $t->is_draft))->toBeTrue();
     expect($technologies->every(fn ($t) => $t->getFirstMedia('logo') === null))->toBeTrue();
 });
