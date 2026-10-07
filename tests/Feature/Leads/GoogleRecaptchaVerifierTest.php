@@ -33,10 +33,34 @@ it('rejects when Google says the token is invalid', function () {
     expect((new GoogleRecaptchaVerifier)->verify('tok', 'quote', null))->toBeFalse();
 });
 
-it('fails closed without calling Google when no secret is configured', function () {
+it('fails closed without calling Google when no secret is configured in production', function () {
+    app()->detectEnvironment(fn () => 'production');
     config(['services.recaptcha.secret' => null]);
     Http::fake();
 
     expect((new GoogleRecaptchaVerifier)->verify('tok', 'quote', null))->toBeFalse();
+    Http::assertNothingSent();
+});
+
+it('rejects the placeholder token in production even if a secret is configured', function () {
+    app()->detectEnvironment(fn () => 'production');
+    Http::fake();
+
+    expect((new GoogleRecaptchaVerifier)->verify(GoogleRecaptchaVerifier::PLACEHOLDER_TOKEN, 'quote', null))->toBeFalse();
+    Http::assertNothingSent();
+});
+
+it('bypasses the missing-secret check in local/testing so manual dev testing is not blocked', function () {
+    config(['services.recaptcha.secret' => null]);
+    Http::fake();
+
+    expect((new GoogleRecaptchaVerifier)->verify('tok', 'quote', null))->toBeTrue();
+    Http::assertNothingSent();
+});
+
+it('accepts the placeholder token in local/testing without calling Google', function () {
+    Http::fake();
+
+    expect((new GoogleRecaptchaVerifier)->verify(GoogleRecaptchaVerifier::PLACEHOLDER_TOKEN, 'quote', null))->toBeTrue();
     Http::assertNothingSent();
 });

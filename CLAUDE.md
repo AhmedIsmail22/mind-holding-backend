@@ -219,7 +219,7 @@ needed — otherwise keep building modules in order without waiting.
 - Run `php artisan media:record-dimensions` once on production. It backfills the width and height that public image objects return. Uploads made after this release record their own dimensions.
 - The interactive API docs stay disabled in production. Scramble serves `/docs/api` and `/docs/api.json` only in the `local` environment (tested in `DocsAccessTest`). The committed `docs/openapi.json` is the contract for the frontend. Regenerate it with `php artisan scramble:export --path=docs/openapi.json` after any API change.
 - Set `PUBLIC_SITE_URL=https://bitcodak.com` (the default). `mindholding.net` must 301 to the primary domain at the host level.
-- Set `RECAPTCHA_SECRET_KEY`. Until it is set, every lead form is rejected (fail closed).
+- Set `RECAPTCHA_SECRET_KEY`. Until it is set, every lead form is rejected (fail closed) — in every environment except `local`/`testing`, where a missing secret is allowed through so the frontend can be exercised manually without real keys. The same local/testing-only allowance covers a literal `recaptcha_token: "test-token"` (`GoogleRecaptchaVerifier::PLACEHOLDER_TOKEN`), for a frontend dev build that hasn't wired up the real widget yet; outside local/testing that token is always rejected, even if a secret is configured.
 - Set real SMTP credentials. `MAIL_MAILER=log` means lead notifications are written to the log only.
 - Confirm the expected response time in `config/leads.php` with the client.
 - Client content still outstanding: stats (none seeded), projects, and technology logos. Mobile technologies are pending the client's choice of Flutter or React Native, or both.
