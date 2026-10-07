@@ -18,7 +18,7 @@ class UpdateProjectRequest extends FormRequest
         $project = $this->route('project');
 
         return [
-            'slug' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('projects', 'slug')->ignore($project)],
+            'slug' => ['required', 'string', 'max:255', 'alpha_dash', Rule::unique('projects', 'slug')->ignore($project)],
             'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('projects', 'slug_ar')->ignore($project)],
             'client_name' => ['required', 'array'],
             'client_name.ar' => ['required', 'string', 'max:255'],

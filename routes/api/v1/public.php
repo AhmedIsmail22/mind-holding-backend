@@ -32,7 +32,7 @@ Route::get('solutions', [SolutionController::class, 'index']);
 Route::get('solutions/{slug}', [SolutionController::class, 'show']);
 
 Route::get('projects', [ProjectController::class, 'index']);
-Route::get('projects/{project}', [ProjectController::class, 'show']);
+Route::get('projects/{slug}', [ProjectController::class, 'show']);
 
 Route::get('home', [HomeContentController::class, 'show']);
 Route::get('home/sections', [HomeSectionController::class, 'index']);

@@ -20,9 +20,11 @@ class ProjectService
         return Project::where('is_published', true)->with('media')->orderBy('order')->get();
     }
 
-    public function findPublished(int $id): Project
+    public function findPublishedBySlug(string $slug): Project
     {
-        return Project::where('is_published', true)->findOrFail($id);
+        return Project::where('is_published', true)
+            ->where(fn ($query) => $query->where('slug', $slug)->orWhere('slug_ar', $slug))
+            ->firstOrFail();
     }
 
     /**

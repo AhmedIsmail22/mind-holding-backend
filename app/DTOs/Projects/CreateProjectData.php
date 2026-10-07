@@ -5,7 +5,7 @@ namespace App\DTOs\Projects;
 final readonly class CreateProjectData
 {
     public function __construct(
-        public ?string $slug,
+        public string $slug,
         public ?string $slugAr,
         public array $clientName,
         public bool $hideClientName,
@@ -23,7 +23,7 @@ final readonly class CreateProjectData
     public static function fromArray(array $data): self
     {
         return new self(
-            slug: $data['slug'] ?? null,
+            slug: $data['slug'],
             slugAr: $data['slug_ar'] ?? null,
             clientName: $data['client_name'],
             hideClientName: $data['hide_client_name'] ?? false,

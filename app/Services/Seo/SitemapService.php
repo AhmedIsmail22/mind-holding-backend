@@ -55,10 +55,8 @@ class SitemapService
             $entries[] = $this->fromSlugs('/solutions/', $solution->slug_ar, $solution->slug, $solution->updated_at);
         }
 
-        // Project pages are served by id in both locales.
-        foreach (Project::where('is_published', true)->get(['id', 'updated_at']) as $project) {
-            $path = '/work/'.$project->id;
-            $entries[] = $this->build(PublicUrl::localized('ar', $path), PublicUrl::localized('en', $path), $project->updated_at);
+        foreach (Project::where('is_published', true)->get(['slug', 'slug_ar', 'updated_at']) as $project) {
+            $entries[] = $this->fromSlugs('/work/', $project->slug_ar, $project->slug, $project->updated_at);
         }
 
         return $entries;

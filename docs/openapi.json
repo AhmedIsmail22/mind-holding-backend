@@ -3779,7 +3779,7 @@
                 }
             }
         },
-        "/v1/public/projects/{project}": {
+        "/v1/public/projects/{slug}": {
             "get": {
                 "operationId": "public.project.show",
                 "tags": [
@@ -3787,11 +3787,11 @@
                 ],
                 "parameters": [
                     {
-                        "name": "project",
+                        "name": "slug",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
@@ -11303,10 +11303,7 @@
                 "type": "object",
                 "properties": {
                     "slug": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
+                        "type": "string",
                         "maxLength": 255
                     },
                     "slug_ar": {
@@ -11455,6 +11452,7 @@
                     }
                 },
                 "required": [
+                    "slug",
                     "client_name",
                     "overview",
                     "challenge",
@@ -12545,6 +12543,12 @@
                     "id": {
                         "type": "integer"
                     },
+                    "slug": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
                     "alternates": {
                         "type": "object",
                         "properties": {
@@ -12582,6 +12586,7 @@
                 },
                 "required": [
                     "id",
+                    "slug",
                     "alternates",
                     "title",
                     "thumbnail_url"
@@ -12593,6 +12598,12 @@
                 "properties": {
                     "id": {
                         "type": "integer"
+                    },
+                    "slug": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "alternates": {
                         "type": "object",
@@ -12653,6 +12664,7 @@
                 },
                 "required": [
                     "id",
+                    "slug",
                     "alternates",
                     "title",
                     "overview",
@@ -12842,6 +12854,12 @@
                         "type": "array",
                         "items": {}
                     },
+                    "summary": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
                     "slug": {
                         "type": "string"
                     },
@@ -12871,6 +12889,7 @@
                     "id",
                     "group",
                     "name",
+                    "summary",
                     "slug",
                     "alternates"
                 ],
@@ -13173,6 +13192,16 @@
                         "type": "array",
                         "items": {}
                     },
+                    "audience": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "summary": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
                     "slug": {
                         "type": "string"
                     },
@@ -13251,6 +13280,8 @@
                 "required": [
                     "id",
                     "name",
+                    "audience",
+                    "summary",
                     "slug",
                     "alternates",
                     "industry",
@@ -14280,10 +14311,7 @@
                 "type": "object",
                 "properties": {
                     "slug": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
+                        "type": "string",
                         "maxLength": 255
                     },
                     "slug_ar": {
@@ -14432,6 +14460,7 @@
                     }
                 },
                 "required": [
+                    "slug",
                     "client_name",
                     "overview",
                     "challenge",

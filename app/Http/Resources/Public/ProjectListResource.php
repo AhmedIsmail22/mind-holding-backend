@@ -16,6 +16,7 @@ class ProjectListResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),
             'title' => $this->hide_client_name ? $this->generic_description : $this->client_name,
             'thumbnail_url' => $this->getFirstMediaUrl('images', 'thumb') ?: null,

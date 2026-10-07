@@ -59,7 +59,7 @@ final class SeoResolver
             $entity instanceof Service => ($slug = $localizedSlug($entity->slug_ar, $entity->slug)) ? '/services/'.$slug : null,
             $entity instanceof Solution => ($slug = $localizedSlug($entity->slug_ar, $entity->slug)) ? '/solutions/'.$slug : null,
             $entity instanceof Page => ($slug = $localizedSlug($entity->slug_ar, $entity->slug)) ? '/'.$slug : null,
-            $entity instanceof Project => '/work/'.$entity->id,
+            $entity instanceof Project => ($slug = $localizedSlug($entity->slug_ar, $entity->slug)) ? '/work/'.$slug : null,
             default => null,
         };
 

@@ -16,6 +16,7 @@ beforeEach(function () {
 function validProjectPayload(array $overrides = []): array
 {
     return array_merge([
+        'slug' => 'client-project',
         'client_name' => ['ar' => 'عميل', 'en' => 'Client'],
         'hide_client_name' => false,
         'overview' => ['ar' => 'نظرة عامة', 'en' => 'Overview'],
@@ -60,7 +61,7 @@ it('validates project creation input', function () {
     $response = $this->actingAs($this->admin, 'sanctum')->postJson('/api/v1/admin/projects', []);
 
     $response->assertStatus(422);
-    foreach (['client_name', 'overview', 'challenge', 'solution', 'technologies'] as $field) {
+    foreach (['slug', 'client_name', 'overview', 'challenge', 'solution', 'technologies'] as $field) {
         expect($response->json("errors.$field"))->not->toBeNull();
     }
 });

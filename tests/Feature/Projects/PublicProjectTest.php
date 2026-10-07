@@ -44,7 +44,7 @@ it('shows project detail with overview, challenge, solution and technologies', f
         'technologies' => ['Laravel', 'Vue'],
     ]);
 
-    $response = $this->getJson("/api/v1/public/projects/{$project->id}", ['Accept-Language' => 'en']);
+    $response = $this->getJson("/api/v1/public/projects/{$project->slug}", ['Accept-Language' => 'en']);
 
     $response->assertOk();
     expect($response->json('data.technologies'))->toBe(['Laravel', 'Vue']);
@@ -54,7 +54,7 @@ it('shows project detail with overview, challenge, solution and technologies', f
 it('returns 404 for an unpublished project on the public endpoint', function () {
     $project = Project::factory()->create(['is_published' => false]);
 
-    $response = $this->getJson("/api/v1/public/projects/{$project->id}");
+    $response = $this->getJson("/api/v1/public/projects/{$project->slug}");
 
     $response->assertStatus(404);
 });

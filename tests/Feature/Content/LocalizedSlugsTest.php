@@ -65,14 +65,14 @@ it('returns industry alternates in the public list', function () {
     expect($response->json('data.0.alternates'))->toBe(['ar' => 'education', 'en' => 'education']);
 });
 
-it('returns null alternates for a project without slugs and both for one with slugs', function () {
-    Project::factory()->create(['is_published' => true]);
-    $response = $this->getJson('/api/v1/public/projects');
-    expect($response->json('data.0.alternates'))->toBe(['ar' => null, 'en' => null]);
+it('returns project alternates from the slug and falls back to it for Arabic', function () {
+    Project::factory()->create(['is_published' => true, 'slug' => 'home-goods-store', 'slug_ar' => null]);
 
-    Project::query()->update(['slug' => 'home-goods-store', 'slug_ar' => 'متجر-منزلي']);
-    $response = $this->getJson('/api/v1/public/projects');
-    expect($response->json('data.0.alternates'))->toBe(['ar' => 'متجر-منزلي', 'en' => 'home-goods-store']);
+    expect($this->getJson('/api/v1/public/projects')->json('data.0.alternates'))->toBe(['ar' => 'home-goods-store', 'en' => 'home-goods-store']);
+
+    Project::query()->update(['slug_ar' => 'متجر-منزلي']);
+    $response = $this->getJson('/api/v1/public/projects/home-goods-store');
+    expect($response->json('data.alternates'))->toBe(['ar' => 'متجر-منزلي', 'en' => 'home-goods-store']);
 });
 
 it('returns page alternates and resolves a page by its Arabic slug', function () {

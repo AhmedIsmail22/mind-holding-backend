@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Models\Service;
+use App\Support\Translations\OptionalTranslation;
 use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,6 +19,7 @@ class ServiceListResource extends JsonResource
             'id' => $this->id,
             'group' => $this->group,
             'name' => $this->name,
+            'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'slug' => $this->slug,
             'alternates' => SlugAlternates::for($this->resource),
         ];

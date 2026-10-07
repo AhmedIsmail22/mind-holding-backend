@@ -21,8 +21,8 @@ class ProjectController extends Controller
         return $this->success(ProjectListResource::collection($this->projectService->listPublished()));
     }
 
-    public function show(int $project): JsonResponse
+    public function show(string $slug): JsonResponse
     {
-        return $this->success(new ProjectResource($this->projectService->findPublished($project)));
+        return $this->success(new ProjectResource($this->projectService->findPublishedBySlug($slug)));
     }
 }

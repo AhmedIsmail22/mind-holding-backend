@@ -15,7 +15,7 @@ class CreateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => ['nullable', 'string', 'max:255', 'alpha_dash', 'unique:projects,slug'],
+            'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:projects,slug'],
             'slug_ar' => ['nullable', 'string', 'max:255', 'alpha_dash', 'unique:projects,slug_ar'],
             'client_name' => ['required', 'array'],
             'client_name.ar' => ['required', 'string', 'max:255'],
