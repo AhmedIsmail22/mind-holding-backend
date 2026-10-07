@@ -24,11 +24,11 @@ it('lists published services and solutions with absolute bilingual alternates on
     $response->assertOk();
     $urls = collect($response->json('data'))->pluck('url');
 
-    expect($urls)->toContain('https://bitcodak.com/en/services/web-design', 'https://bitcodak.com/en/solutions/clinic-booking', 'https://bitcodak.com/ar');
-    expect($urls)->not->toContain('https://bitcodak.com/en/services/hidden');
+    expect($urls)->toContain('https://bitcodak.com/ar/services/web-design', 'https://bitcodak.com/ar/solutions/clinic-booking', 'https://bitcodak.com/ar');
+    expect($urls)->not->toContain('https://bitcodak.com/ar/services/hidden');
 
-    $service = collect($response->json('data'))->firstWhere('url', 'https://bitcodak.com/en/services/web-design');
-    expect($service['alternates'])->toBe(['ar' => null, 'en' => 'https://bitcodak.com/en/services/web-design']);
+    $service = collect($response->json('data'))->firstWhere('url', 'https://bitcodak.com/ar/services/web-design');
+    expect($service['alternates'])->toBe(['ar' => 'https://bitcodak.com/ar/services/web-design', 'en' => 'https://bitcodak.com/en/services/web-design']);
 });
 
 it('never emits the legacy mindholding.net domain', function () {

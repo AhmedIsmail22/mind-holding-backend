@@ -5,8 +5,9 @@ namespace App\Support\Translations;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Localized slug alternates for hreflang and the language switcher. A locale
- * is null when that locale has no slug, never a fallback to the other one.
+ * Effective slug per locale, for hreflang and the language switcher. Arabic
+ * uses slug_ar when it is set and otherwise falls back to the English slug,
+ * so a published record always has an Arabic alternate.
  */
 final class SlugAlternates
 {
@@ -14,13 +15,17 @@ final class SlugAlternates
     public static function for(Model $model): array
     {
         return [
-            'ar' => self::filled($model->slug_ar) ? $model->slug_ar : null,
-            'en' => self::filled($model->slug) ? $model->slug : null,
+            'ar' => self::effective($model->slug_ar, $model->slug),
+            'en' => self::effective($model->slug, null),
         ];
     }
 
-    private static function filled(?string $value): bool
+    public static function effective(?string $preferred, ?string $fallback): ?string
     {
-        return $value !== null && $value !== '';
+        if (filled($preferred)) {
+            return $preferred;
+        }
+
+        return filled($fallback) ? $fallback : null;
     }
 }

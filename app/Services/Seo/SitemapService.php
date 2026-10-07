@@ -66,7 +66,7 @@ class SitemapService
 
     private function fromSlugs(string $prefix, ?string $slugAr, ?string $slugEn, ?DateTimeInterface $updatedAt): array
     {
-        $ar = filled($slugAr) ? PublicUrl::localized('ar', $prefix.$slugAr) : null;
+        $ar = PublicUrl::localized('ar', $prefix.(filled($slugAr) ? $slugAr : $slugEn));
         $en = filled($slugEn) ? PublicUrl::localized('en', $prefix.$slugEn) : null;
 
         return $this->build($ar, $en, $updatedAt);

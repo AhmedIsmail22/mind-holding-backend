@@ -15,12 +15,12 @@ beforeEach(function () {
     $this->admin->assignRole('Administrator');
 });
 
-it('returns null for the Arabic alternate when a service has no Arabic slug', function () {
+it('falls back to the English slug for the Arabic alternate when no Arabic slug is set', function () {
     Service::factory()->create(['slug' => 'web-design', 'slug_ar' => null, 'is_published' => true]);
 
     $response = $this->getJson('/api/v1/public/services/web-design');
 
-    expect($response->json('data.alternates'))->toBe(['ar' => null, 'en' => 'web-design']);
+    expect($response->json('data.alternates'))->toBe(['ar' => 'web-design', 'en' => 'web-design']);
 });
 
 it('returns both alternates and resolves the Arabic slug', function () {
@@ -44,7 +44,7 @@ it('returns alternates for solutions and their industries', function () {
 
     $response = $this->getJson('/api/v1/public/solutions/restaurant-app');
 
-    expect($response->json('data.alternates'))->toBe(['ar' => null, 'en' => 'restaurant-app']);
+    expect($response->json('data.alternates'))->toBe(['ar' => 'restaurant-app', 'en' => 'restaurant-app']);
     expect($response->json('data.industry.alternates'))->toBe(['ar' => 'مطاعم', 'en' => 'restaurants']);
 });
 
@@ -62,7 +62,7 @@ it('returns industry alternates in the public list', function () {
 
     $response = $this->getJson('/api/v1/public/solution-industries');
 
-    expect($response->json('data.0.alternates'))->toBe(['ar' => null, 'en' => 'education']);
+    expect($response->json('data.0.alternates'))->toBe(['ar' => 'education', 'en' => 'education']);
 });
 
 it('returns null alternates for a project without slugs and both for one with slugs', function () {
