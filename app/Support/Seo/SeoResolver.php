@@ -8,6 +8,7 @@ use App\Models\SeoMeta;
 use App\Models\Service;
 use App\Models\Solution;
 use App\Support\Media\MediaAsset;
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Database\Eloquent\Model;
 
 final class SeoResolver
@@ -36,9 +37,9 @@ final class SeoResolver
         }
 
         return match (true) {
-            $entity instanceof Service => ['title' => $entity->name, 'description' => $entity->description, 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
-            $entity instanceof Solution => ['title' => $entity->name, 'description' => $entity->audience, 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
-            $entity instanceof Page => ['title' => $entity->title, 'description' => null, 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
+            $entity instanceof Service => ['title' => OptionalTranslation::current($entity, 'name'), 'description' => OptionalTranslation::current($entity, 'description'), 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
+            $entity instanceof Solution => ['title' => OptionalTranslation::current($entity, 'name'), 'description' => OptionalTranslation::current($entity, 'audience'), 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
+            $entity instanceof Page => ['title' => OptionalTranslation::current($entity, 'title'), 'description' => null, 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
             default => ['title' => null, 'description' => null, 'share_image_url' => null, 'share_image' => null, 'canonical_url' => $canonical],
         };
     }
@@ -72,8 +73,8 @@ final class SeoResolver
         $image = $meta->getFirstMediaUrl('share_image', 'og');
 
         return [
-            'title' => $meta->title,
-            'description' => $meta->description,
+            'title' => OptionalTranslation::current($meta, 'title'),
+            'description' => OptionalTranslation::current($meta, 'description'),
             'share_image_url' => $image === '' ? null : self::absolute($image),
             'share_image' => MediaAsset::present($meta->getFirstMedia('share_image'), 'og'),
             'canonical_url' => $canonical,

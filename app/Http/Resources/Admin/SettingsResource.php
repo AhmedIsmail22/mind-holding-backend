@@ -4,6 +4,7 @@ namespace App\Http\Resources\Admin;
 
 use App\Models\Setting;
 use App\Support\Media\MediaAsset;
+use App\Support\Settings\SettingsArrays;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,11 +23,11 @@ class SettingsResource extends JsonResource
             'phone_mobile_egypt' => $this->phone_mobile_egypt,
             'whatsapp_egypt' => $this->whatsapp_egypt,
             'whatsapp_dubai' => $this->whatsapp_dubai,
-            'gulf_countries' => $this->gulf_countries,
+            'gulf_countries' => SettingsArrays::gulfCountries($this->resource),
             'email' => $this->email,
             'lead_notification_email' => $this->lead_notification_email,
             'address' => $this->getTranslations('address'),
-            'social_links' => $this->social_links,
+            'social_links' => SettingsArrays::socialLinks($this->resource),
             'budget_options' => $this->budget_options,
             'start_timing_options' => $this->start_timing_options,
             'google_analytics_id' => $this->google_analytics_id,

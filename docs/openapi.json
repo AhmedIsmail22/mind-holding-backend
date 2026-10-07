@@ -11057,7 +11057,9 @@
                     },
                     "gulf_countries": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "email": {
                         "type": "string"
@@ -11070,8 +11072,10 @@
                         "items": {}
                     },
                     "social_links": {
-                        "type": "array",
-                        "items": {}
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
                     },
                     "budget_options": {
                         "type": "array",
@@ -12638,10 +12642,16 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "share_image_url": {
                                         "type": "null"
@@ -12668,7 +12678,10 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
                                         "type": "null"
@@ -12728,12 +12741,16 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "array",
-                                        "items": {}
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
-                                        "type": "array",
-                                        "items": {}
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "share_image_url": {
                                         "type": [
@@ -13150,12 +13167,16 @@
                 "type": "object",
                 "properties": {
                     "title": {
-                        "type": "array",
-                        "items": {}
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "description": {
-                        "type": "array",
-                        "items": {}
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "share_image_url": {
                         "type": [
@@ -13348,10 +13369,16 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "share_image_url": {
                                         "type": "null"
@@ -13378,7 +13405,10 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
                                         "type": "null"
@@ -13438,12 +13468,16 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "array",
-                                        "items": {}
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
-                                        "type": "array",
-                                        "items": {}
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "share_image_url": {
                                         "type": [
@@ -13585,7 +13619,9 @@
                     },
                     "gulf_countries": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "email": {
                         "type": "string"
@@ -13594,8 +13630,10 @@
                         "type": "string"
                     },
                     "social_links": {
-                        "type": "array",
-                        "items": {}
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
                     },
                     "budget_options": {
                         "type": "array",
@@ -13943,10 +13981,16 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "share_image_url": {
                                         "type": "null"
@@ -13973,7 +14017,10 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "string"
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
                                         "type": "null"
@@ -14033,12 +14080,16 @@
                                 "type": "object",
                                 "properties": {
                                     "title": {
-                                        "type": "array",
-                                        "items": {}
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "description": {
-                                        "type": "array",
-                                        "items": {}
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
                                     },
                                     "share_image_url": {
                                         "type": [
