@@ -41,13 +41,6 @@ abstract class BaseLeadRequest extends FormRequest
         ], $this->typeRules());
     }
 
-    public function messages(): array
-    {
-        return [
-            'mobile.regex' => 'Enter a valid Egyptian or Gulf mobile number with its country code.',
-        ];
-    }
-
     public function toDto(): SubmitLeadData
     {
         $data = $this->validated();
@@ -77,15 +70,29 @@ abstract class BaseLeadRequest extends FormRequest
     /**
      * Validates against the Settings lists at request time. A closure rather
      * than Rule::in keeps the value out of the rule definition, so the generated
-     * API spec does not depend on database contents.
+     * API spec does not depend on database contents. The message reuses the
+     * framework's own "in" translation line so it comes out in the request's
+     * locale the same way every other rule's message does.
      */
     protected function optionRule(string $field): \Closure
     {
         return function (string $attribute, mixed $value, \Closure $fail) use ($field) {
             if (! in_array($value, $this->optionLabels($field), true)) {
-                $fail('The selected '.str_replace('_', ' ', $attribute).' is invalid.');
+                $fail(trans('validation.in', ['attribute' => $this->displayableAttribute($attribute)]));
             }
         };
+    }
+
+    /**
+     * Mirrors the validator's own attribute-name resolution (custom
+     * translation if one exists, otherwise the humanized field name) so a
+     * closure-based rule's message reads the same as a built-in rule's.
+     */
+    private function displayableAttribute(string $attribute): string
+    {
+        $key = 'validation.attributes.'.$attribute;
+
+        return trans()->has($key) ? trans($key) : str_replace('_', ' ', $attribute);
     }
 
     /**

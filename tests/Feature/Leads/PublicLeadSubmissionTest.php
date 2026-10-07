@@ -174,6 +174,58 @@ it('rejects a submission that fails the reCAPTCHA check and stores nothing', fun
     Mail::assertNothingSent();
 });
 
+it('returns validation messages in Arabic when Accept-Language is ar', function () {
+    $response = $this->postJson('/api/v1/public/leads/callback', [
+        'page_url' => 'https://mindholding.net/ar',
+        'recaptcha_token' => 'token',
+    ], ['Accept-Language' => 'ar']);
+
+    $response->assertStatus(422);
+    expect($response->json('errors.name.0'))->toBe('حقل الاسم مطلوب.');
+});
+
+it('returns the mobile format message in the request locale', function () {
+    $en = $this->postJson('/api/v1/public/leads/callback', [
+        'name' => 'Ahmed',
+        'mobile' => '+44 20 7946 0958',
+        'page_url' => 'https://mindholding.net/en',
+        'recaptcha_token' => 'token',
+    ], ['Accept-Language' => 'en']);
+    expect($en->json('errors.mobile.0'))->toBe('Enter a valid Egyptian or Gulf mobile number with its country code.');
+
+    $ar = $this->postJson('/api/v1/public/leads/callback', [
+        'name' => 'أحمد',
+        'mobile' => '+44 20 7946 0958',
+        'page_url' => 'https://mindholding.net/ar',
+        'recaptcha_token' => 'token',
+    ], ['Accept-Language' => 'ar']);
+    expect($ar->json('errors.mobile.0'))->toBe('أدخل رقم موبايل مصري أو خليجي صحيح مع رمز الدولة.');
+});
+
+it('returns the invalid budget option message in Arabic', function () {
+    $response = $this->postJson('/api/v1/public/leads/quote', quotePayload([
+        'service_id' => $this->service->id,
+        'budget' => 'Unlimited',
+    ]), ['Accept-Language' => 'ar']);
+
+    $response->assertStatus(422);
+    expect($response->json('errors.budget.0'))->toBe('القيمة المحددة لـ الميزانية غير صحيحة.');
+});
+
+it('returns the reCAPTCHA failure message in Arabic', function () {
+    $this->app->instance(RecaptchaVerifier::class, new FakeRecaptchaVerifier(false));
+
+    $response = $this->postJson('/api/v1/public/leads/callback', [
+        'name' => 'أحمد',
+        'mobile' => '+20 111 564 6730',
+        'page_url' => 'https://mindholding.net/ar',
+        'recaptcha_token' => 'token',
+    ], ['Accept-Language' => 'ar']);
+
+    $response->assertStatus(422);
+    expect($response->json('errors.recaptcha_token.0'))->toBe('فشل فحص الحماية من الرسائل غير المرغوبة. يرجى المحاولة مرة أخرى.');
+});
+
 it('limits lead submissions to five per hour per device', function () {
     $payload = [
         'name' => 'Ahmed',

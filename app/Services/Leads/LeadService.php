@@ -26,7 +26,7 @@ class LeadService
 
         if (! $this->recaptcha->verify($data->recaptchaToken, $data->type, $ip)) {
             throw ValidationException::withMessages([
-                'recaptcha_token' => ['Spam check failed. Please try again.'],
+                'recaptcha_token' => [__('validation.custom.recaptcha_token.spam_check_failed')],
             ]);
         }
 
