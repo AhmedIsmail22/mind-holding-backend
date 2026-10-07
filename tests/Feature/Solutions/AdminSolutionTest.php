@@ -21,7 +21,7 @@ function validSolutionPayload(int $industryId, array $overrides = []): array
         'solution_industry_id' => $industryId,
         'name' => ['ar' => 'حل', 'en' => 'Solution'],
         'slug' => 'test-solution',
-        'target_audience' => ['ar' => 'جمهور', 'en' => 'Audience'],
+        'audience' => ['ar' => 'جمهور', 'en' => 'Audience'],
         'problem_points' => [['ar' => 'مشكلة', 'en' => 'Problem']],
         'features' => [
             'customer' => [['ar' => 'ميزة', 'en' => 'Feature']],
@@ -49,7 +49,7 @@ it('validates solution creation input', function () {
     $response = $this->actingAs($this->admin, 'sanctum')->postJson('/api/v1/admin/solutions', []);
 
     $response->assertStatus(422);
-    foreach (['solution_industry_id', 'name', 'slug', 'target_audience', 'problem_points', 'deliverables'] as $field) {
+    foreach (['solution_industry_id', 'name', 'slug', 'audience', 'problem_points', 'deliverables'] as $field) {
         expect($response->json("errors.$field"))->not->toBeNull();
     }
 });

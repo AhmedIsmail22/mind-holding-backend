@@ -14,11 +14,12 @@ class Service extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    public array $translatable = ['name', 'description'];
+    public array $translatable = ['name', 'summary', 'description'];
 
     protected $fillable = [
         'group',
         'name',
+        'summary',
         'slug',
         'description',
         'deliverables',

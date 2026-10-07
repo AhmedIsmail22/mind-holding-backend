@@ -18,13 +18,14 @@ class Solution extends Model implements HasMedia
 {
     use HasFactory, HasTranslations, InteractsWithMedia, SoftDeletes;
 
-    public array $translatable = ['name', 'target_audience'];
+    public array $translatable = ['name', 'audience', 'summary'];
 
     protected $fillable = [
         'solution_industry_id',
         'name',
         'slug',
-        'target_audience',
+        'audience',
+        'summary',
         'problem_points',
         'features',
         'deliverables',

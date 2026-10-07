@@ -23,6 +23,9 @@ class UpdateServiceRequest extends FormRequest
             'name' => ['required', 'array'],
             'name.ar' => ['required', 'string', 'max:255'],
             'name.en' => ['required', 'string', 'max:255'],
+            'summary' => ['nullable', 'array'],
+            'summary.ar' => ['nullable', 'string', 'max:500'],
+            'summary.en' => ['nullable', 'string', 'max:500'],
 
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', Rule::unique('services', 'slug')->ignore($service)],
 

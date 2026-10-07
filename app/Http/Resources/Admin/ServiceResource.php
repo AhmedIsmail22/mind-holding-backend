@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -13,6 +14,7 @@ class ServiceResource extends JsonResource
             'id' => $this->id,
             'group' => $this->group,
             'name' => $this->getTranslations('name'),
+            'summary' => OptionalTranslation::both($this->resource, 'summary'),
             'slug' => $this->slug,
             'description' => $this->getTranslations('description'),
             'deliverables' => $this->deliverables,

@@ -682,7 +682,7 @@
                                 "url": "{{base_url}}/api/v1/admin/solutions",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"solution_industry_id\": 1,\n  \"name\": {\"ar\": \"حل\", \"en\": \"Solution\"},\n  \"slug\": \"test-solution\",\n  \"target_audience\": {\"ar\": \"جمهور\", \"en\": \"Audience\"},\n  \"problem_points\": [{\"ar\": \"مشكلة\", \"en\": \"Problem\"}],\n  \"features\": {\"customer\": [{\"ar\": \"ميزة\", \"en\": \"Feature\"}]},\n  \"deliverables\": [{\"ar\": \"مخرج\", \"en\": \"Deliverable\"}],\n  \"is_flagship\": false,\n  \"is_published\": true,\n  \"order\": 0\n}"
+                                    "raw": "{\n  \"solution_industry_id\": 1,\n  \"name\": {\"ar\": \"حل\", \"en\": \"Solution\"},\n  \"slug\": \"test-solution\",\n  \"audience\": {\"ar\": \"جمهور\", \"en\": \"Audience\"},\n  \"problem_points\": [{\"ar\": \"مشكلة\", \"en\": \"Problem\"}],\n  \"features\": {\"customer\": [{\"ar\": \"ميزة\", \"en\": \"Feature\"}]},\n  \"deliverables\": [{\"ar\": \"مخرج\", \"en\": \"Deliverable\"}],\n  \"is_flagship\": false,\n  \"is_published\": true,\n  \"order\": 0\n}"
                                 }
                             }
                         },

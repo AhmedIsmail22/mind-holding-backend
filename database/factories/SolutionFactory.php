@@ -15,7 +15,8 @@ class SolutionFactory extends Factory
             'solution_industry_id' => SolutionIndustry::factory(),
             'name' => ['ar' => $name, 'en' => $name],
             'slug' => str()->slug($name).'-'.$this->faker->unique()->numberBetween(1, 100000),
-            'target_audience' => ['ar' => 'الجمهور المستهدف', 'en' => 'Target audience'],
+            'audience' => ['ar' => 'الجمهور المستهدف', 'en' => 'Target audience'],
+            'summary' => null,
             'problem_points' => [
                 ['ar' => $this->faker->sentence(), 'en' => $this->faker->sentence()],
             ],

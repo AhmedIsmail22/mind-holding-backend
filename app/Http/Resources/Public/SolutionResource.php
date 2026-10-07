@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Public;
 
 use App\Support\Seo\SeoResolver;
+use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,7 +24,8 @@ class SolutionResource extends JsonResource
                 'slug' => $this->industry->slug,
                 'name' => $this->industry->name,
             ],
-            'target_audience' => $this->target_audience,
+            'audience' => $this->audience,
+            'summary' => OptionalTranslation::current($this->resource, 'summary'),
             'is_flagship' => $this->is_flagship,
             'problem_points' => $resolveList($this->problem_points),
             'features' => [

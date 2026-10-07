@@ -62,7 +62,7 @@ class SolutionsSeeder extends Seeder
                 'solution_industry_id' => $industry->id,
                 'name' => ['ar' => $solution['ar'], 'en' => $solution['en']],
                 'slug' => $solution['slug'],
-                'target_audience' => ['ar' => $solution['audience_ar'], 'en' => $solution['audience_en']],
+                'audience' => ['ar' => $solution['audience_ar'], 'en' => $solution['audience_en']],
                 'problem_points' => $genericProblems,
                 'features' => $genericFeatures,
                 'deliverables' => $deliverables,

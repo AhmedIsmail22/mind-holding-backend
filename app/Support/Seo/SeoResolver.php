@@ -26,7 +26,7 @@ final class SeoResolver
 
         return match (true) {
             $entity instanceof Service => ['title' => $entity->name, 'description' => $entity->description, 'share_image_url' => null],
-            $entity instanceof Solution => ['title' => $entity->name, 'description' => $entity->target_audience, 'share_image_url' => null],
+            $entity instanceof Solution => ['title' => $entity->name, 'description' => $entity->audience, 'share_image_url' => null],
             $entity instanceof Page => ['title' => $entity->title, 'description' => null, 'share_image_url' => null],
             default => ['title' => null, 'description' => null, 'share_image_url' => null],
         };

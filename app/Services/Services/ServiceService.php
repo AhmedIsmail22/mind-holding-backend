@@ -37,6 +37,7 @@ class ServiceService
         return Service::create([
             'group' => $data->group,
             'name' => $data->name,
+            'summary' => $data->summary,
             'slug' => $data->slug,
             'description' => $data->description,
             'deliverables' => $data->deliverables,
@@ -52,6 +53,7 @@ class ServiceService
         $service->update([
             'group' => $data->group,
             'name' => $data->name,
+            'summary' => $data->summary,
             'slug' => $data->slug,
             'description' => $data->description,
             'deliverables' => $data->deliverables,
