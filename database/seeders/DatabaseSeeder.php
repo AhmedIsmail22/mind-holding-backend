@@ -26,10 +26,11 @@ class DatabaseSeeder extends Seeder
         $this->call(PagesSeeder::class);
         $this->call(SeoRouteSeeder::class);
 
-        $admin = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@bitcodak.com',
-        ]);
-        $admin->assignRole('Administrator');
+        if (! User::where('email', 'admin@bitcodak.com')->exists()) {
+            User::factory()->create([
+                'name' => 'Admin',
+                'email' => 'admin@bitcodak.com',
+            ])->assignRole('Administrator');
+        }
     }
 }

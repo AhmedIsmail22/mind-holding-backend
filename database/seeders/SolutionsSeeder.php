@@ -15,10 +15,6 @@ class SolutionsSeeder extends Seeder
      */
     public function run(): void
     {
-        if (Solution::query()->exists()) {
-            return;
-        }
-
         $deliverables = [
             ['ar' => 'موقع الويب', 'en' => 'Website'],
             ['ar' => 'تطبيق أندرويد', 'en' => 'Android app'],
@@ -55,24 +51,74 @@ class SolutionsSeeder extends Seeder
             ['slug' => 'contracting-finishing-system', 'industry' => 'real-estate', 'flagship' => false, 'ar' => 'نظام شركات المقاولات والتشطيبات', 'en' => 'Contracting & finishing company system', 'audience_ar' => 'لشركات المقاولات والتشطيبات', 'audience_en' => 'Contracting and finishing companies'],
         ];
 
+        // Flagship audience and summary copy (CR-01). Other solutions keep the
+        // draft copy above.
+        $flagshipCopy = [
+            'ecommerce-store-mobile-app' => [
+                'audience' => ['ar' => 'المتاجر والعلامات التجارية', 'en' => 'Shops and brands'],
+                'summary' => [
+                    'ar' => 'بِع عبر الإنترنت من متجرك وتطبيقك الخاص، مع الدفع والتوصيل.',
+                    'en' => 'Sell online through your own store and app, with payments and delivery built in.',
+                ],
+            ],
+            'restaurant-cafe-app' => [
+                'audience' => ['ar' => 'المطاعم والمقاهي والسلاسل', 'en' => 'Restaurants, cafés and chains'],
+                'summary' => [
+                    'ar' => 'يطلب عملاؤك مسبقًا أو بالتوصيل من تطبيقك، دون عمولات التطبيقات الوسيطة.',
+                    'en' => 'Let customers order ahead or get delivery from your own app, without aggregator commissions.',
+                ],
+            ],
+            'clinic-appointment-booking' => [
+                'audience' => ['ar' => 'العيادات والمراكز الطبية', 'en' => 'Clinics and medical centers'],
+                'summary' => [
+                    'ar' => 'يحجز المريض عبر الإنترنت ويصله تذكير، ويتخلص فريق الاستقبال من ضغط المكالمات.',
+                    'en' => 'Patients book online, get reminders, and your front desk stops juggling calls.',
+                ],
+            ],
+            'integrated-erp-system' => [
+                'audience' => ['ar' => 'الشركات المتوسطة والتجارية', 'en' => 'Mid-size and trading companies'],
+                'summary' => [
+                    'ar' => 'المبيعات والمشتريات والمخازن والحسابات في نظام واحد، مع تقارير لحظية.',
+                    'en' => 'Sales, purchasing, inventory and accounting in one system, with live reports.',
+                ],
+            ],
+        ];
+
         foreach ($solutions as $order => $solution) {
+            $existing = Solution::where('slug', $solution['slug'])->first();
+
+            if ($existing !== null && ! $existing->is_draft) {
+                continue;
+            }
+
+            $audience = ['ar' => $solution['audience_ar'], 'en' => $solution['audience_en']];
+            $summary = null;
+
+            if (isset($flagshipCopy[$solution['slug']])) {
+                $audience = $flagshipCopy[$solution['slug']]['audience'];
+                $summary = $flagshipCopy[$solution['slug']]['summary'];
+            }
+
             $industry = SolutionIndustry::where('slug', $solution['industry'])->first();
 
-            Solution::create([
-                'solution_industry_id' => $industry->id,
-                'name' => ['ar' => $solution['ar'], 'en' => $solution['en']],
-                'slug' => $solution['slug'],
-                'audience' => ['ar' => $solution['audience_ar'], 'en' => $solution['audience_en']],
-                'problem_points' => $genericProblems,
-                'features' => $genericFeatures,
-                'deliverables' => $deliverables,
-                'demo_url' => null,
-                'demo_credentials' => null,
-                'is_flagship' => $solution['flagship'],
-                'is_published' => true,
-                'is_draft' => true,
-                'order' => $order,
-            ]);
+            Solution::updateOrCreate(
+                ['slug' => $solution['slug']],
+                [
+                    'solution_industry_id' => $industry->id,
+                    'name' => ['ar' => $solution['ar'], 'en' => $solution['en']],
+                    'audience' => $audience,
+                    'summary' => $summary,
+                    'problem_points' => $genericProblems,
+                    'features' => $genericFeatures,
+                    'deliverables' => $deliverables,
+                    'demo_url' => null,
+                    'demo_credentials' => null,
+                    'is_flagship' => $solution['flagship'],
+                    'is_published' => true,
+                    'is_draft' => true,
+                    'order' => $order,
+                ],
+            );
         }
     }
 }

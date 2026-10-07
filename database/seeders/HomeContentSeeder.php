@@ -8,75 +8,97 @@ use Illuminate\Database\Seeder;
 class HomeContentSeeder extends Seeder
 {
     /**
-     * Draft copy (is_draft = true) for the Home page. Differentiators are the
-     * three examples the SRS §3.1 names. Process steps mirror the SRS §9
-     * timeline. Stats stay empty: the SRS allows only real numbers, and none
-     * have been supplied.
+     * Draft copy for the Home page (CR-01). Differentiators and process steps
+     * are replaced on every run, but only while the row is still a draft, so
+     * copy an admin has published is never overwritten. Stats are never seeded:
+     * the SRS allows real numbers only.
      */
     public function run(): void
     {
-        if (HomeContent::query()->exists()) {
+        $content = HomeContent::query()->first();
+
+        if ($content === null) {
+            $content = HomeContent::create([
+                'hero_headline' => [
+                    'ar' => 'نجمع بين البرمجيات والتسويق لينمو نشاطك',
+                    'en' => 'We combine software and marketing to grow your business',
+                ],
+                'hero_subheadline' => [
+                    'ar' => 'مواقع وتطبيقات وأنظمة أعمال، مع إدارة السوشيال ميديا والإعلانات — فريق واحد وشريك واحد.',
+                    'en' => 'Websites, apps and business systems, plus social media and paid ads: one team, one partner.',
+                ],
+                'stats' => [],
+                'differentiators' => [],
+                'process_steps' => [],
+                'closing_cta_headline' => [
+                    'ar' => 'جاهز لبدء مشروعك؟',
+                    'en' => 'Ready to start your project?',
+                ],
+                'closing_cta_subheadline' => [
+                    'ar' => 'أخبرنا عن مشروعك وسنتواصل معك قريبًا.',
+                    'en' => 'Tell us about your project and we will get back to you soon.',
+                ],
+                'is_draft' => true,
+            ]);
+        }
+
+        if (! $content->is_draft) {
             return;
         }
 
-        HomeContent::create([
-            'hero_headline' => [
-                'ar' => 'نجمع بين البرمجيات والتسويق لينمو نشاطك',
-                'en' => 'We combine software and marketing to grow your business',
-            ],
-            'hero_subheadline' => [
-                'ar' => 'مواقع وتطبيقات وأنظمة أعمال، مع إدارة السوشيال ميديا والإعلانات — فريق واحد وشريك واحد.',
-                'en' => 'Websites, apps and business systems, plus social media and paid ads: one team, one partner.',
-            ],
-            'stats' => [],
+        $content->update([
             'differentiators' => [
                 [
-                    'title' => ['ar' => 'البرمجيات والتسويق في مكان واحد', 'en' => 'Software and marketing in one place'],
-                    'description' => ['ar' => 'لا حاجة لتنسيق بين عدة مزودين.', 'en' => 'No need to coordinate between several vendors.'],
+                    'title' => ['ar' => 'برمجة وتسويق في فريق واحد', 'en' => 'Software and marketing, one team'],
+                    'description' => ['ar' => 'فريق واحد يبني منتجك ويجلب لك العملاء، دون التنقل بين أكثر من شركة.', 'en' => 'One team builds your product and brings you customers, so nothing gets lost between agencies.'],
                 ],
                 [
-                    'title' => ['ar' => 'دعم بعد الإطلاق', 'en' => 'Post-launch support'],
-                    'description' => ['ar' => 'نبقى معك بعد تسليم المشروع.', 'en' => 'We stay with you after the project is delivered.'],
+                    'title' => ['ar' => 'نفهم السوقين', 'en' => 'We know both markets'],
+                    'description' => ['ar' => 'حلول مصممة لمصر والخليج: العربية أولًا، وتصميم صحيح من اليمين لليسار، ووسائل دفع وتوصيل محلية.', 'en' => 'Built for Egypt and the Gulf: Arabic first, right-to-left done properly, local payment and delivery options.'],
                 ],
                 [
-                    'title' => ['ar' => 'نعرف السوقين المصري والخليجي', 'en' => 'We know both Egyptian and Gulf markets'],
-                    'description' => ['ar' => 'خبرة في احتياجات الشركات في المنطقتين.', 'en' => 'Experience with business needs in both regions.'],
+                    'title' => ['ar' => 'كل شيء واضح قبل البدء', 'en' => 'Clear scope before we start'],
+                    'description' => ['ar' => 'نطاق العمل والمدة والسعر مكتوبة قبل أن نبدأ.', 'en' => 'A written scope, timeline and price before any work begins.'],
+                ],
+                [
+                    'title' => ['ar' => 'تتابع العمل كل أسبوع', 'en' => 'You see progress every week'],
+                    'description' => ['ar' => 'عرض عملي للتقدم في نهاية كل أسبوع، بلا مفاجآت في النهاية.', 'en' => 'A working demo at the end of every week, not a surprise at the end.'],
+                ],
+                [
+                    'title' => ['ar' => 'كل شيء ملكك', 'en' => 'You own everything'],
+                    'description' => ['ar' => 'الكود والحسابات والنطاق تُسلَّم باسمك.', 'en' => 'Code, accounts and domain are delivered in your name.'],
+                ],
+                [
+                    'title' => ['ar' => 'معك بعد الإطلاق', 'en' => 'We stay after launch'],
+                    'description' => ['ar' => 'تدريب لفريقك ودعم بعد التشغيل.', 'en' => 'Training for your team and support after go-live.'],
                 ],
             ],
             'process_steps' => [
                 [
-                    'title' => ['ar' => 'اعتماد المتطلبات', 'en' => 'Requirements approval'],
-                    'description' => ['ar' => 'مراجعة واعتماد نطاق المشروع.', 'en' => 'Review and approval of the project scope.'],
-                    'duration' => ['ar' => 'الأسبوع 0', 'en' => 'Week 0'],
+                    'title' => ['ar' => 'مكالمة تعارف', 'en' => 'Discovery call'],
+                    'duration' => ['ar' => 'يوم إلى يومين', 'en' => '1–2 days'],
+                    'description' => ['ar' => 'نتعرف على نشاطك وأهدافك واحتياجاتك بدقة.', 'en' => 'We learn your business, goals and what you need.'],
+                ],
+                [
+                    'title' => ['ar' => 'النطاق والعرض', 'en' => 'Scope & proposal'],
+                    'duration' => ['ar' => '2–3 أيام', 'en' => '2–3 days'],
+                    'description' => ['ar' => 'نرسل لك نطاق العمل والمدة والسعر مكتوبة.', 'en' => 'You get a written scope, timeline and price.'],
                 ],
                 [
                     'title' => ['ar' => 'التصميم', 'en' => 'Design'],
-                    'description' => ['ar' => 'تصميم الصفحات الرئيسية ثم باقي الصفحات.', 'en' => 'Design of the main pages, then the rest.'],
-                    'duration' => ['ar' => 'الأسبوع 1', 'en' => 'Week 1'],
-                ],
-                [
-                    'title' => ['ar' => 'المحتوى', 'en' => 'Content'],
-                    'description' => ['ar' => 'كتابة المحتوى وترجمته.', 'en' => 'Writing and translating the content.'],
-                    'duration' => ['ar' => 'الأسبوع 1-2', 'en' => 'Weeks 1-2'],
+                    'duration' => ['ar' => 'أسبوع إلى أسبوعين', 'en' => '1–2 weeks'],
+                    'description' => ['ar' => 'تعتمد التصميم قبل أن نبدأ أي برمجة.', 'en' => 'You approve the design before any development starts.'],
                 ],
                 [
                     'title' => ['ar' => 'التطوير', 'en' => 'Development'],
-                    'description' => ['ar' => 'بناء الموقع ولوحة التحكم، مع عرض تجريبي أسبوعي.', 'en' => 'Building the website and dashboard, with a weekly demo.'],
-                    'duration' => ['ar' => 'الأسبوع 2-4', 'en' => 'Weeks 2-4'],
+                    'duration' => ['ar' => 'حسب حجم المشروع', 'en' => 'Depends on scope'],
+                    'description' => ['ar' => 'نبني على مراحل، وتتابع العمل كل أسبوع.', 'en' => 'We build in stages and show you a working demo every week.'],
                 ],
                 [
-                    'title' => ['ar' => 'الاختبار والإطلاق', 'en' => 'Testing and launch'],
-                    'description' => ['ar' => 'اختبار داخلي وقبول العميل ثم الإطلاق.', 'en' => 'Internal QA, client acceptance, then go-live.'],
-                    'duration' => ['ar' => 'الأسبوع 5', 'en' => 'Week 5'],
+                    'title' => ['ar' => 'الإطلاق والدعم', 'en' => 'Launch & support'],
+                    'duration' => ['ar' => 'مستمر', 'en' => 'Ongoing'],
+                    'description' => ['ar' => 'نطلق المشروع وندرّب فريقك ونبقى معك بعد التشغيل.', 'en' => 'We launch, train your team, and stay with you after go-live.'],
                 ],
-            ],
-            'closing_cta_headline' => [
-                'ar' => 'جاهز لبدء مشروعك؟',
-                'en' => 'Ready to start your project?',
-            ],
-            'closing_cta_subheadline' => [
-                'ar' => 'أخبرنا عن مشروعك وسنتواصل معك قريبًا.',
-                'en' => 'Tell us about your project and we will get back to you soon.',
             ],
             'is_draft' => true,
         ]);

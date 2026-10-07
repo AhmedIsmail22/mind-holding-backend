@@ -37,7 +37,7 @@ it('returns home content in the resolved locale with empty stats by default', fu
 
     $response->assertOk();
     expect($response->json('data.hero.headline'))->toBe('We combine software and marketing to grow your business');
-    expect($response->json('data.differentiators'))->toHaveCount(3);
+    expect($response->json('data.differentiators'))->toHaveCount(6);
     expect($response->json('data.process_steps'))->toHaveCount(5);
     expect($response->json('data.stats'))->toBe([]);
 });
