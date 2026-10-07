@@ -41,4 +41,15 @@ return [
         'score_threshold' => (float) env('RECAPTCHA_SCORE_THRESHOLD', 0.5),
     ],
 
+    /*
+    | The Next.js frontend's on-demand revalidation endpoint. When set, a
+    | redirect create/update/delete POSTs there so the frontend can refresh
+    | its own redirect rules without a redeploy. Left unset, nothing is
+    | called - this is a convenience webhook, not a required integration.
+    */
+    'frontend' => [
+        'revalidate_url' => env('FRONTEND_REVALIDATE_URL'),
+        'revalidate_secret' => env('FRONTEND_REVALIDATE_SECRET'),
+    ],
+
 ];

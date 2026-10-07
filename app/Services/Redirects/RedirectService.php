@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RedirectService
 {
+    public function __construct(
+        private readonly FrontendRevalidationNotifier $revalidation,
+    ) {}
+
     public function list(): Collection
     {
         return Redirect::orderBy('old_path')->get();
@@ -15,19 +19,33 @@ class RedirectService
 
     public function create(RedirectData $data): Redirect
     {
-        return Redirect::create(['old_path' => $data->oldPath, 'new_path' => $data->newPath]);
+        $redirect = Redirect::create(['old_path' => $data->oldPath, 'new_path' => $data->newPath]);
+
+        $this->revalidation->created($redirect);
+
+        return $redirect;
     }
 
     public function update(Redirect $redirect, RedirectData $data): Redirect
     {
+        $previousOldPath = $redirect->old_path;
+        $previousNewPath = $redirect->new_path;
+
         $redirect->update(['old_path' => $data->oldPath, 'new_path' => $data->newPath]);
+
+        $this->revalidation->updated($redirect, $previousOldPath, $previousNewPath);
 
         return $redirect;
     }
 
     public function delete(Redirect $redirect): void
     {
+        $oldPath = $redirect->old_path;
+        $newPath = $redirect->new_path;
+
         $redirect->delete();
+
+        $this->revalidation->deleted($oldPath, $newPath);
     }
 
     /**

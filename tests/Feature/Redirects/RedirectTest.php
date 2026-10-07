@@ -3,6 +3,7 @@
 use App\Models\Redirect;
 use App\Models\User;
 use Database\Seeders\RolesAndPermissionsSeeder;
+use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
     $this->seed(RolesAndPermissionsSeeder::class);
@@ -92,4 +93,75 @@ it('lists active redirects publicly', function () {
 
 it('forbids a content editor from managing redirects', function () {
     $this->actingAs($this->editor, 'sanctum')->getJson('/api/v1/admin/redirects')->assertStatus(403);
+});
+
+it('does not call the frontend when no revalidation URL is configured', function () {
+    config(['services.frontend.revalidate_url' => null]);
+    Http::fake();
+
+    $this->actingAs($this->admin, 'sanctum')->postJson('/api/v1/admin/redirects', [
+        'old_path' => '/old',
+        'new_path' => '/new',
+    ])->assertCreated();
+
+    Http::assertNothingSent();
+});
+
+it('notifies the frontend when a redirect is created', function () {
+    config(['services.frontend.revalidate_url' => 'https://frontend.example/api/revalidate']);
+    Http::fake();
+
+    $this->actingAs($this->admin, 'sanctum')->postJson('/api/v1/admin/redirects', [
+        'old_path' => '/old',
+        'new_path' => '/new',
+    ])->assertCreated();
+
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://frontend.example/api/revalidate'
+            && $request['event'] === 'created'
+            && $request['redirect'] === ['old_path' => '/old', 'new_path' => '/new']
+            && $request['previous'] === null;
+    });
+});
+
+it('notifies the frontend with both paths when a redirect is updated', function () {
+    config(['services.frontend.revalidate_url' => 'https://frontend.example/api/revalidate']);
+    $redirect = Redirect::create(['old_path' => '/old', 'new_path' => '/new']);
+    Http::fake();
+
+    $this->actingAs($this->admin, 'sanctum')->putJson("/api/v1/admin/redirects/{$redirect->id}", [
+        'old_path' => '/old-2',
+        'new_path' => '/new-2',
+    ])->assertOk();
+
+    Http::assertSent(function ($request) {
+        return $request['event'] === 'updated'
+            && $request['redirect'] === ['old_path' => '/old-2', 'new_path' => '/new-2']
+            && $request['previous'] === ['old_path' => '/old', 'new_path' => '/new'];
+    });
+});
+
+it('notifies the frontend when a redirect is deleted', function () {
+    config(['services.frontend.revalidate_url' => 'https://frontend.example/api/revalidate']);
+    $redirect = Redirect::create(['old_path' => '/gone', 'new_path' => '/target']);
+    Http::fake();
+
+    $this->actingAs($this->admin, 'sanctum')->deleteJson("/api/v1/admin/redirects/{$redirect->id}")->assertOk();
+
+    Http::assertSent(function ($request) {
+        return $request['event'] === 'deleted'
+            && $request['redirect'] === ['old_path' => '/gone', 'new_path' => '/target'];
+    });
+});
+
+it('still saves the redirect even if the frontend revalidation call fails', function () {
+    config(['services.frontend.revalidate_url' => 'https://frontend.example/api/revalidate']);
+    Http::fake(['frontend.example/*' => Http::response('', 500)]);
+
+    $this->actingAs($this->admin, 'sanctum')->postJson('/api/v1/admin/redirects', [
+        'old_path' => '/old',
+        'new_path' => '/new',
+    ])->assertCreated();
+
+    expect(Redirect::where('old_path', '/old')->exists())->toBeTrue();
 });
