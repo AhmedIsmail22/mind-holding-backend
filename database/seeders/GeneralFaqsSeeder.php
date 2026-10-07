@@ -8,34 +8,76 @@ use Illuminate\Database\Seeder;
 class GeneralFaqsSeeder extends Seeder
 {
     /**
-     * 6 general FAQs on price, timeline, support, and payment, for the Home
-     * FAQ section per SRS §3.1 #9. Draft copy pending final client review.
+     * General FAQs for the Home page (draft copy, simplified MSA). Drafts are
+     * matched by English question and updated, new ones are created, and draft
+     * FAQs no longer in this list are removed. Published FAQs are never touched.
      */
     public function run(): void
     {
-        if (Faq::query()->whereNull('faqable_type')->exists()) {
-            return;
-        }
-
         $faqs = [
-            ['ar' => 'كم تكلفة المشروع؟', 'ar_a' => 'تختلف التكلفة حسب نطاق المشروع ومتطلباته. تواصل معنا لعرض سعر مخصص.', 'en' => 'How much does a project cost?', 'en_a' => 'Cost depends on the scope and requirements of your project. Contact us for a custom quote.'],
-            ['ar' => 'كم تستغرق مدة تنفيذ المشروع؟', 'ar_a' => 'تختلف المدة حسب حجم المشروع، وعادة ما نشارك جدولًا زمنيًا تقديريًا بعد مكالمة الاكتشاف.', 'en' => 'How long does a project take?', 'en_a' => 'Timelines vary by project size; we share an estimated schedule after the discovery call.'],
-            ['ar' => 'هل تقدمون دعمًا بعد الإطلاق؟', 'ar_a' => 'نعم، نقدم دعمًا ومتابعة بعد التسليم لكل المشاريع.', 'en' => 'Do you provide support after launch?', 'en_a' => 'Yes, we provide post-launch support and follow-up for every project.'],
-            ['ar' => 'ما هي طرق وخطط الدفع المتاحة؟', 'ar_a' => 'نناقش خطط الدفع المناسبة لكل مشروع بشكل مباشر خلال عرض السعر.', 'en' => 'What payment methods/plans do you offer?', 'en_a' => 'We discuss a payment plan suited to each project directly in the quote.'],
-            ['ar' => 'هل تتعاملون مع عملاء خارج مصر؟', 'ar_a' => 'نعم، نعمل مع عملاء في مصر ودول الخليج.', 'en' => 'Do you work with clients outside Egypt?', 'en_a' => 'Yes, we work with clients in Egypt and across the Gulf.'],
-            ['ar' => 'هل يمكنني طلب تجربة قبل اتخاذ القرار؟', 'ar_a' => 'بعض الحلول الرئيسية لدينا تجربة تفاعلية متاحة من صفحة الحل.', 'en' => 'Can I request a demo before deciding?', 'en_a' => 'Several of our flagship solutions have an interactive demo available from the solution page.'],
+            [
+                'en' => 'How much does a project cost?', 'ar' => 'كم تكلفة المشروع؟',
+                'en_a' => 'It depends on the scope. After the discovery call, you get a written price before any work starts.',
+                'ar_a' => 'تعتمد التكلفة على حجم المشروع ومتطلباته، ونرسل لك سعرًا مكتوبًا بعد مكالمة التعارف وقبل بدء أي عمل.',
+            ],
+            [
+                'en' => 'How long does a project take?', 'ar' => 'كم يستغرق تنفيذ المشروع؟',
+                'en_a' => 'It depends on the scope. We set the timeline in the written proposal, and you see progress every week.',
+                'ar_a' => 'تختلف المدة حسب حجم المشروع، ونحددها في العرض المكتوب، وتتابع التقدم كل أسبوع.',
+            ],
+            [
+                'en' => 'Do you work with clients outside Egypt?', 'ar' => 'هل تعملون مع عملاء خارج مصر؟',
+                'en_a' => 'Yes. We work with clients in Egypt and the Gulf, and meetings are held online.',
+                'ar_a' => 'نعم، نعمل مع عملاء في مصر ودول الخليج، وتتم الاجتماعات عبر الإنترنت.',
+            ],
+            [
+                'en' => 'Who owns the code?', 'ar' => 'لمن تكون ملكية الكود؟',
+                'en_a' => 'You do. Code, accounts and domain are delivered in your name.',
+                'ar_a' => 'الملكية لك بالكامل، ويُسلَّم الكود والحسابات والنطاق باسمك.',
+            ],
+            [
+                'en' => 'What happens after launch?', 'ar' => 'ماذا يحدث بعد الإطلاق؟',
+                'en_a' => 'We train your team and support you after go-live. Ongoing maintenance is available on request.',
+                'ar_a' => 'ندرّب فريقك وندعمك بعد التشغيل، ويتوفر عقد صيانة مستمر عند الطلب.',
+            ],
+            [
+                'en' => 'How does payment work?', 'ar' => 'كيف تتم عملية الدفع؟',
+                'en_a' => 'In installments tied to project milestones, agreed in the proposal.',
+                'ar_a' => 'على دفعات مرتبطة بمراحل المشروع، ويُتفق عليها في العرض.',
+            ],
         ];
 
+        $keptQuestions = [];
+
         foreach ($faqs as $order => $faq) {
-            Faq::create([
-                'faqable_type' => null,
-                'faqable_id' => null,
+            $keptQuestions[] = $faq['en'];
+
+            $draft = Faq::query()
+                ->whereNull('faqable_type')
+                ->where('is_draft', true)
+                ->get()
+                ->first(fn (Faq $existing) => $existing->getTranslation('question', 'en') === $faq['en']);
+
+            $attributes = [
                 'question' => ['ar' => $faq['ar'], 'en' => $faq['en']],
                 'answer' => ['ar' => $faq['ar_a'], 'en' => $faq['en_a']],
                 'is_published' => true,
                 'is_draft' => true,
                 'order' => $order,
-            ]);
+            ];
+
+            if ($draft !== null) {
+                $draft->update($attributes);
+            } else {
+                Faq::create(['faqable_type' => null, 'faqable_id' => null] + $attributes);
+            }
         }
+
+        Faq::query()
+            ->whereNull('faqable_type')
+            ->where('is_draft', true)
+            ->get()
+            ->filter(fn (Faq $existing) => ! in_array($existing->getTranslation('question', 'en'), $keptQuestions, true))
+            ->each(fn (Faq $existing) => $existing->delete());
     }
 }

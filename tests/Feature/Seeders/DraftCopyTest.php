@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Faq;
 use App\Models\HomeContent;
 use App\Models\Service;
 use App\Models\Solution;
@@ -56,4 +57,13 @@ it('is idempotent: a second run leaves a single admin and the same copy', functi
     expect(User::where('email', 'admin@bitcodak.com')->count())->toBe(1);
     expect(Service::count())->toBe(8);
     expect(HomeContent::count())->toBe(1);
+});
+
+it('seeds the six general FAQs as draft copy', function () {
+    $faqs = Faq::whereNull('faqable_type')->orderBy('order')->get();
+
+    expect($faqs)->toHaveCount(6);
+    expect($faqs->every(fn ($faq) => $faq->is_draft))->toBeTrue();
+    expect($faqs[0]->getTranslation('question', 'ar'))->toBe('كم تكلفة المشروع؟');
+    expect($faqs[5]->getTranslation('answer', 'en'))->toBe('In installments tied to project milestones, agreed in the proposal.');
 });
