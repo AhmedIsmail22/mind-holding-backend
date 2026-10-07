@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Models\Service;
 use App\Support\Translations\OptionalTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Service
+ */
 class ServiceResource extends JsonResource
 {
     public function toArray(Request $request): array

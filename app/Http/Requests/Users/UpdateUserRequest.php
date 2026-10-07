@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Users;
 
 use App\DTOs\Users\UpdateUserData;
+use App\Support\Auth\Roles;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -22,7 +22,7 @@ class UpdateUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user)],
             'password' => ['nullable', 'string', 'min:8'],
-            'role' => ['required', 'string', Rule::in(Role::pluck('name')->all())],
+            'role' => ['required', 'string', Rule::in(Roles::ALL)],
         ];
     }
 

@@ -2,12 +2,16 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Models\Solution;
 use App\Support\Seo\SeoResolver;
 use App\Support\Translations\OptionalTranslation;
 use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Solution
+ */
 class SolutionResource extends JsonResource
 {
     public function toArray(Request $request): array

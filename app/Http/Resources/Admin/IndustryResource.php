@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Models\SolutionIndustry;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin SolutionIndustry
+ */
 class IndustryResource extends JsonResource
 {
     public function toArray(Request $request): array

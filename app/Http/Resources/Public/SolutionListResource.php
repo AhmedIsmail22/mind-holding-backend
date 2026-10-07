@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Models\Solution;
 use App\Support\Translations\SlugAlternates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Solution
+ */
 class SolutionListResource extends JsonResource
 {
     public function toArray(Request $request): array

@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Users;
 
 use App\DTOs\Users\CreateUserData;
+use App\Support\Auth\Roles;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
 
 class CreateUserRequest extends FormRequest
 {
@@ -20,7 +20,7 @@ class CreateUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8'],
-            'role' => ['required', 'string', Rule::in(Role::pluck('name')->all())],
+            'role' => ['required', 'string', Rule::in(Roles::ALL)],
         ];
     }
 

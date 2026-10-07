@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Models\Lead;
 use App\Support\Leads\MobileCountry;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Lead
+ */
 class LeadResource extends JsonResource
 {
     public function toArray(Request $request): array

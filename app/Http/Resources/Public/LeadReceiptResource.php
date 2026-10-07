@@ -8,6 +8,9 @@ use App\Support\Leads\WhatsappLink;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Lead
+ */
 class LeadReceiptResource extends JsonResource
 {
     public function toArray(Request $request): array

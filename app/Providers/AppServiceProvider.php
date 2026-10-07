@@ -4,7 +4,13 @@ namespace App\Providers;
 
 use App\Contracts\RecaptchaVerifier;
 use App\Support\Leads\GoogleRecaptchaVerifier;
+use App\Support\OpenApi\ApiDocumentation;
+use Dedoc\Scramble\Configuration\OperationTransformers;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,5 +31,12 @@ class AppServiceProvider extends ServiceProvider
 
             return Limit::perHour(config('leads.submissions_per_hour'))->by('leads|'.$device);
         });
+
+        Scramble::configure()
+            ->routes(fn (Route $route) => str_starts_with($route->uri(), 'api/') && ! str_contains($route->uri(), '_probe'))
+            ->withOperationTransformers(fn (OperationTransformers $transformers) => $transformers->append(ApiDocumentation::class))
+            ->withDocumentTransformers(function (OpenApi $document) {
+                $document->components->addSecurityScheme('bearerAuth', SecurityScheme::http('bearer'));
+            });
     }
 }

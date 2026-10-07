@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Models\SeoMeta;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin SeoMeta
+ */
 class SeoMetaResource extends JsonResource
 {
     public function toArray(Request $request): array

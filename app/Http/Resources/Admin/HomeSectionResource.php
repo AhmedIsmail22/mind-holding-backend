@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Models\HomeSection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin HomeSection
+ */
 class HomeSectionResource extends JsonResource
 {
     public function toArray(Request $request): array

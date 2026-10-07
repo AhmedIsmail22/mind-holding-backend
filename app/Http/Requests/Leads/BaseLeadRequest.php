@@ -75,6 +75,20 @@ abstract class BaseLeadRequest extends FormRequest
     }
 
     /**
+     * Validates against the Settings lists at request time. A closure rather
+     * than Rule::in keeps the value out of the rule definition, so the generated
+     * API spec does not depend on database contents.
+     */
+    protected function optionRule(string $field): \Closure
+    {
+        return function (string $attribute, mixed $value, \Closure $fail) use ($field) {
+            if (! in_array($value, $this->optionLabels($field), true)) {
+                $fail('The selected '.str_replace('_', ' ', $attribute).' is invalid.');
+            }
+        };
+    }
+
+    /**
      * Budget and start-timing values are admin-managed lists in Settings.
      * Accept either locale's label so the frontend can send whichever it shows.
      */

@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Technology
+ */
 class TechnologyResource extends JsonResource
 {
     public function toArray(Request $request): array
